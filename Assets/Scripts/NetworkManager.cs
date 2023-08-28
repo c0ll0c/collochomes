@@ -353,4 +353,5 @@ public class PlayerData {
     public bool IsReady { get; set; }
     public string PlayerStatus {get; set; }
     public float Speed { get; set; }
+    public string PlayerCode { get; set; }
 }

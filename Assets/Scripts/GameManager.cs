@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public bool isAlert = false;
     PlayerData myInfo;
     List<PlayerData> playersInfo = new List<PlayerData>();
+    List<bool> hasClue;
 
     void Awake()
     {
