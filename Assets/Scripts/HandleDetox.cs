@@ -1,8 +1,10 @@
+using Photon.Pun;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HandleDetox : MonoBehaviour
 {
-    public string playerTag = "Player"; // Player 태그
+    public string playerTag = "Infect"; // Player 태그
     public GameObject targetObject;     // 위치를 변경할 대상 오브젝트
     public float delayTime = 3.0f;
     public Vector3[] randomPositions = new Vector3[]
@@ -43,16 +45,21 @@ public class HandleDetox : MonoBehaviour
     new Vector3(-3.17f, 14.14f, 0f),
     new Vector3(10.23f, 13.9f, 0f),
     };
+    private PhotonView photonView;
+
     private void Start()
     {
         Vector3 randomPosition = randomPositions[Random.Range(0, randomPositions.Length)];
         targetObject.transform.position = randomPosition;
+        photonView = GetComponent<PhotonView>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag(playerTag))
         {
+            photonView.TransferOwnership(collision.collider.GetComponent<PhotonView>().Owner);
+
             Debug.Log("해독!");
 
             // 랜덤 위치 후보 중 하나 선택

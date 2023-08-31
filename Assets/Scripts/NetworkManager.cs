@@ -17,11 +17,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     // Photon View 컴포넌트
     public PhotonView PV;
 
-    // 모든 플레이어가 준비했는지 확인하기 위한 변수
-    private int playersReady = 0;
-
     // 방에 들어올 수 있는 최대 플레이어 수
-    private const int MaxPlayers = 4;
+    private const int MaxPlayers = 6;
 
     void Awake()
     {
@@ -75,28 +72,27 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("방에 참가함");
-        // 다른 플레이어에게 알림
+        
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "RoomState", "Waiting" } });
+        }
         PV.RPC("NotifyUserJoined", RpcTarget.OthersBuffered, PhotonNetwork.LocalPlayer.NickName);
     }
 
     [PunRPC]
     void NotifyUserJoined(string name)
     {
-        Debug.Log("현재 참여 중 목");
         foreach (KeyValuePair<int, Player> playerInfo in PhotonNetwork.CurrentRoom.Players)
         {
             Debug.Log("Player ID: " + playerInfo.Key + ", NickName: " + playerInfo.Value.NickName);
         }
     }
 
-
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         Debug.Log(otherPlayer.NickName + "님이 게임에서 나갔습니다.");
 
-        playersReady--;
-
-        Debug.Log("현재 참여 중 목");
         foreach (KeyValuePair<int, Player> playerInfo in PhotonNetwork.CurrentRoom.Players)
         {
             Debug.Log("Player ID: " + playerInfo.Key + ", NickName: " + playerInfo.Value.NickName);
@@ -139,14 +135,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
-        if (changedProps.ContainsKey("isReady"))
-        {
-            CheckAllPlayersReady();
-        }
-
         if (changedProps.ContainsKey("PlayerStatus"))
         {
-            photonView.RPC("UpdateInfo", RpcTarget.All);
+            UpdateInfo();
         }
     }
     private void CheckAllPlayersReady()
@@ -175,30 +166,21 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void PlayerReady()
     {
         Debug.Log("게임 시작!");
-        PV.RPC("NotifyPlayerReady", RpcTarget.AllBuffered);
-    }
-
-    [PunRPC]
-    void NotifyPlayerReady()
-    {
-        playersReady++;
-        if (playersReady == PhotonNetwork.CurrentRoom.PlayerCount)
+        Debug.Log((string)PhotonNetwork.CurrentRoom.CustomProperties["RoomState"]);
+        if ((string)PhotonNetwork.CurrentRoom.CustomProperties["RoomState"] == "Waiting")
         {
-            // 모든 플레이어가 준비되었다면 게임을 시작
-            StartGame();
+            PV.RPC("StartGame", RpcTarget.All);
         }
     }
 
-    [PunRPC]
     private void UpdateInfo()
     {
         PhotonView[] playersInfo = UnityEngine.Object.FindObjectsOfType<PhotonView>();
 
         foreach (PhotonView p in playersInfo)
         {
-            if (p.name == "NetworkManager") continue;
+            if (p.name == "NetworkManager" || p.name == "detox") continue;
             GameObject gamePlayer = p.gameObject;
-            Debug.Log(p.Owner + " " + p.Owner.CustomProperties["PlayerStatus"]);
             gamePlayer.tag = (string)p.Owner.CustomProperties["PlayerStatus"];
         }
 
@@ -209,10 +191,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
     }
 
-    void StartGame()
+    [PunRPC]
+    public void StartGame()
     {
         // 게임 시작 로직 (씬 전환 등)
         Debug.Log("모든 플레이어가 준비되었습니다. 게임을 시작합니다.");
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "RoomState", "Playing" } });
+        }
 
         foreach (Photon.Realtime.Player player in PhotonNetwork.CurrentRoom.Players.Values)
         {
@@ -225,7 +213,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
         SceneManager.LoadScene("PlayScene");
     }
-
 
     public List<PlayerData> GetPlayersStatus()
     {
@@ -244,6 +231,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                     playerData.PlayerID = player.ActorNumber;
 
                     // Check if CustomProperties is not null
+                    /*
                     if (player.CustomProperties != null && player.CustomProperties.ContainsKey("isReady"))
                     {
                         playerData.IsReady = (bool)player.CustomProperties["isReady"];
@@ -252,6 +240,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                     {
                         playerData.IsReady = false;
                     }
+                    */
 
                     if (player.CustomProperties != null && player.CustomProperties.ContainsKey("PlayerStatus"))
                     {
@@ -290,6 +279,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         myData.Nickname = localPlayer.NickName;
         myData.PlayerID = localPlayer.ActorNumber;
 
+        /*
         // 플레이어의 "isReady" 상태를 확인하고 설정합니다.
         if (localPlayer.CustomProperties.ContainsKey("isReady"))
         {
@@ -299,6 +289,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             myData.IsReady = false;
         }
+        */
 
         if (localPlayer.CustomProperties.ContainsKey("PlayerStatus"))
         {
@@ -334,10 +325,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         // 방을 떠난 후 실행할 코드를 여기에 작성합니다.
         // 예를 들어 메인 화면으로 씬을 전환하거나 필요한 초기화 작업을 수행할 수 있습니다.
-
-        // 메인 화면 씬 이름을 "MainScene"으로 가정하고, LoadScene 함수로 씬을 전환합니다.
+        
         Destroy(gameObject);
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("IntroScene");
     }
 
     public void SetChangeScene()
@@ -350,7 +340,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 public class PlayerData {
     public string Nickname { get; set; }
     public int PlayerID { get; set; }
-    public bool IsReady { get; set; }
+    //public bool IsReady { get; set; }
     public string PlayerStatus {get; set; }
     public float Speed { get; set; }
     public string PlayerCode { get; set; }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 //닉네임 입력하는 창
 public class EnterRoomUI : MonoBehaviour
@@ -27,7 +28,6 @@ public class EnterRoomUI : MonoBehaviour
         if (nicknameInputField.text != "")
         {
             SceneManager.LoadScene("ReadyScene");
-
             NetworkManager.instance.Connect(nicknameInputField.text);
         }
         else

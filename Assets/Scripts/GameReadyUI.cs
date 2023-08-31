@@ -4,52 +4,89 @@ using UnityEngine;
 using TMPro;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.UI;
 
-public class GameReadyManager : MonoBehaviour
+public class GameReadyUI : MonoBehaviour
 {
-
-    public List<TMP_Text> playerStatusTextList;
-    // Start is called before the first frame update
-
-    public List<GameObject> playerInfoPanelList;
-
-    public List<GameObject> playerReadyPanelList;
-
+    private List<PlayerData> playersInfo;
+    private List<GameObject> playerPanel = new List<GameObject>(new GameObject[6]);
+    private GameObject startButton;
+    private GameObject exitButton;
 
 
     void Start()
     {
-        foreach (GameObject panel in playerInfoPanelList)
+        GameObject panelParent = this.transform.Find("Player Info").gameObject;
+        Debug.Log(panelParent);
+        for (int i = 1; i <= 6; i++)
         {
-            panel.SetActive(false);
+            playerPanel[i-1] = panelParent.transform.Find("player" + i).gameObject;
+            playerPanel[i-1].SetActive(false);
+            Debug.Log(playerPanel[i-1]);
         }
+
+        Debug.Log(PhotonNetwork.IsMasterClient);
+        Debug.Log(PhotonNetwork.IsConnected);
+
+        startButton = this.transform.Find("Start Button").gameObject;
+        startButton.SetActive(false);
+
+        exitButton = this.transform.Find("Exit Button").gameObject;
+        exitButton.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        List<PlayerData> currentPlayersStatus = NetworkManager.instance.GetPlayersStatus();
-
-
-        // Loop through each status and update the corresponding UI text element
-        for (int i = 0; i < currentPlayersStatus.Count; i++)
+        if (PhotonNetwork.InRoom)
         {
-            playerStatusTextList[i].text = currentPlayersStatus[i].Nickname;
-            playerInfoPanelList[i].SetActive(true);
-            playerReadyPanelList[i].SetActive(currentPlayersStatus[i].IsReady);
+            if ((string)PhotonNetwork.CurrentRoom.CustomProperties["RoomState"] == "Playing")
+            {
+                Debug.Log("no");
+                //NetworkManager.instance.ExitRoom();
+            }
         }
-        for (int i = currentPlayersStatus.Count; i < 4; i++)
+
+        playersInfo = NetworkManager.instance.GetPlayersStatus();
+
+        for (int i = 0; i < playersInfo.Count; i++)
         {
-            playerInfoPanelList[i].SetActive(false);
+            playerPanel[i].transform.Find("text").gameObject.GetComponent<TextMeshProUGUI>().text = playersInfo[i].Nickname;
+            playerPanel[i].SetActive(true);
+        }
+
+        for (int i = playersInfo.Count; i < 6; i++)
+        {
+            playerPanel[i].SetActive(false);
+        }
+
+        
+        if (PhotonNetwork.IsMasterClient )
+        {
+            startButton.SetActive(true);
+            exitButton.SetActive(false);
+        }
+        else
+        {
+            exitButton.SetActive(true);
+            startButton.SetActive(false);
+        }
+
+    }
+
+    public void StartButtonClicked()
+    {
+        if (playersInfo.Count > 0 && PhotonNetwork.IsMasterClient && (string)PhotonNetwork.CurrentRoom.CustomProperties["RoomState"] == "Waiting")
+        {
+            NetworkManager.instance.PlayerReady();
         }
     }
-    public void ReadyButtonClicked(bool isReady)
+
+    public void ExitButtonClicked()
     {
-        PlayerData myStatus = NetworkManager.instance.GetMyStatus();
-        NetworkManager.instance.SetPlayerReady(!myStatus.IsReady);
-    }
-    public void BackButtonClicked()
-    {
-        NetworkManager.instance.ExitRoom();
+        if (!PhotonNetwork.IsMasterClient && (string)PhotonNetwork.CurrentRoom.CustomProperties["RoomState"] == "Waiting")
+        {
+            NetworkManager.instance.ExitRoom();
+        }
     }
 }

@@ -48,6 +48,7 @@ public class AttackController : MonoBehaviour
 
     private void OnAttackVirus(Collider2D collision)
     {
+        if (!photonView.IsMine) return;
         if (collision.gameObject.layer == 3)
         {
             collision.gameObject.transform.Find("attack range").gameObject.SetActive(true);
@@ -72,6 +73,8 @@ public class AttackController : MonoBehaviour
                 effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[0];
                 effect.SetActive(true);
                 StartCoroutine(ResetEffect(effect));
+
+                
             }
 
             //StartCoroutine(ResetSkillCooldown());
