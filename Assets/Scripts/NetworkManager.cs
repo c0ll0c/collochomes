@@ -7,6 +7,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
+using System.Text;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -46,9 +47,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         // 마스터 서버에 연결
         isJoinRoom = true;
         Debug.Log("Connect");
-        PhotonNetwork.NickName=nickname;
+        PhotonNetwork.NickName = nickname;
         PhotonNetwork.ConnectUsingSettings();
-        
+
     }
 
     public override void OnConnectedToMaster()
@@ -70,6 +71,29 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         roomOptions.IsVisible = true;
         roomOptions.MaxPlayers = (byte)MaxPlayers; // 최대 플레이어 수 설정
         PhotonNetwork.JoinOrCreateRoom("게임방", roomOptions, TypedLobby.Default);
+
+        //////////////// 추가
+        string randomString = GenerateRandomString();
+
+        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+        properties.Add("PlayerCode", randomString);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
+    }
+
+
+    string GenerateRandomString()
+    {
+        const string characters = "0123456789ABCDEF"; // 3개의 숫자와 2개의 영어
+        StringBuilder result = new StringBuilder();
+
+        // 5자리의 랜덤 문자열 생성
+        for (int i = 0; i < 5; i++)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, characters.Length);
+            result.Append(characters[randomIndex]);
+        }
+
+        return result.ToString();
     }
 
     public override void OnJoinedRoom()
@@ -120,7 +144,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         properties.Add("PlayerStatus", PlayerStatus);
         PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
         Debug.Log(properties.ToString());
-        
+
     }
 
     public void SetPlayerSpeed(float Speed)
@@ -221,7 +245,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             foreach (DictionaryEntry entry in player.CustomProperties)
             {
                 Debug.Log("Player ID: " + player.ActorNumber + ", Key: " + entry.Key.ToString() + ", Value: " + entry.Value.ToString());
-            } 
+            }
         }
         SceneManager.LoadScene("PlayScene");
     }
@@ -270,7 +294,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                     {
                         playerData.Speed = 3;
                     }
-
+                    /////////////// 추가
+                    if (player.CustomProperties != null && player.CustomProperties.ContainsKey("PlayerCode"))
+                    {
+                        playerData.PlayerCode = (string)player.CustomProperties["PlayerCode"];
+                    }
+                    else
+                    {
+                        playerData.PlayerCode = "00000"; // 기본값 설정
+                    }
                     playersStatus.Add(playerData);
                 }
             }
@@ -306,7 +338,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            myData. PlayerStatus = "Player";
+            myData.PlayerStatus = "Player";
         }
 
         if (localPlayer.CustomProperties.ContainsKey("Speed"))
@@ -317,10 +349,19 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             myData.Speed = 3;
         }
+        /////////////////////////// 추가    
+        if (localPlayer.CustomProperties.ContainsKey("PlayerCode"))
+        {
+            myData.PlayerCode = (string)localPlayer.CustomProperties["PlayerCode"];
+        }
+        else
+        {
+            myData.PlayerCode = "000AA"; // 기본값 설정
+        }
 
         return myData;
     }
-    
+
 
     public void ExitRoom()
     {
@@ -347,11 +388,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
 }
 
-public class PlayerData {
+public class PlayerData
+{
     public string Nickname { get; set; }
     public int PlayerID { get; set; }
     public bool IsReady { get; set; }
-    public string PlayerStatus {get; set; }
+    public string PlayerStatus { get; set; }
     public float Speed { get; set; }
     public string PlayerCode { get; set; }
 }

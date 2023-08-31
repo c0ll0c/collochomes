@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 // 단서 보기 버튼을 누르면 CluePanel의 가시성이 활성화가 됨
 // 한번 단서 보기 버튼을 눌렀으면, "이미 획득한 단서"라는 알림이 떠야 함
-// 
+
 public class ShowClue : MonoBehaviour
 {
     public GameObject CluePanelObject;                  // 보이게 할 단서 판넬을 할당해 줌
@@ -20,15 +20,6 @@ public class ShowClue : MonoBehaviour
 
     static public string username;
     static public string usercode;
-/*
-    private void Start()
-    {
-        Debug.Log(UserName_a.text);
-        Debug.Log(UserCode_a.text);
-
-        username = UserName_a.text;
-        usercode = UserCode_a.text;
-    }*/
 
     public void ShowPanel()                                // 단서 보기 버튼을 누르면 판넬이 보임
     {
@@ -43,7 +34,7 @@ public class ShowClue : MonoBehaviour
             if(!IsAlert)                                // 알람이 떠 있지 않을 때 작동하도록
                 StartCoroutine(DeactivateAlreadyPanel());
         }
-        username = UserName.text;
+        username = UserName.text;                       // Text 컴포넌트에 있는 텍스트를 스크립트에서 사용할 수 있도록 변수에 할당, 단서 모음집 스크립트에서 사용, 
         usercode = UserCode.text;
     }
 

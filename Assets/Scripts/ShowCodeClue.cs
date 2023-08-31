@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 단서 보기 버튼을 눌렀을 때 암호 단서가 보이는 것
+// 단서 획득을 감지
+
 public class ShowCodeClue : MonoBehaviour
 {
     public GameObject CluePanelObject;                  // 보이게 할 단서 판넬을 할당해 줌
@@ -22,8 +25,8 @@ public class ShowCodeClue : MonoBehaviour
             IsClicked = true;                           // 이미 획득한 단서임을 알려 줌
             CluePanelObject.SetActive(true);
             CodeClue.count++;                           // 한번 눌렸음이 감지되면, 몇 번째로 발견한 단서인지 알려 줘야 함
-                code = Code.text;
-}
+            code = Code.text;
+        }
 
         else                                            // 이미 획득한 단서면
         {

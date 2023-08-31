@@ -43,11 +43,13 @@ public class GameReadyManager : MonoBehaviour
             playerInfoPanelList[i].SetActive(false);
         }
     }
+
     public void ReadyButtonClicked(bool isReady)
     {
         PlayerData myStatus = NetworkManager.instance.GetMyStatus();
         NetworkManager.instance.SetPlayerReady(!myStatus.IsReady);
     }
+
     public void BackButtonClicked()
     {
         NetworkManager.instance.ExitRoom();

@@ -3,23 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 단서 모음집에 암호 단서가 나타나는 것
 // 발견되는 순서에 따라 왼쪽부터 차례대로 바뀌는 것
 // ShowCodeClue에서, isClicked가 한번 활성화될 때마다 count++;
+// 이게 단서 모음집 버튼을 눌러야 뜸... 안 그러게 하는 방법??
 
 public class CodeClue : MonoBehaviour
 {
     static public int count = 0;           // 몇 번째로 발견된 단서인지, 
 
-    public Text codeText_1;
-    public Text codeText_2;
-    public Text codeText_3;
-    public Text codeText_4;
-    public Text codeText_5;
+    public List<Text> virusCodeTextList;
 
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(codeText_1);
     }
 
     // Update is called once per frame
@@ -29,16 +26,11 @@ public class CodeClue : MonoBehaviour
 
         if (ShowCodeClue.code != null)         // a 단서가 이미 획득이 되었다면, 할당해 주기
         {
-            if (count == 1)
-                codeText_1.text = ShowCodeClue.code;
-            if (count == 2)
-                codeText_2.text = ShowCodeClue.code;
-            if (count == 3)
-                codeText_3.text = ShowCodeClue.code;
-            if (count == 4)
-                codeText_4.text = ShowCodeClue.code;
-            if (count == 5)
-                codeText_5.text = ShowCodeClue.code;
+            for (int i = 0; i < 5; i++)
+            {
+                if (count == i+1)
+                    virusCodeTextList[i].text = ShowCodeClue.code;
+            }
         }
     }
 }
