@@ -37,13 +37,13 @@ namespace Goldmetal.UndeadSurvivor
             {
                 Camera cam = Camera.main;
                 cam.transform.SetParent(transform);
-                cam.transform.localPosition = new Vector3(0f, 0f, -10f);
+                cam.transform.localPosition = new Vector3(0f, 0f, -5f);
             }
         }
 
         private void Start()
         {
-            Debug.Log(photonView.Owner.NickName + " " + (string)photonView.Owner.CustomProperties["PlayerStatus"]);
+
         }
 
         void Update()
