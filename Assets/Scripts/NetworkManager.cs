@@ -7,6 +7,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
+using System.Text;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -67,6 +68,27 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         roomOptions.IsVisible = true;
         roomOptions.MaxPlayers = (byte)MaxPlayers; // 최대 플레이어 수 설정
         PhotonNetwork.JoinOrCreateRoom("게임방", roomOptions, TypedLobby.Default);
+
+        string randomString = GenerateRandomString();
+
+        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+        properties.Add("PlayerCode", randomString);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
+    }
+
+    string GenerateRandomString()
+    {
+        const string characters = "0123456789ABCDEF"; // 3개의 숫자와 2개의 영어
+        StringBuilder result = new StringBuilder();
+
+        // 5자리의 랜덤 문자열 생성
+        for (int i = 0; i < 5; i++)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, characters.Length);
+            result.Append(characters[randomIndex]);
+        }
+
+        return result.ToString();
     }
 
     public override void OnJoinedRoom()
@@ -260,6 +282,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                         playerData.Speed = 3;
                     }
 
+                    if (player.CustomProperties != null && player.CustomProperties.ContainsKey("PlayerCode"))
+                    {
+                        playerData.PlayerCode = (string)player.CustomProperties["PlayerCode"];
+                    }
+                    else
+                    {
+                        playerData.PlayerCode = "00000"; // 기본값 설정
+                    }
+
+
                     playersStatus.Add(playerData);
                 }
             }
@@ -308,6 +340,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             myData.Speed = 3;
         }
+
+        if (localPlayer.CustomProperties.ContainsKey("PlayerCode"))
+        {
+            myData.PlayerCode = (string)localPlayer.CustomProperties["PlayerCode"];
+        }
+        else
+        {
+            myData.PlayerCode = "000AA"; // 기본값 설정
+        }
+
 
         return myData;
     }
