@@ -8,10 +8,9 @@ public class CoolTime : MonoBehaviour
 {
     public Image image;
     public Button button;
-    public float coolTime = 10.0f;              // 쿨타임 시간
-    public bool isClicked = false;              // 공격 개시?
-    float leftTime = 10.0f;                     // 남은 시간 (갱신)
-    float speed = 5.0f;                         // 이건 뭐지...? 쿨타임 속도...? 그게 왜 필요하노
+    private float coolTime = 15.0f;              // 쿨타임 시간
+    private bool isClicked = false;              // 공격 개시?
+    float leftTime = 15.0f;                     // 남은 시간 (갱신)
 
     // Update is called once per frame
     void Update()
@@ -19,11 +18,11 @@ public class CoolTime : MonoBehaviour
         if (isClicked)                                      // 공격 시
             if (leftTime > 0)                               // 남은 시간이 있다면!!!
             {
-                leftTime -= Time.deltaTime * speed;         // 시간 줄이기 
+                leftTime -= Time.deltaTime;         // 시간 줄이기 
                 if (leftTime < 0)                           // 쿨타임 다 찼으면
                 {
                     leftTime = 0;                           // 쿨타임 다 찼다고 표시
-                    if (button)                         
+                    if (button)
                         button.enabled = true;
                     isClicked = true;                       //
                 }

@@ -30,11 +30,13 @@ public class ShowCodePanel : MonoBehaviour
 
     public void ShowPanel()                  // 단서 보기 버튼을 누르면 판넬이 보임
     {
+        GameManager.instance.isAlert = true;
         CodePanelObject.SetActive(true);
     }
 
     public void CancelButton()               // 닫기 버튼을 누르면 판넬이 안 보임
     {
+        GameManager.instance.isAlert = false;
         CodePanelObject.SetActive(false);
     }
 
@@ -47,6 +49,7 @@ public class ShowCodePanel : MonoBehaviour
 
         if (enteredCode == correctCode)         // 입력한 코드가 정답 코드와 일치하는지 확인
         {
+            GameManager.instance.isAlert = true;
             Debug.Log("정답! WIN");
             IsMineEscape = true;
             IsEscape = true;                            // 얘를 동기화시켜줘야 함...

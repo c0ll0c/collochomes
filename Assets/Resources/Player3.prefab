@@ -273,7 +273,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b6447bbf34d6a4daaeb60188ea543f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackAudio: {fileID: 8877487513005139916}
   effectAni:
   - {fileID: 9100000, guid: d6f7d029d86050e49a09561e5033d173, type: 2}
   - {fileID: 9100000, guid: dd01121a78970554e971436dee28842d, type: 2}

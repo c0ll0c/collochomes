@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class HandleDetoxLayer2 : MonoBehaviour
 {
-    public string playerTag = "Player"; // Player 태그
+    public AudioSource HealSound;
+
+    private string playerTag = "Infect"; // Player 태그
     public GameObject targetObject;     // 위치를 변경할 대상 오브젝트
-    public float delayTime = 3.0f;
-    public Vector3[] randomPositions = new Vector3[]
+    private Renderer detoxRenderer; // 해당 오브젝트의 렌더러
+
+    public float delayTime = 5.0f;
+    private Vector3[] randomPositions = new Vector3[]
     {
     new Vector3(1.9f, -8.77f, 0f),
     new Vector3(-0.36f, 9.03f, 0f),
@@ -23,35 +28,41 @@ public class HandleDetoxLayer2 : MonoBehaviour
     new Vector3(9.37f, 8f, 0f),
     new Vector3(-3.33f, 6.2f, 0f),
     };
+    private PhotonView photonView;              // 다른 플레이어한테도 동기화
 
     private void Start()
     {
-        Vector3 randomPosition = randomPositions[Random.Range(0, randomPositions.Length)];
+        detoxRenderer = GetComponent<Renderer>();
 
+        Vector3 randomPosition = randomPositions[Random.Range(0, randomPositions.Length)];
         targetObject.transform.position = randomPosition;
+        photonView = GetComponent<PhotonView>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag(playerTag))
         {
+            HealSound.Play();
+
+            photonView.TransferOwnership(collision.collider.GetComponent<PhotonView>().Owner);
             Debug.Log("해독!");
 
             // 랜덤 위치 후보 중 하나 선택
             Vector3 randomPosition = randomPositions[Random.Range(0, randomPositions.Length)];
-
             targetObject.transform.position = randomPosition;
 
-            targetObject.SetActive(false); // 해독제 비활성화
+            detoxRenderer.enabled = false; // 렌더러를 비활성화
             Debug.Log("해독제 비활성화");
 
             Invoke(nameof(ActivateDetox), delayTime); // delayTime 이후에 ActivateDetox 메서드 호출
+
         }
     }
 
     private void ActivateDetox()
     {
-        targetObject.SetActive(true); // 해독제 활성화
+        detoxRenderer.enabled = true; // 렌더러를 활성화
         Debug.Log("해독제 활성화");
     }
 

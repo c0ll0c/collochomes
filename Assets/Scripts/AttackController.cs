@@ -3,24 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Unity.VisualScripting;
+using System.Runtime.CompilerServices;
 
 public class AttackController : MonoBehaviour
 {
-    public AudioSource attackAudio;
-
     private Camera cam;
     private bool attackActivated = false;
-    private float skillCooldownTime = 5.0f;
+    private float skillCooldownTime = 15.0f;
     private PhotonView photonView;
     private GameObject player;
     [SerializeField]
     private RuntimeAnimatorController[] effectAni;
+    private GameObject infectIcon;
+    private GameObject attackIcon;
+    private GameObject clueIcon;
 
     private void Start()
     {
         cam = Camera.main;
         photonView = this.GetComponentInParent<PhotonView>();
         player = photonView.gameObject;
+        infectIcon = GameObject.Find("게임 기본 UI").transform.Find("infect").gameObject;
+        attackIcon = GameObject.Find("게임 기본 UI").transform.Find("attack").gameObject;
+        clueIcon = GameObject.Find("게임 기본 UI").transform.Find("clue").gameObject;
     }
 
     private void Update()
@@ -30,6 +35,15 @@ public class AttackController : MonoBehaviour
         if (player.tag == "Player")
         {
             OnAttackPlayer();
+            infectIcon.SetActive(false);
+            attackIcon.SetActive(true);
+            clueIcon.SetActive(true);
+        }
+        else
+        {
+            attackIcon.SetActive(false);
+            infectIcon.SetActive(true);
+            clueIcon.SetActive(false);
         }
     }
 
@@ -57,29 +71,31 @@ public class AttackController : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0) && !attackActivated)
         {
-            //attackActivated = true;
+            attackActivated = true;
 
             Vector3 mousePosition = Input.mousePosition;
             mousePosition = cam.ScreenToWorldPoint(mousePosition);
 
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, transform.forward, 15f);
 
-            if (hit && hit.collider == collision && !collision.GetComponentInParent<PhotonView>().IsMine && collision.transform.parent.tag == "Player")
+            if (hit && hit.collider == collision && !collision.GetComponentInParent<PhotonView>().IsMine)
             {
-                Debug.Log("infect : " + hit.collider.transform.parent.name);
+                if (collision.transform.parent.tag == "Player")
+                {
+                    Debug.Log("infect : " + hit.collider.transform.parent.name);
 
-                Photon.Realtime.Player targetPlayer = collision.GetComponentInParent<PhotonView>().Owner;
-                photonView.RPC("InfectRPC", targetPlayer);
+                    Photon.Realtime.Player targetPlayer = collision.GetComponentInParent<PhotonView>().Owner;
+                    StartCoroutine(InfectSkillDelay(targetPlayer));
 
-                GameObject effect = collision.transform.parent.transform.Find("effect").gameObject;
-                effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[0];
-                effect.SetActive(true);
-                StartCoroutine(ResetEffect(effect));
+                    GameObject effect = collision.transform.parent.transform.Find("effect").gameObject;
+                    effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[0];
+                    effect.SetActive(true);
+                    StartCoroutine(ResetEffect(effect));
+                }
 
-
+                infectIcon.GetComponent<CoolTime>().StartCoolTime();
+                StartCoroutine(ResetSkillCooldown());
             }
-
-            //StartCoroutine(ResetSkillCooldown());
         }
     }
 
@@ -87,7 +103,7 @@ public class AttackController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !attackActivated)
         {
-            //attackActivated = true;
+            attackActivated = true;
 
             Vector3 mousePosition = Input.mousePosition;
             mousePosition = cam.ScreenToWorldPoint(mousePosition);
@@ -106,15 +122,12 @@ public class AttackController : MonoBehaviour
                 GameObject effect = hit.collider.transform.parent.transform.Find("effect").gameObject;
                 effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[1];
                 effect.SetActive(true);
-
-                attackAudio.Play();
-
                 StartCoroutine(ResetEffect(effect));
-                StartCoroutine(ResetAudio(attackAudio));
-            }
 
-            //StartCoroutine(ResetSkillCooldown());
-            StartCoroutine(ResetAttackCooldown(targetPlayer));
+                attackIcon.GetComponent<CoolTime>().StartCoolTime();
+                StartCoroutine(ResetSkillCooldown());
+                StartCoroutine(ResetAttackCooldown(targetPlayer));
+            }
         }
     }
 
@@ -129,24 +142,18 @@ public class AttackController : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         effect.SetActive(false);
     }
-    
-    private IEnumerator ResetAudio(AudioSource attackAudio)
-    {
-        yield return new WaitForSeconds(3.0f);
-        attackAudio.Stop();
-    }
-
-
 
     private IEnumerator InfectSkillDelay(Photon.Realtime.Player targetPlayer)
     {
-        yield return new WaitForSeconds(3.0f);
-        photonView.RPC("InfecRPC", targetPlayer);
+        Debug.Log("Infect START : " + targetPlayer.NickName);
+        yield return new WaitForSeconds(5.0f);
+        Debug.Log("Infect END : " + targetPlayer.NickName);
+        photonView.RPC("InfectRPC", targetPlayer);
     }
 
     private IEnumerator ResetAttackCooldown(Photon.Realtime.Player targetPlayer)
     {
-        yield return new WaitForSeconds(skillCooldownTime);
+        yield return new WaitForSeconds(5.0f);
         photonView.RPC("ResetAttackRPC", targetPlayer);
     }
 

@@ -7,12 +7,12 @@ public class HandleDetox : MonoBehaviour
 {
     public AudioSource HealSound;
 
-    public string playerTag = "Infect"; // Player 태그
+    private string playerTag = "Infect"; // Player 태그
     public GameObject targetObject;     // 위치를 변경할 대상 오브젝트
     private Renderer detoxRenderer; // 해당 오브젝트의 렌더러
 
     public float delayTime = 5.0f;
-    public Vector3[] randomPositions = new Vector3[]
+    private Vector3[] randomPositions = new Vector3[]
     {
     new Vector3(6.94f, -3.59f, 0f),
     new Vector3(2.86f, 1.09f, 0f),

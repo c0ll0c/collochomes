@@ -44,10 +44,13 @@ public class CountDown : MonoBehaviour
 
                 if (currentPlayersStatus[0].PlayerStatus == "Virus")
                 {
+                    GameManager.instance.isAlert = true;
                     VirusWinPanel.SetActive(true);
+                    
                 }
                 else
                 {
+                    GameManager.instance.isAlert = true;
                     PlayerLosePanel.SetActive(true);
                 }
 
