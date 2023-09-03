@@ -8,12 +8,13 @@ public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager instance;
     public bool isAlert = false;
+    public GameObject gamePlayer;
     PlayerData myInfo;
-    GameObject gamePlayer;
     List<PlayerData> playersInfo = new List<PlayerData>();
     [SerializeField] private GameObject[] detox;
     [SerializeField] private GameObject loadingUI;
     [SerializeField] private GameObject[] statusUI;
+    [SerializeField] private GameObject[] gameUI;
 
     void Awake()
     {
@@ -92,10 +93,17 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
 
-        if (gamePlayer != null)
+        if (gamePlayer == null) return;
+        gamePlayer.GetComponent<PlayerController>().isAlert = isAlert;
+        if (gamePlayer.GetComponent<PlayerController>().ending)
         {
-            gamePlayer.GetComponent<PlayerController>().isAlert = isAlert;
+            isAlert = true;
+            foreach (GameObject ui in gameUI)
+            {
+                ui.SetActive(false);
+            }
         }
+
     }
 
     private IEnumerator setStatusUI()
@@ -118,7 +126,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private IEnumerator closeStatusUI()
     {
         yield return new WaitForSeconds(3.0f);
-        loadingUI.SetActive(false );
+        loadingUI.SetActive(false);
         statusUI[0].SetActive(false);
         statusUI[1].SetActive(false);
         isAlert = false;

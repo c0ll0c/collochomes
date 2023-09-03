@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Unity.VisualScripting;
 using System.Runtime.CompilerServices;
+using Goldmetal.UndeadSurvivor;
 
 public class AttackController : MonoBehaviour
 {
@@ -43,6 +44,13 @@ public class AttackController : MonoBehaviour
         {
             attackIcon.SetActive(false);
             infectIcon.SetActive(true);
+            clueIcon.SetActive(false);
+        }
+
+        if (this.GetComponentInParent<PlayerController>().ending)
+        {
+            infectIcon.SetActive(false);
+            attackIcon.SetActive(false);
             clueIcon.SetActive(false);
         }
     }

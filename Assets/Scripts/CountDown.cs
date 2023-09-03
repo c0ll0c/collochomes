@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using System.Collections.Generic;
+using Goldmetal.UndeadSurvivor;
 
 public class CountDown : MonoBehaviour
 {
@@ -45,12 +46,14 @@ public class CountDown : MonoBehaviour
                 if (currentPlayersStatus[0].PlayerStatus == "Virus")
                 {
                     GameManager.instance.isAlert = true;
+                    GameManager.instance.gamePlayer.GetComponent<PlayerController>().ending = true;
                     VirusWinPanel.SetActive(true);
-                    
+
                 }
                 else
                 {
                     GameManager.instance.isAlert = true;
+                    GameManager.instance.gamePlayer.GetComponent<PlayerController>().ending = true;
                     PlayerLosePanel.SetActive(true);
                 }
 

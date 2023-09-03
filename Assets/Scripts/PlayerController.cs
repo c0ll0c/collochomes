@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
 using TMPro;
+using Unity.VisualScripting;
 
 namespace Goldmetal.UndeadSurvivor
 {
@@ -18,6 +19,7 @@ namespace Goldmetal.UndeadSurvivor
         public float Speed;
         //public RuntimeAnimatorController[] animCon;
         public bool isAlert = false;
+        public bool ending = false;
         [SerializeField] TextMeshProUGUI playername;
         [SerializeField] RuntimeAnimatorController effectAni;
 
@@ -27,6 +29,8 @@ namespace Goldmetal.UndeadSurvivor
         PhotonView photonView;
         PlayerData myInfo;
         List<PlayerData> playersInfo = new List<PlayerData>();
+        GameObject VirusLoseUI;
+        GameObject SurvivorLoseUI;
 
         void Awake()
         {
@@ -47,7 +51,10 @@ namespace Goldmetal.UndeadSurvivor
 
         private void Start()
         {
-
+            VirusLoseUI = GameObject.Find("게임 기본 UI").transform.Find("VirusLose").gameObject;
+            SurvivorLoseUI = GameObject.Find("게임 기본 UI").transform.Find("PlayerLose").gameObject;
+            VirusLoseUI.SetActive(false);
+            SurvivorLoseUI.SetActive(false);
         }
 
         void Update()
@@ -56,6 +63,11 @@ namespace Goldmetal.UndeadSurvivor
 
             myInfo = NetworkManager.instance.GetMyStatus();
             Speed = myInfo.Speed;
+
+            if (VirusLoseUI.activeSelf || SurvivorLoseUI.activeSelf)
+            {
+                ending = true;
+            }
         }
 
         void FixedUpdate()
@@ -148,6 +160,24 @@ namespace Goldmetal.UndeadSurvivor
         private void ResetAttackRPC()
         {
             NetworkManager.instance.SetPlayerSpeed(3);
+        }
+
+        [PunRPC]
+        private void EndLoseUI()
+        {
+            myInfo = NetworkManager.instance.GetMyStatus();
+            if ((string)myInfo.PlayerStatus == "Virus")
+            {
+                isAlert = true;
+                ending = true;
+                VirusLoseUI.SetActive(true);
+            }
+            else
+            {
+                isAlert = true;
+                ending = true;
+                SurvivorLoseUI.SetActive(true);
+            }
         }
 
     }

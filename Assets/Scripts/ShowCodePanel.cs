@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
+using Photon.Pun.Demo.SlotRacer;
+using Goldmetal.UndeadSurvivor;
 
 // 탈출 -> 로컬 플레이어: 승 / 원격 플레이어 : 패
 // 로컬 플레이어의 IsMineEscape = true, 원격 플레이어의 IsOtherEscape = true로 해서... IsMineEscape가 true이면 Win, IsOtherEscape가 true이면 Lose
@@ -18,9 +20,12 @@ public class ShowCodePanel : MonoBehaviour
 
     static public bool IsMineEscape = false;
     static public bool IsEscape = false;
+    GameObject SurvivorWinUI;
 
     private void Start()
     {
+        SurvivorWinUI = GameObject.Find("게임 기본 UI").transform.Find("PlayerWin").gameObject;
+        SurvivorWinUI.SetActive(false);
     }
 
     private void Update()
@@ -50,6 +55,10 @@ public class ShowCodePanel : MonoBehaviour
         if (enteredCode == correctCode)         // 입력한 코드가 정답 코드와 일치하는지 확인
         {
             GameManager.instance.isAlert = true;
+            SurvivorWinUI.SetActive(true);
+            GameManager.instance.gamePlayer.GetComponent<PhotonView>().RPC("EndLoseUI", RpcTarget.OthersBuffered);
+            GameManager.instance.gamePlayer.GetComponent<PlayerController>().ending = true;
+            CodePanelObject.SetActive(false);
             Debug.Log("정답! WIN");
             IsMineEscape = true;
             IsEscape = true;                            // 얘를 동기화시켜줘야 함...

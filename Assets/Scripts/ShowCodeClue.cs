@@ -23,7 +23,8 @@ public class ShowCodeClue : MonoBehaviour
     {
         if (!IsClicked)                                 // 이미 획득한 단서가 아니면
         {
-            IsClicked = true;                           // 이미 획득한 단서임을 알려 줌
+            IsClicked = true;                          
+            GameManager.instance.isAlert = true;
             CluePanelObject.SetActive(true);
             CodeClue.count++;                           // 한번 눌렸음이 감지되면, 몇 번째로 발견한 단서인지 알려 줘야 함
             code = Code.text;
@@ -47,7 +48,6 @@ public class ShowCodeClue : MonoBehaviour
         AlreadyPanelObject.SetActive(false);
         GameManager.instance.isAlert = false;
         Debug.Log("알람" + GameManager.instance.isAlert);
-        // 이러고 있는 동안에 캐릭터 못 움직이게 해줘 (IsAlert == true)
     }
 
     public void HidePanel()                                // 닫기 버튼을 누르면 판넬이 안 보임
@@ -60,6 +60,7 @@ public class ShowCodeClue : MonoBehaviour
     private IEnumerator WaitForSoundToDone()
     {
         yield return new WaitForSeconds(doneAudio.clip.length);
+
         GameManager.instance.isAlert = false;
         CluePanelObject.SetActive(false);
     }
