@@ -1,19 +1,20 @@
 using UnityEngine;
+using Photon.Pun;
 
-// ¾ÏÈ£ ÀÔ·Â ¹öÆ°ÀÌ ¶ß°Ô ÇÏ´Â ½ºÅ©¸³Æ®
+// ï¿½ï¿½È£ ï¿½Ô·ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®
 
 public class HandleCodeButton : MonoBehaviour
 {
-    public string playerTag = "Player";  // Player ÅÂ±×
-    public GameObject portal;   // Æ÷ÅÐ ¿ÀºêÁ§Æ®
-    public GameObject buttonObject;   // ¾ÏÈ£ ÀÔ·Â ¹öÆ°
+    public string playerTag = "Player";  // Player ï¿½Â±ï¿½
+    public GameObject portal;   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    public GameObject buttonObject;   // ï¿½ï¿½È£ ï¿½Ô·ï¿½ ï¿½ï¿½Æ°
 
 
-    ////////////////////////////////////////////////////////////////////////////////////////////// °¡±î¿öÁö¸é ¹öÆ° º¸ÀÓ
+    ////////////////////////////////////////////////////////////////////////////////////////////// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½
 
-    /*    public float maxDistanceToShow = 1.0f; // ÀÏÁ¤ °Å¸®
+    /*    public float maxDistanceToShow = 1.0f; // ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
 
-        private bool isVisible = false; // ¿ÀºêÁ§Æ®ÀÇ °¡½Ã¼º »óÅÂ
+        private bool isVisible = false; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         private void Start()
         {
@@ -25,12 +26,12 @@ public class HandleCodeButton : MonoBehaviour
                 if (distance <= maxDistanceToShow)
                 {
                     isVisible = true;
-                    buttonObject.SetActive(true); // ¿ÀºêÁ§Æ®¸¦ º¸ÀÌµµ·Ï ¼³Á¤
+                    buttonObject.SetActive(true); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 }
                 else
                 {
                     isVisible = false;
-                    buttonObject.SetActive(false); // ¿ÀºêÁ§Æ®¸¦ °¨Ãßµµ·Ï ¼³Á¤
+                    buttonObject.SetActive(false); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 }
             }
         }
@@ -39,34 +40,34 @@ public class HandleCodeButton : MonoBehaviour
         {
             GameObject playerObject = GameObject.FindGameObjectWithTag(playerTag);
 
-            // ÇÃ·¹ÀÌ¾î¿Í ¿ÀºêÁ§Æ® »çÀÌÀÇ °Å¸® °è»ê
+            // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½
             float distance = Vector3.Distance(playerObject.transform.position, portal.transform.position);
 
     *//*        Debug.Log(distance);
             Debug.Log(isVisible);*//*
 
-            // ÀÏÁ¤ °Å¸® ³»¿¡ ÇÃ·¹ÀÌ¾î°¡ ÀÖ´Ù¸é °¡½Ã¼ºÀ» È°¼ºÈ­
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
             if (distance <= maxDistanceToShow)
             {
-               // Debug.Log("´Ü¼­ ¹ß°ß");
+               // Debug.Log("ï¿½Ü¼ï¿½ ï¿½ß°ï¿½");
 
-               if (!isVisible)             // ¾È º¸ÀÌ°í ÀÖ¾ú´Ù¸é
+               if (!isVisible)             // ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½Ö¾ï¿½ï¿½Ù¸ï¿½
                 {
                     isVisible = true;
-                    buttonObject.SetActive(true); // ¿ÀºêÁ§Æ®¸¦ º¸ÀÌµµ·Ï ¼³Á¤
+                    buttonObject.SetActive(true); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 }
             }
 
 
-            // ÀÏÁ¤ °Å¸® ³»¿¡ ÇÃ·¹ÀÌ¾î°¡ ÀÖÁö ¾Ê´Ù¸é °¡½Ã¼ºÀ» ºñÈ°¼ºÈ­
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Ù¸ï¿½ ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
             else
             {
-               // Debug.Log("´Ü¼­·ÎºÎÅÍ ¸Ö¾îÁü");
+               // Debug.Log("ï¿½Ü¼ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½");
 
-                if (isVisible)              // º¸ÀÌ°í ÀÖ¾ú´Ù¸é
+                if (isVisible)              // ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½Ö¾ï¿½ï¿½Ù¸ï¿½
                 {
                     isVisible = false;
-                    buttonObject.SetActive(false); // ¿ÀºêÁ§Æ®¸¦ °¨Ãßµµ·Ï ¼³Á¤
+                    buttonObject.SetActive(false); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 }
 
             }
@@ -74,7 +75,7 @@ public class HandleCodeButton : MonoBehaviour
         }
     */
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Ãæµ¹ ½Ã ¹öÆ° º¸ÀÓ
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ï¿½æµ¹ ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½
 
     private void Start()
     {
@@ -83,17 +84,17 @@ public class HandleCodeButton : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) // ÇÃ·¹ÀÌ¾î ÅÂ±×ÀÎ ¿ÀºêÁ§Æ®¿Í Ãæµ¹ ½Ã
+        if (other.CompareTag("Player") && other.gameObject.GetComponent<PhotonView>().IsMine) // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Â±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½æµ¹ ï¿½ï¿½
         {
-            buttonObject.SetActive(true); // ¾ÏÈ£ ÀÔ·Â ¹öÆ°À» º¸ÀÌµµ·Ï ¼³Á¤
+            buttonObject.SetActive(true); // ï¿½ï¿½È£ ï¿½Ô·ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) // ÇÃ·¹ÀÌ¾î ÅÂ±×ÀÎ ¿ÀºêÁ§Æ®¿ÍÀÇ Ãæµ¹ÀÌ ÇØÁ¦µÉ ¶§
+        if (other.CompareTag("Player")) // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Â±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         {
-            buttonObject.SetActive(false); // ¾ÏÈ£ ÀÔ·Â ¹öÆ°À» °¨Ãßµµ·Ï ¼³Á¤
+            buttonObject.SetActive(false); // ï¿½ï¿½È£ ï¿½Ô·ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
     }
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using Photon.Pun;
 
 // 단서 보기 버튼이 뜨게 하는 스크립트
 
@@ -82,9 +83,9 @@ public class HandleClueButton : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Player")) // 플레이어 태그인 오브젝트와 충돌 시
+        if (collision.collider.CompareTag("Player") && collision.collider.GetComponent<PhotonView>().IsMine) // 플레이어 태그인 오브젝트와 충돌 시
         {
-            Debug.Log("충돌!");
+            Debug.Log("clue collision : " + collision.collider.GetComponent<PhotonView>().Owner.NickName);
             buttonObject.SetActive(true); // 단서 보기 버튼을 보이도록 설정
         }
     }

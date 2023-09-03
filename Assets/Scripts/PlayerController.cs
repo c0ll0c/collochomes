@@ -10,9 +10,8 @@ namespace Goldmetal.UndeadSurvivor
 {
     public class PlayerController : MonoBehaviour
     {
-        public Vector2 inputVec;
+        private Vector2 inputVec;
         public float Speed;
-        //public RuntimeAnimatorController[] animCon;
         public bool isAlert = false;
         [SerializeField] TextMeshProUGUI playername;
         [SerializeField] RuntimeAnimatorController effectAni;
@@ -23,6 +22,7 @@ namespace Goldmetal.UndeadSurvivor
         PhotonView photonView;
         PlayerData myInfo;
         List<PlayerData> playersInfo = new List<PlayerData>();
+        GameManager gameManager;
 
         void Awake()
         {
@@ -38,12 +38,13 @@ namespace Goldmetal.UndeadSurvivor
                 Camera cam = Camera.main;
                 cam.transform.SetParent(transform);
                 cam.transform.localPosition = new Vector3(0f, 0f, -5f);
+                NetworkManager.instance.SetPlayerSpeed(3);
             }
         }
 
         private void Start()
         {
-
+            gameManager = GameObject.Find("@Managers").transform.GetComponent<GameManager>();
         }
 
         void Update()
@@ -60,6 +61,10 @@ namespace Goldmetal.UndeadSurvivor
             if (isAlert) return;
 
             // moving function
+            float moveY = Input.GetAxis("Vertical");
+            float moveX = Input.GetAxis("Horizontal");
+            inputVec = new Vector2(moveX, moveY);
+
             Vector2 nextVec = inputVec.normalized * Speed * Time.fixedDeltaTime;
             rigid.MovePosition(rigid.position + nextVec);
         }
@@ -80,7 +85,6 @@ namespace Goldmetal.UndeadSurvivor
             {
                 Debug.Log("Detox");
                 NetworkManager.instance.SetPlayerStatus("Player");
-                //photonView.RPC("UpdateInfo", RpcTarget.All);
 
                 GameObject effect = transform.Find("effect").gameObject;
                 effect.GetComponent<Animator>().runtimeAnimatorController = effectAni;
@@ -97,7 +101,7 @@ namespace Goldmetal.UndeadSurvivor
 
         void OnMove(InputValue value)
         {
-            inputVec = value.Get<Vector2>();
+            //inputVec = value.Get<Vector2>();
         }
 
 

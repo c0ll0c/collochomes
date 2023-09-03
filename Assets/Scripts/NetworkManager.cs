@@ -201,8 +201,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         foreach (PhotonView p in playersInfo)
         {
-            if (p.name == "NetworkManager" || p.name == "detox") continue;
+            if (p.name == "NetworkManager" || p.name == "detox" || p.name == "datoxLayer2") continue;
             GameObject gamePlayer = p.gameObject;
+            if (p.Owner.CustomProperties["PlayerStatus"] == null) return;
             gamePlayer.tag = (string)p.Owner.CustomProperties["PlayerStatus"];
         }
 

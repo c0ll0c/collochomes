@@ -12,12 +12,15 @@ public class ShowCodePanel : MonoBehaviour
 
     public void ShowPanel()                  // 단서 보기 버튼을 누르면 판넬이 보임
     {
+        GameManager.instance.isAlert = true;
         CodePanelObject.SetActive(true);
     }
 
     public void CancelButton()               // 닫기 버튼을 누르면 판넬이 안 보임
     {
+        GameManager.instance.isAlert = false;
         CodePanelObject.SetActive(false);
+        
     }
 
     public void DoneButton()
