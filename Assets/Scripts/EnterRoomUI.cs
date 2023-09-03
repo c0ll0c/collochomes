@@ -8,6 +8,8 @@ using Photon.Pun;
 //닉네임 입력하는 창
 public class EnterRoomUI : MonoBehaviour
 {
+    public AudioSource audioSource;
+
     [SerializeField]
     private TMP_InputField nicknameInputField;
     [SerializeField]
@@ -23,8 +25,17 @@ public class EnterRoomUI : MonoBehaviour
     {
         
     }
+
     public void OnClickEnterGameButton()
     {
+        audioSource.Play();
+        StartCoroutine(WaitForSoundToFinish());
+    }
+
+    private IEnumerator WaitForSoundToFinish()
+    {
+        yield return new WaitForSeconds(audioSource.clip.length);
+
         if (nicknameInputField.text != "")
         {
             SceneManager.LoadScene("ReadyScene");
@@ -35,5 +46,4 @@ public class EnterRoomUI : MonoBehaviour
             nicknameInputField.GetComponent<Animator>().SetTrigger("on");
         }
     }
-
 }

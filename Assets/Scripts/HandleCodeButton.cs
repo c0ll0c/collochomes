@@ -1,4 +1,5 @@
 using UnityEngine;
+using Photon.Pun;
 
 // 암호 입력 버튼이 뜨게 하는 스크립트
 
@@ -83,7 +84,7 @@ public class HandleCodeButton : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) // 플레이어 태그인 오브젝트와 충돌 시
+        if (other.CompareTag("Player") && other.GetComponent<PhotonView>().IsMine) // 플레이어 태그인 오브젝트와 충돌 시
         {
             buttonObject.SetActive(true); // 암호 입력 버튼을 보이도록 설정
         }
@@ -98,4 +99,3 @@ public class HandleCodeButton : MonoBehaviour
     }
 
 }
-

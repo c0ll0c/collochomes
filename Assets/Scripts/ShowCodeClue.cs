@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class ShowCodeClue : MonoBehaviour
 {
+    public AudioSource doneAudio;
+
     public GameObject CluePanelObject;                  // 보이게 할 단서 판넬을 할당해 줌
     public GameObject AlreadyPanelObject;
 
@@ -51,6 +53,15 @@ public class ShowCodeClue : MonoBehaviour
 
     public void HidePanel()                                // 닫기 버튼을 누르면 판넬이 안 보임
     {
+        doneAudio.Play();
+        StartCoroutine(WaitForSoundToDone());
+
+    }
+
+    private IEnumerator WaitForSoundToDone()
+    {
+        yield return new WaitForSeconds(doneAudio.clip.length);
+
         CluePanelObject.SetActive(false);
     }
 

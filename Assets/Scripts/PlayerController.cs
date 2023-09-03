@@ -10,6 +10,10 @@ namespace Goldmetal.UndeadSurvivor
 {
     public class PlayerController : MonoBehaviour
     {
+        public bool IsMoving;
+
+        public AudioSource WalkingSound;
+
         public Vector2 inputVec;
         public float Speed;
         //public RuntimeAnimatorController[] animCon;
@@ -60,9 +64,30 @@ namespace Goldmetal.UndeadSurvivor
             if (isAlert) return;
 
             // moving function
+
+            float moveY = Input.GetAxis("Vertical");
+            float moveX = Input.GetAxis("Horizontal");
+            inputVec = new Vector2(moveX, moveY);
+
             Vector2 nextVec = inputVec.normalized * Speed * Time.fixedDeltaTime;
             rigid.MovePosition(rigid.position + nextVec);
+
+            // 움직임 여부 체크
+            IsMoving = inputVec.magnitude > 0.1f;
+
+            if (IsMoving)
+            {
+                if (!WalkingSound.isPlaying)
+                {
+                    WalkingSound.Play();
+                }
+            }
+            else
+            {
+                WalkingSound.Stop();
+            }
         }
+
 
         void LateUpdate()
         {

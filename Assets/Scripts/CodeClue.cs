@@ -6,7 +6,6 @@ using UnityEngine.UI;
 // 단서 모음집에 암호 단서가 나타나는 것
 // 발견되는 순서에 따라 왼쪽부터 차례대로 바뀌는 것
 // ShowCodeClue에서, isClicked가 한번 활성화될 때마다 count++;
-// 이게 단서 모음집 버튼을 눌러야 뜸... 안 그러게 하는 방법??
 
 public class CodeClue : MonoBehaviour
 {

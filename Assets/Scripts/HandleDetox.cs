@@ -1,12 +1,17 @@
 using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections;
 
 public class HandleDetox : MonoBehaviour
 {
+    public AudioSource HealSound;
+
     public string playerTag = "Infect"; // Player 태그
     public GameObject targetObject;     // 위치를 변경할 대상 오브젝트
-    public float delayTime = 3.0f;
+    private Renderer detoxRenderer; // 해당 오브젝트의 렌더러
+
+    public float delayTime = 5.0f;
     public Vector3[] randomPositions = new Vector3[]
     {
     new Vector3(6.94f, -3.59f, 0f),
@@ -45,10 +50,12 @@ public class HandleDetox : MonoBehaviour
     new Vector3(-3.17f, 14.14f, 0f),
     new Vector3(10.23f, 13.9f, 0f),
     };
-    private PhotonView photonView;
+    private PhotonView photonView;              // 다른 플레이어한테도 동기화
 
     private void Start()
     {
+        detoxRenderer = GetComponent<Renderer>();
+
         Vector3 randomPosition = randomPositions[Random.Range(0, randomPositions.Length)];
         targetObject.transform.position = randomPosition;
         photonView = GetComponent<PhotonView>();
@@ -58,25 +65,27 @@ public class HandleDetox : MonoBehaviour
     {
         if (collision.collider.CompareTag(playerTag))
         {
+            HealSound.Play();
+
             photonView.TransferOwnership(collision.collider.GetComponent<PhotonView>().Owner);
 
             Debug.Log("해독!");
 
             // 랜덤 위치 후보 중 하나 선택
             Vector3 randomPosition = randomPositions[Random.Range(0, randomPositions.Length)];
-
             targetObject.transform.position = randomPosition;
 
-            targetObject.SetActive(false); // 해독제 비활성화
+            detoxRenderer.enabled = false; // 렌더러를 비활성화
             Debug.Log("해독제 비활성화");
 
             Invoke(nameof(ActivateDetox), delayTime); // delayTime 이후에 ActivateDetox 메서드 호출
+
         }
     }
 
     private void ActivateDetox()
     {
-        targetObject.SetActive(true); // 해독제 활성화
+        detoxRenderer.enabled = true; // 렌더러를 활성화
         Debug.Log("해독제 활성화");
     }
 }

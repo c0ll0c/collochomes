@@ -6,6 +6,8 @@ using Unity.VisualScripting;
 
 public class AttackController : MonoBehaviour
 {
+    public AudioSource attackAudio;
+
     private Camera cam;
     private bool attackActivated = false;
     private float skillCooldownTime = 5.0f;
@@ -74,7 +76,7 @@ public class AttackController : MonoBehaviour
                 effect.SetActive(true);
                 StartCoroutine(ResetEffect(effect));
 
-                
+
             }
 
             //StartCoroutine(ResetSkillCooldown());
@@ -93,7 +95,7 @@ public class AttackController : MonoBehaviour
 
             if (hit.collider == null) return;
             if (hit.collider.name != "player trigger") return;
-            
+
             Photon.Realtime.Player targetPlayer = hit.collider.GetComponentInParent<PhotonView>().Owner;
 
             if (hit && !hit.collider.GetComponentInParent<PhotonView>().IsMine)
@@ -104,7 +106,11 @@ public class AttackController : MonoBehaviour
                 GameObject effect = hit.collider.transform.parent.transform.Find("effect").gameObject;
                 effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[1];
                 effect.SetActive(true);
+
+                attackAudio.Play();
+
                 StartCoroutine(ResetEffect(effect));
+                StartCoroutine(ResetAudio(attackAudio));
             }
 
             //StartCoroutine(ResetSkillCooldown());
@@ -123,6 +129,14 @@ public class AttackController : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         effect.SetActive(false);
     }
+    
+    private IEnumerator ResetAudio(AudioSource attackAudio)
+    {
+        yield return new WaitForSeconds(3.0f);
+        attackAudio.Stop();
+    }
+
+
 
     private IEnumerator InfectSkillDelay(Photon.Realtime.Player targetPlayer)
     {

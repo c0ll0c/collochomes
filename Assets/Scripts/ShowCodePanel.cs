@@ -3,18 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
+
+// 탈출 -> 로컬 플레이어: 승 / 원격 플레이어 : 패
+// 로컬 플레이어의 IsMineEscape = true, 원격 플레이어의 IsOtherEscape = true로 해서... IsMineEscape가 true이면 Win, IsOtherEscape가 true이면 Lose
+// 본인이 탈출했는가 / 탈출을 했는가
 
 public class ShowCodePanel : MonoBehaviour
 {
     public GameObject CodePanelObject;       // 보이게 할 단서 판넬을 할당해 줌
-    public GameObject GameOverObject;       // 보이게 할 단서 판넬을 할당해 줌
 
     public string correctCode;        // 정답 암호 설정
     public InputField inputField;            // InputField 연결
 
+    static public bool IsMineEscape = false;
+    static public bool IsEscape = false;
+
     private void Start()
     {
-        GameOverObject = GameObject.Find("Canvas").gameObject;
     }
 
     private void Update()
@@ -41,15 +47,15 @@ public class ShowCodePanel : MonoBehaviour
 
         if (enteredCode == correctCode)         // 입력한 코드가 정답 코드와 일치하는지 확인
         {
-            Debug.Log("정답입니다! 씬 전환 또는 다른 동작 수행");
-
-            GameOverObject.SetActive(true);
-            // 정답일 경우 GameOverScene으로 씬 전환
-            //SceneManager.LoadScene("GameOverScene"); // "GameOverScene"은 실제로 사용하는 씬의 이름으로 변경해야 합니다.
+            Debug.Log("정답! WIN");
+            IsMineEscape = true;
+            IsEscape = true;                            // 얘를 동기화시켜줘야 함...
         }
+
         else
         {
             Debug.Log("틀렸습니다. 다시 시도하세요.");
         }
+
     }
 }
