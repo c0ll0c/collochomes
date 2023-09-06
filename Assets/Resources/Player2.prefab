@@ -323,6 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b6447bbf34d6a4daaeb60188ea543f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackActivated: 0
   effectAni:
   - {fileID: 9100000, guid: d6f7d029d86050e49a09561e5033d173, type: 2}
   - {fileID: 9100000, guid: dd01121a78970554e971436dee28842d, type: 2}
@@ -811,11 +812,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce86ca2ce58074347846cf4e4a336ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EscapeAudio: {fileID: 5038711074243075959}
+  LoseAudio: {fileID: 8300000, guid: 9bc86264096844a4f998f3c38a57126f, type: 3}
   IsMoving: 0
   WalkingSound: {fileID: 5038711074243075959}
   inputVec: {x: 0, y: 0}
   Speed: 0
   isAlert: 0
+  ending: 0
   playername: {fileID: 3229316466929760041}
   effectAni: {fileID: 9100000, guid: 05dc0e6df5031d842a340fa3de1a28fd, type: 2}
 --- !u!114 &6085083833477866506

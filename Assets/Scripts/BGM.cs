@@ -1,12 +1,20 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
+using Goldmetal.UndeadSurvivor;
 
 public class BGM : MonoBehaviour
 {
     private static BGM instance;
     
     public string changeBGMSceneName = "PlayScene"; // BGM을 변경할 씬의 이름을 설정합니다.
+    public string restartBGMSceneName = "IntroScene"; // BGM을 변경할 씬의 이름을 설정합니다.
     public AudioClip newBGM; // 바꿀 BGM의 AudioClip을 설정합니다.
+    public AudioClip initBGM;
+    
     private AudioSource audioSource;
 
     private void Awake()
@@ -27,6 +35,11 @@ public class BGM : MonoBehaviour
         }
     }
 
+
+    private void Start()
+    {
+    }
+
     private void Update()
     {
         // 현재 씬의 이름을 가져옵니다.
@@ -37,6 +50,17 @@ public class BGM : MonoBehaviour
         {
             audioSource.clip = newBGM;
             audioSource.Play();
+        }
+        
+        if (currentSceneName == restartBGMSceneName && audioSource.clip != initBGM)
+        {
+            audioSource.clip = initBGM;
+            audioSource.Play();
+        }
+
+        if (GameManager.instance != null && GameManager.instance.gamePlayer != null && GameManager.instance.gamePlayer.GetComponent<PlayerController>().ending)
+        {
+            audioSource.Stop();
         }
     }
 }

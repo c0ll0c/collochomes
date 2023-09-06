@@ -11,6 +11,10 @@ namespace Goldmetal.UndeadSurvivor
 {
     public class PlayerController : MonoBehaviour
     {
+        public AudioSource EscapeAudio;
+
+        public AudioClip LoseAudio;
+
         public bool IsMoving;
 
         public AudioSource WalkingSound;
@@ -33,7 +37,8 @@ namespace Goldmetal.UndeadSurvivor
         GameObject SurvivorLoseUI;
 
         void Awake()
-        {
+        {       
+            EscapeAudio = GetComponent<AudioSource>();
             photonView = GetComponent<PhotonView>();
             rigid = GetComponent<Rigidbody2D>();
             spriter = GetComponent<SpriteRenderer>();
@@ -67,6 +72,7 @@ namespace Goldmetal.UndeadSurvivor
             if (VirusLoseUI.activeSelf || SurvivorLoseUI.activeSelf)
             {
                 ending = true;
+                StartCoroutine(backIntro());
             }
         }
 
@@ -116,13 +122,14 @@ namespace Goldmetal.UndeadSurvivor
             if (collision.collider.CompareTag("Detox") && photonView.gameObject.CompareTag("Infect") && photonView.IsMine)
             {
                 Debug.Log("Detox");
-                NetworkManager.instance.SetPlayerStatus("Player");
-                //photonView.RPC("UpdateInfo", RpcTarget.All);
+                StartCoroutine(detoxStatus());
 
                 GameObject effect = transform.Find("effect").gameObject;
                 effect.GetComponent<Animator>().runtimeAnimatorController = effectAni;
                 effect.SetActive(true);
                 StartCoroutine(ResetEffect(effect));
+
+                this.transform.Find("player trigger").GetComponent<AttackController>().attackActivated = false;
             }
         }
 
@@ -165,20 +172,42 @@ namespace Goldmetal.UndeadSurvivor
         [PunRPC]
         private void EndLoseUI()
         {
+            // LoseAudioSourde.clip = LoseAudioCip;
+
             myInfo = NetworkManager.instance.GetMyStatus();
             if ((string)myInfo.PlayerStatus == "Virus")
             {
                 isAlert = true;
                 ending = true;
                 VirusLoseUI.SetActive(true);
+                EscapeAudio.clip = LoseAudio;
+                EscapeAudio.Play();
+                StartCoroutine(backIntro());
             }
             else
             {
                 isAlert = true;
                 ending = true;
                 SurvivorLoseUI.SetActive(true);
+                // 패배 오디오
+                EscapeAudio.clip = LoseAudio;
+                EscapeAudio.Play();
+                
+
             }
         }
 
+        private IEnumerator backIntro()
+        {
+            yield return new WaitForSeconds(5.0f);
+            // ending = false;
+            NetworkManager.instance.ExitRoom();
+        }
+
+        private IEnumerator detoxStatus()
+        {
+            yield return new WaitForSeconds(1.0f);
+            NetworkManager.instance.SetPlayerStatus("Player");
+        }
     }
 }
