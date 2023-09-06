@@ -9,7 +9,7 @@ using Goldmetal.UndeadSurvivor;
 public class AttackController : MonoBehaviour
 {
     private Camera cam;
-    private bool attackActivated = false;
+    public bool attackActivated = false;
     private float skillCooldownTime = 15.0f;
     private PhotonView photonView;
     private GameObject player;
@@ -85,7 +85,7 @@ public class AttackController : MonoBehaviour
             mousePosition = cam.ScreenToWorldPoint(mousePosition);
 
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, transform.forward, 15f);
-
+            Debug.Log("hit : " + hit + "hit.collider : " + hit.collider);
             if (hit && hit.collider == collision && !collision.GetComponentInParent<PhotonView>().IsMine)
             {
                 if (collision.transform.parent.tag == "Player")
@@ -117,11 +117,13 @@ public class AttackController : MonoBehaviour
             mousePosition = cam.ScreenToWorldPoint(mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, transform.forward, 15f);
 
+            Debug.Log("hit : " + hit + "hit.collider : " + hit.collider);
+
             if (hit.collider == null) return;
             if (hit.collider.name != "player trigger") return;
 
             Photon.Realtime.Player targetPlayer = hit.collider.GetComponentInParent<PhotonView>().Owner;
-
+            
             if (hit && !hit.collider.GetComponentInParent<PhotonView>().IsMine)
             {
                 Debug.Log("attack : " + hit.collider.transform.parent.name);

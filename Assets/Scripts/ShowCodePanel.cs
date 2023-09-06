@@ -13,6 +13,10 @@ using Goldmetal.UndeadSurvivor;
 
 public class ShowCodePanel : MonoBehaviour
 {
+    public AudioSource EscapeAudio;
+
+    public AudioClip WinAudio;
+
     public GameObject CodePanelObject;       // 보이게 할 단서 판넬을 할당해 줌
 
     public string correctCode;        // 정답 암호 설정
@@ -24,6 +28,8 @@ public class ShowCodePanel : MonoBehaviour
 
     private void Start()
     {
+        EscapeAudio = GetComponent<AudioSource>();
+
         SurvivorWinUI = GameObject.Find("게임 기본 UI").transform.Find("PlayerWin").gameObject;
         SurvivorWinUI.SetActive(false);
     }
@@ -60,14 +66,23 @@ public class ShowCodePanel : MonoBehaviour
             GameManager.instance.gamePlayer.GetComponent<PlayerController>().ending = true;
             CodePanelObject.SetActive(false);
             Debug.Log("정답! WIN");
-            IsMineEscape = true;
-            IsEscape = true;                            // 얘를 동기화시켜줘야 함...
+            // 패배 오디오
+            EscapeAudio.clip = WinAudio;
+            EscapeAudio.Play();
+            StartCoroutine(backIntro());
         }
 
         else
         {
             Debug.Log("틀렸습니다. 다시 시도하세요.");
+            inputField.GetComponent<Animator>().SetTrigger("on");
         }
 
+    }
+
+    private IEnumerator backIntro()
+    {
+        yield return new WaitForSeconds(5.0f);
+        NetworkManager.instance.ExitRoom();
     }
 }

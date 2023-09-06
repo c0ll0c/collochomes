@@ -203,6 +203,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             if (p.name == "NetworkManager" || p.name == "detox" || p.name == "detoxLayer2") continue;
             GameObject gamePlayer = p.gameObject;
+            if (p.Owner.CustomProperties["PlayerStatus"] == null) return;
             gamePlayer.tag = (string)p.Owner.CustomProperties["PlayerStatus"];
         }
 

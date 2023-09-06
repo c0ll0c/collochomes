@@ -15,6 +15,16 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject loadingUI;
     [SerializeField] private GameObject[] statusUI;
     [SerializeField] private GameObject[] gameUI;
+    private Vector3[] randomPosition =
+{
+        new Vector3(-9.0f, -6.0f, 0),
+        new Vector3(-3.0f, 15.0f, 0),
+        new Vector3(14.5f, 1.5f, 0),
+        new Vector3(9.0f, 12.5f, 0),
+        new Vector3(7.0f, 6.0f, 0),
+        new Vector3(-2.0f, 0, 0),
+    };
+    private Vector3 myPos;
 
     void Awake()
     {
@@ -28,7 +38,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             foreach (PlayerData p in playersInfo)
             {
                 playersNo.Add(p.PlayerID);
-                Debug.Log(p.PlayerID + " " + playersNo.Count);
+                myPos = randomPosition[playersNo.Count - 1];
             }
 
             int virus = Random.Range(0, PhotonNetwork.CountOfPlayers);
@@ -58,7 +68,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void Spawn()
     {
-        gamePlayer = PhotonNetwork.Instantiate("Player" + (myInfo.PlayerID % 4 + 1), new Vector3(0 + myInfo.PlayerID, 0, 0), Quaternion.identity) as GameObject;
+        gamePlayer = PhotonNetwork.Instantiate("Player" + (myInfo.PlayerID % 4 + 1), myPos, Quaternion.identity) as GameObject;
         gamePlayer.GetComponent<PhotonView>().Owner.TagObject = gamePlayer;
 
         /*
@@ -113,11 +123,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             NetworkManager.instance.SetPlayerStatus("Virus");
             statusUI[0].SetActive(true);
+            loadingUI.SetActive(false);
         }
         else
         {
             NetworkManager.instance.SetPlayerStatus("Player");
             statusUI[1].SetActive(true);
+            loadingUI.SetActive(false);
         }
         loadingUI.SetActive(false);
         StartCoroutine(closeStatusUI());

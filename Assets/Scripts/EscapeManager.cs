@@ -9,9 +9,17 @@ public class EscapeManager : MonoBehaviour
     public GameObject PlayerLosePanel;       // 보이게 할 단서 판넬을 할당해 줌
     public GameObject VirusLosePanel;       // 보이게 할 단서 판넬을 할당해 줌
 
+    public AudioSource EscapeAudio;
+
+    public AudioClip WinAudio;
+    public AudioClip LoseAudio;
+
     // Start is called before the first frame update
     void Start()
     {
+        // EscapeAudio = GetComponent<AudioSource>();
+        // EscapeAudio.Play();
+
     }
 
     // Update is called once per frame
@@ -19,17 +27,26 @@ public class EscapeManager : MonoBehaviour
     {
         List<PlayerData> currentPlayersStatus = NetworkManager.instance.GetPlayersStatus();
 
-        if (ShowCodePanel.IsMineEscape)
+        if (PlayerWinPanel.activeSelf)
         {
-            PlayerWinPanel.SetActive(true);
+            //PlayerWinPanel.SetActive(true);
+            EscapeAudio.clip = WinAudio;
+            EscapeAudio.Play();
         }
-        else if (ShowCodePanel.IsEscape && currentPlayersStatus[0].PlayerStatus != "Virus")                  // 내가 탈출한 게 아니고 내 태그가 플레이어
+
+        else if (PlayerLosePanel.activeSelf)                  // 내가 탈출한 게 아니고 내 태그가 플레이어
         {
-            PlayerLosePanel.SetActive(true);
+            //PlayerLosePanel.SetActive(true);
+            EscapeAudio.clip = LoseAudio;
+            EscapeAudio.Play();
         }
-        else if (ShowCodePanel.IsEscape && currentPlayersStatus[0].PlayerStatus == "Virus")                  // 내가 탈출한 게 아니고 내 태그가 바이러스
+        
+        else if (VirusLosePanel.activeSelf)                  // 내가 탈출한 게 아니고 내 태그가 바이러스
         {
-            VirusLosePanel.SetActive(true);
+            //VirusLosePanel.SetActive(true);
+            EscapeAudio.clip = LoseAudio;
+            EscapeAudio.Play();
         }
+       
     }
 }
