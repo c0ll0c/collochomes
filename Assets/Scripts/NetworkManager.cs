@@ -44,9 +44,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         // 마스터 서버에 연결
         isJoinRoom = true;
         Debug.Log("Connect");
-        PhotonNetwork.NickName=nickname;
+        PhotonNetwork.NickName = nickname;
         PhotonNetwork.ConnectUsingSettings();
-        
+
     }
 
     public override void OnConnectedToMaster()
@@ -94,7 +94,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("방에 참가함");
-        
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.CurrentRoom.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "RoomState", "Waiting" } });
@@ -138,7 +137,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         properties.Add("PlayerStatus", PlayerStatus);
         PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
         Debug.Log(properties.ToString());
-        
+
     }
 
     public void SetPlayerSpeed(float Speed)
@@ -201,7 +200,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         foreach (PhotonView p in playersInfo)
         {
-            if (p.name == "NetworkManager" || p.name == "detox" || p.name == "datoxLayer2") continue;
+            if (p.name == "NetworkManager" || p.name == "detox" || p.name == "detoxLayer2") continue;
             GameObject gamePlayer = p.gameObject;
             if (p.Owner.CustomProperties["PlayerStatus"] == null) return;
             gamePlayer.tag = (string)p.Owner.CustomProperties["PlayerStatus"];
@@ -232,7 +231,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             foreach (DictionaryEntry entry in player.CustomProperties)
             {
                 Debug.Log("Player ID: " + player.ActorNumber + ", Key: " + entry.Key.ToString() + ", Value: " + entry.Value.ToString());
-            } 
+            }
         }
         SceneManager.LoadScene("PlayScene");
     }
@@ -330,7 +329,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            myData. PlayerStatus = "Player";
+            myData.PlayerStatus = "Player";
         }
 
         if (localPlayer.CustomProperties.ContainsKey("Speed"))
@@ -354,7 +353,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         return myData;
     }
-    
+
 
     public void ExitRoom()
     {
@@ -368,7 +367,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         // 방을 떠난 후 실행할 코드를 여기에 작성합니다.
         // 예를 들어 메인 화면으로 씬을 전환하거나 필요한 초기화 작업을 수행할 수 있습니다.
-        
         Destroy(gameObject);
         SceneManager.LoadScene("IntroScene");
     }
@@ -380,11 +378,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
 }
 
-public class PlayerData {
+public class PlayerData
+{
     public string Nickname { get; set; }
     public int PlayerID { get; set; }
     //public bool IsReady { get; set; }
-    public string PlayerStatus {get; set; }
+    public string PlayerStatus { get; set; }
     public float Speed { get; set; }
     public string PlayerCode { get; set; }
 }

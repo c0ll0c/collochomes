@@ -4,11 +4,12 @@ using UnityEngine;
 using Photon.Pun;
 using Unity.VisualScripting;
 using System.Runtime.CompilerServices;
+using Goldmetal.UndeadSurvivor;
 
 public class AttackController : MonoBehaviour
 {
     private Camera cam;
-    private bool attackActivated = false;
+    public bool attackActivated = false;
     private float skillCooldownTime = 15.0f;
     private PhotonView photonView;
     private GameObject player;
@@ -23,9 +24,9 @@ public class AttackController : MonoBehaviour
         cam = Camera.main;
         photonView = this.GetComponentInParent<PhotonView>();
         player = photonView.gameObject;
-        infectIcon = GameObject.Find("°ÔÀÓ ±âº» UI").transform.Find("infect").gameObject;
-        attackIcon = GameObject.Find("°ÔÀÓ ±âº» UI").transform.Find("attack").gameObject;
-        clueIcon = GameObject.Find("°ÔÀÓ ±âº» UI").transform.Find("clue").gameObject;
+        infectIcon = GameObject.Find("ï¿½ï¿½ï¿½ï¿½ ï¿½âº» UI").transform.Find("infect").gameObject;
+        attackIcon = GameObject.Find("ï¿½ï¿½ï¿½ï¿½ ï¿½âº» UI").transform.Find("attack").gameObject;
+        clueIcon = GameObject.Find("ï¿½ï¿½ï¿½ï¿½ ï¿½âº» UI").transform.Find("clue").gameObject;
     }
 
     private void Update()
@@ -43,7 +44,14 @@ public class AttackController : MonoBehaviour
         {
             attackIcon.SetActive(false);
             infectIcon.SetActive(true);
-            clueIcon .SetActive(false);
+            clueIcon.SetActive(false);
+        }
+
+        if (this.GetComponentInParent<PlayerController>().ending)
+        {
+            infectIcon.SetActive(false);
+            attackIcon.SetActive(false);
+            clueIcon.SetActive(false);
         }
     }
 
@@ -77,8 +85,8 @@ public class AttackController : MonoBehaviour
             mousePosition = cam.ScreenToWorldPoint(mousePosition);
 
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, transform.forward, 15f);
-
-            if (hit && hit.collider == collision && !collision.GetComponentInParent<PhotonView>().IsMine )
+            Debug.Log("hit : " + hit + "hit.collider : " + hit.collider);
+            if (hit && hit.collider == collision && !collision.GetComponentInParent<PhotonView>().IsMine)
             {
                 if (collision.transform.parent.tag == "Player")
                 {
@@ -109,11 +117,13 @@ public class AttackController : MonoBehaviour
             mousePosition = cam.ScreenToWorldPoint(mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, transform.forward, 15f);
 
+            Debug.Log("hit : " + hit + "hit.collider : " + hit.collider);
+
             if (hit.collider == null) return;
             if (hit.collider.name != "player trigger") return;
-            
-            Photon.Realtime.Player targetPlayer = hit.collider.GetComponentInParent<PhotonView>().Owner;
 
+            Photon.Realtime.Player targetPlayer = hit.collider.GetComponentInParent<PhotonView>().Owner;
+            
             if (hit && !hit.collider.GetComponentInParent<PhotonView>().IsMine)
             {
                 Debug.Log("attack : " + hit.collider.transform.parent.name);
@@ -134,7 +144,7 @@ public class AttackController : MonoBehaviour
     private IEnumerator ResetSkillCooldown()
     {
         yield return new WaitForSeconds(skillCooldownTime);
-        attackActivated = false; // ÀÏÁ¤ ½Ã°£ ÈÄ¿¡ xSkillActivated¸¦ false·Î º¯°æ
+        attackActivated = false; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½Ä¿ï¿½ xSkillActivatedï¿½ï¿½ falseï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     private IEnumerator ResetEffect(GameObject effect)

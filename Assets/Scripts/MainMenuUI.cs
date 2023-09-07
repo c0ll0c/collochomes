@@ -21,4 +21,8 @@ public class MainMenuUI : MonoBehaviour
         Application.Quit();
 #endif
     }
+    public void OnnClickHowToButton()
+    {
+        Debug.Log("Click");
+    }
 }

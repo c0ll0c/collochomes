@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// ��ȣ �ܼ��� �÷��̾�� �����ؼ� ����� �ִ� ��ũ��Ʈ
+// ���̷��� �±׸� ���� �÷��̾��� code�� �����ͼ� �ϳ��ϳ� �־� �ֱ�
+// �Ϸ�
 
 public class CodeCluePanel : MonoBehaviour
 {
@@ -12,12 +15,23 @@ public class CodeCluePanel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Debug.Log("���̷��� ã��");
+
         List<PlayerData> currentPlayersStatus = NetworkManager.instance.GetPlayersStatus();
+
+        /////////////
+        for(int p = 0; p < currentPlayersStatus.Count; p++)
+        {
+            Debug.Log(currentPlayersStatus[p].PlayerStatus);
+        }
+        /////////////
     }
 
     private void Update()
     {
         int index;
+        
+
         List<PlayerData> currentPlayersStatus = NetworkManager.instance.GetPlayersStatus();
 
         for (int i = 0; i < currentPlayersStatus.Count; i++)                // �÷��̾� �Ѹ� �Ѹ� �����ͼ� �±װ� ���̷����� �÷��̾��� index ã��

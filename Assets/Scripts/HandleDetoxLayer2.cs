@@ -5,10 +5,14 @@ using Photon.Pun;
 
 public class HandleDetoxLayer2 : MonoBehaviour
 {
-    public string playerTag = "Infect"; // Player ÅÂ±×
-    public GameObject targetObject;     // À§Ä¡¸¦ º¯°æÇÒ ´ë»ó ¿ÀºêÁ§Æ®
-    public float delayTime = 3.0f;
-    public Vector3[] randomPositions = new Vector3[]
+    public AudioSource HealSound;
+
+    private string playerTag = "Infect"; // Player ï¿½Â±ï¿½
+    public GameObject targetObject;     // ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    private Renderer detoxRenderer; // ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+    public float delayTime = 5.0f;
+    private Vector3[] randomPositions = new Vector3[]
     {
     new Vector3(1.9f, -8.77f, 0f),
     new Vector3(-0.36f, 9.03f, 0f),
@@ -24,10 +28,12 @@ public class HandleDetoxLayer2 : MonoBehaviour
     new Vector3(9.37f, 8f, 0f),
     new Vector3(-3.33f, 6.2f, 0f),
     };
-    private PhotonView photonView;
+    private PhotonView photonView;              // ï¿½Ù¸ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ï¿½×µï¿½ ï¿½ï¿½ï¿½ï¿½È­
 
     private void Start()
     {
+        detoxRenderer = GetComponent<Renderer>();
+
         Vector3 randomPosition = randomPositions[Random.Range(0, randomPositions.Length)];
         targetObject.transform.position = randomPosition;
         photonView = GetComponent<PhotonView>();
@@ -37,26 +43,27 @@ public class HandleDetoxLayer2 : MonoBehaviour
     {
         if (collision.collider.CompareTag(playerTag))
         {
+            HealSound.Play();
+
             photonView.TransferOwnership(collision.collider.GetComponent<PhotonView>().Owner);
+            Debug.Log("ï¿½Øµï¿½!");
 
-            Debug.Log("ÇØµ¶!");
-
-            // ·£´ý À§Ä¡ ÈÄº¸ Áß ÇÏ³ª ¼±ÅÃ
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½Äºï¿½ ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½
             Vector3 randomPosition = randomPositions[Random.Range(0, randomPositions.Length)];
-
             targetObject.transform.position = randomPosition;
 
-            targetObject.SetActive(false); // ÇØµ¶Á¦ ºñÈ°¼ºÈ­
-            Debug.Log("ÇØµ¶Á¦ ºñÈ°¼ºÈ­");
+            detoxRenderer.enabled = false; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
+            Debug.Log("ï¿½Øµï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­");
 
-            Invoke(nameof(ActivateDetox), delayTime); // delayTime ÀÌÈÄ¿¡ ActivateDetox ¸Þ¼­µå È£Ãâ
+            Invoke(nameof(ActivateDetox), delayTime); // delayTime ï¿½ï¿½ï¿½Ä¿ï¿½ ActivateDetox ï¿½Þ¼ï¿½ï¿½ï¿½ È£ï¿½ï¿½
+
         }
     }
 
     private void ActivateDetox()
     {
-        targetObject.SetActive(true); // ÇØµ¶Á¦ È°¼ºÈ­
-        Debug.Log("ÇØµ¶Á¦ È°¼ºÈ­");
+        detoxRenderer.enabled = true; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
+        Debug.Log("ï¿½Øµï¿½ï¿½ï¿½ È°ï¿½ï¿½È­");
     }
 
 }

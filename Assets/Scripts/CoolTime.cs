@@ -22,7 +22,7 @@ public class CoolTime : MonoBehaviour
                 if (leftTime < 0)                           // ÄðÅ¸ÀÓ ´Ù Ã¡À¸¸é
                 {
                     leftTime = 0;                           // ÄðÅ¸ÀÓ ´Ù Ã¡´Ù°í Ç¥½Ã
-                    if (button)                         
+                    if (button)
                         button.enabled = true;
                     isClicked = true;                       //
                 }

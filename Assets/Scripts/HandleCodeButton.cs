@@ -84,7 +84,7 @@ public class HandleCodeButton : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && other.gameObject.GetComponent<PhotonView>().IsMine) // �÷��̾� �±��� ������Ʈ�� �浹 ��
+        if (other.CompareTag("Player") && other.GetComponent<PhotonView>().IsMine) // �÷��̾� �±��� ������Ʈ�� �浹 ��
         {
             buttonObject.SetActive(true); // ��ȣ �Է� ��ư�� ���̵��� ����
         }
@@ -99,4 +99,3 @@ public class HandleCodeButton : MonoBehaviour
     }
 
 }
-

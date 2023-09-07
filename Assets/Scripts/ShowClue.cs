@@ -4,45 +4,38 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-// ´Ü¼­ º¸±â ¹öÆ°À» ´©¸£¸é CluePanelÀÇ °¡½Ã¼ºÀÌ È°¼ºÈ­°¡ µÊ
-// ÇÑ¹ø ´Ü¼­ º¸±â ¹öÆ°À» ´­·¶À¸¸é, "ÀÌ¹Ì È¹µæÇÑ ´Ü¼­"¶ó´Â ¾Ë¸²ÀÌ ¶°¾ß ÇÔ
-// 
+// ï¿½Ü¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ CluePanelï¿½ï¿½ ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½
+// ï¿½Ñ¹ï¿½ ï¿½Ü¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, "ï¿½Ì¹ï¿½ È¹ï¿½ï¿½ï¿½ï¿½ ï¿½Ü¼ï¿½"ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+
 public class ShowClue : MonoBehaviour
 {
-    public GameObject CluePanelObject;                  // º¸ÀÌ°Ô ÇÒ ´Ü¼­ ÆÇ³ÚÀ» ÇÒ´çÇØ ÁÜ
+    public AudioSource doneAudio;
+
+    public GameObject CluePanelObject;                  // ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ ï¿½Ü¼ï¿½ ï¿½Ç³ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ ï¿½ï¿½
     public GameObject AlreadyPanelObject;
 
     public bool IsClicked = false;
-    public Text UserName;                         // Áö±Ý º¸°í ÀÖ´Â ´Ü¼­ÀÇ À¯Àú ÀÌ¸§
-    public Text UserCode;                         // Áö±Ý º¸°í ÀÖ´Â ´Ü¼­ÀÇ À¯Àú ÄÚµå
+    public Text UserName;                         // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ü¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+    public Text UserCode;                         // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ü¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½
 
     static public string username;
     static public string usercode;
-/*
-    private void Start()
-    {
-        Debug.Log(UserName_a.text);
-        Debug.Log(UserCode_a.text);
 
-        username = UserName_a.text;
-        usercode = UserCode_a.text;
-    }*/
-
-    public void ShowPanel()                                // ´Ü¼­ º¸±â ¹öÆ°À» ´©¸£¸é ÆÇ³ÚÀÌ º¸ÀÓ
+    public void ShowPanel()                                // ï¿½Ü¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
-        if (!IsClicked)                                 // ÀÌ¹Ì È¹µæÇÑ ´Ü¼­°¡ ¾Æ´Ï¸é
+        if (!IsClicked)                                 // ï¿½Ì¹ï¿½ È¹ï¿½ï¿½ï¿½ï¿½ ï¿½Ü¼ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½
         {
-            IsClicked = true;                           // ÀÌ¹Ì È¹µæÇÑ ´Ü¼­ÀÓÀ» ¾Ë·Á ÁÜ
+            IsClicked = true;                        
             GameManager.instance.isAlert = true;
             CluePanelObject.SetActive(true);
         }
 
-        else                                            // ÀÌ¹Ì È¹µæÇÑ ´Ü¼­¸é
+        else                                            // ï¿½Ì¹ï¿½ È¹ï¿½ï¿½ï¿½ï¿½ ï¿½Ü¼ï¿½ï¿½ï¿½
         {
-            if(!GameManager.instance.isAlert)                                // ¾Ë¶÷ÀÌ ¶° ÀÖÁö ¾ÊÀ» ¶§ ÀÛµ¿ÇÏµµ·Ï
+            if(!GameManager.instance.isAlert)                                // ï¿½Ë¶ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ûµï¿½ï¿½Ïµï¿½ï¿½ï¿½
                 StartCoroutine(DeactivateAlreadyPanel());
         }
-        username = UserName.text;
+        username = UserName.text;                       // Text ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ø½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½, ï¿½Ü¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, 
         usercode = UserCode.text;
     }
 
@@ -50,16 +43,26 @@ public class ShowClue : MonoBehaviour
     {
         AlreadyPanelObject.SetActive(true);
         GameManager.instance.isAlert = true;
+        Debug.Log("ï¿½Ë¶ï¿½" + GameManager.instance.isAlert);
 
-        yield return new WaitForSeconds(1f); // 2ÃÊ ´ë±â
+        yield return new WaitForSeconds(1f); // 2ï¿½ï¿½ ï¿½ï¿½ï¿½
 
         AlreadyPanelObject.SetActive(false);
         GameManager.instance.isAlert = false;
-        // ÀÌ·¯°í ÀÖ´Â µ¿¾È¿¡ Ä³¸¯ÅÍ ¸ø ¿òÁ÷ÀÌ°Ô ÇØÁà (IsAlert == true)
+        Debug.Log("ï¿½Ë¶ï¿½" + GameManager.instance.isAlert);
     }
 
-    public void HidePanel()                                // ´Ý±â ¹öÆ°À» ´©¸£¸é ÆÇ³ÚÀÌ ¾È º¸ÀÓ
+    public void HidePanel()                                // ï¿½Ý±ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç³ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
+        doneAudio.Play();
+        StartCoroutine(WaitForSoundToDone());
+
+    }
+
+    private IEnumerator WaitForSoundToDone()
+    {
+        yield return new WaitForSeconds(doneAudio.clip.length);
+
         GameManager.instance.isAlert = false;
         CluePanelObject.SetActive(false);
     }

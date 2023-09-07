@@ -3,33 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// ï¿½Ü¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È£ ï¿½Ü¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½
+// ï¿½Ü¼ï¿½ È¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+
 public class ShowCodeClue : MonoBehaviour
 {
-    public GameObject CluePanelObject;                  // º¸ÀÌ°Ô ÇÒ ´Ü¼­ ÆÇ³ÚÀ» ÇÒ´çÇØ ÁÜ
+    public AudioSource doneAudio;
+
+    public GameObject CluePanelObject;                  // ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ ï¿½Ü¼ï¿½ ï¿½Ç³ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ ï¿½ï¿½
     public GameObject AlreadyPanelObject;
 
     public bool IsClicked = false;
-    static public bool IsAlert = false;           // Àü¿ªÀ¸·Î ÇÒ´ç
 
-    public Text Code;                         // Áö±Ý º¸°í ÀÖ´Â ´Ü¼­
+    public Text Code;                         // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ü¼ï¿½
 
     static public string code;
 
-    public void ShowPanel()                                // ´Ü¼­ º¸±â ¹öÆ°À» ´©¸£¸é ÆÇ³ÚÀÌ º¸ÀÓ
+    public void ShowPanel()                                // ï¿½Ü¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
-        if (!IsClicked)                                 // ÀÌ¹Ì È¹µæÇÑ ´Ü¼­°¡ ¾Æ´Ï¸é
+        if (!IsClicked)                                 // ï¿½Ì¹ï¿½ È¹ï¿½ï¿½ï¿½ï¿½ ï¿½Ü¼ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½
         {
-            IsClicked = true;                           // ÀÌ¹Ì È¹µæÇÑ ´Ü¼­ÀÓÀ» ¾Ë·Á ÁÜ
+            IsClicked = true;                          
             GameManager.instance.isAlert = true;
             CluePanelObject.SetActive(true);
             
-            CodeClue.count++;                           // ÇÑ¹ø ´­·ÈÀ½ÀÌ °¨ÁöµÇ¸é, ¸î ¹øÂ°·Î ¹ß°ßÇÑ ´Ü¼­ÀÎÁö ¾Ë·Á Áà¾ß ÇÔ
-                code = Code.text;
-}
+            CodeClue.count++;                           // ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½, ï¿½ï¿½ ï¿½ï¿½Â°ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½Ü¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë·ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½
+            code = Code.text;
+        }
 
-        else                                            // ÀÌ¹Ì È¹µæÇÑ ´Ü¼­¸é
+        else                                            // ï¿½Ì¹ï¿½ È¹ï¿½ï¿½ï¿½ï¿½ ï¿½Ü¼ï¿½ï¿½ï¿½
         {
-            if (!GameManager.instance.isAlert)                                // ¾Ë¶÷ÀÌ ¶° ÀÖÁö ¾ÊÀ» ¶§ ÀÛµ¿ÇÏµµ·Ï
+            if (!GameManager.instance.isAlert)                                // ï¿½Ë¶ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ûµï¿½ï¿½Ïµï¿½ï¿½ï¿½
                 StartCoroutine(DeactivateAlreadyPanel());
         }
     }
@@ -38,18 +42,27 @@ public class ShowCodeClue : MonoBehaviour
     {
         AlreadyPanelObject.SetActive(true);
         GameManager.instance.isAlert = true;
-        Debug.Log("¾Ë¶÷" + IsAlert);
+        Debug.Log("ï¿½Ë¶ï¿½" + GameManager.instance.isAlert);
 
-        yield return new WaitForSeconds(1f); // 2ÃÊ ´ë±â
+        yield return new WaitForSeconds(1f); // 2ï¿½ï¿½ ï¿½ï¿½ï¿½
 
         GameManager.instance.isAlert = false;
         AlreadyPanelObject.SetActive(false);
-        Debug.Log("¾Ë¶÷" + IsAlert);
-        // ÀÌ·¯°í ÀÖ´Â µ¿¾È¿¡ Ä³¸¯ÅÍ ¸ø ¿òÁ÷ÀÌ°Ô ÇØÁà (IsAlert == true)
+        GameManager.instance.isAlert = false;
+        Debug.Log("ï¿½Ë¶ï¿½" + GameManager.instance.isAlert);
     }
 
-    public void HidePanel()                                // ´Ý±â ¹öÆ°À» ´©¸£¸é ÆÇ³ÚÀÌ ¾È º¸ÀÓ
+    public void HidePanel()                                // ï¿½Ý±ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç³ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
+        doneAudio.Play();
+        StartCoroutine(WaitForSoundToDone());
+
+    }
+
+    private IEnumerator WaitForSoundToDone()
+    {
+        yield return new WaitForSeconds(doneAudio.clip.length);
+
         GameManager.instance.isAlert = false;
         CluePanelObject.SetActive(false);
     }

@@ -1,15 +1,32 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using System.Collections.Generic;
+using Goldmetal.UndeadSurvivor;
+using System.Collections;
 
 public class CountDown : MonoBehaviour
 {
-    public float totalTime = 150f; // 총 시간 (초 단위)
+    public AudioSource EscapeAudio;
+    public AudioClip LoseAudio;
+    public AudioClip WinAudio;
+
+    public float totalTime = 244f; // 총 시간 (초 단위)
     private float currentTime;
-    private Text timerText;
+    public Text timerText;
+    private bool IsTimeOver;
+    static private bool IsTimerRunning;       // 누군가가 탈출을 성공했으면 타이머가 멈추게 해야 함
+
+    public GameObject VirusWinPanel;
+    public GameObject PlayerLosePanel;
 
     private void Start()
     {
-        timerText = GetComponent<Text>();
+        EscapeAudio = GetComponent<AudioSource>();
+
+        IsTimerRunning = true;
+
+        // timerText = GetComponent<Text>();
         currentTime = totalTime;
 
         UpdateTimerText();
@@ -18,16 +35,42 @@ public class CountDown : MonoBehaviour
 
     private void UpdateTimer()
     {
-        if (currentTime > 0)
+        List<PlayerData> currentPlayersStatus = NetworkManager.instance.GetPlayersStatus();
+
+        if (IsTimerRunning)
         {
-            currentTime--;
-            UpdateTimerText();
-        }
-        else
-        {
-            // 타이머 종료 처리
-            CancelInvoke(nameof(UpdateTimer));
-            timerText.text = "Time's up!";
+            if (currentTime > 0)
+            {
+                currentTime--;
+                UpdateTimerText();
+            }
+            else
+            {
+                // 타이머 종료 처리
+                CancelInvoke(nameof(UpdateTimer));
+                timerText.text = "Time's up!";
+
+                if (currentPlayersStatus[0].PlayerStatus == "Virus")
+                {
+                    GameManager.instance.isAlert = true;
+                    GameManager.instance.gamePlayer.GetComponent<PlayerController>().ending = true;
+                    VirusWinPanel.SetActive(true);
+                    EscapeAudio.clip = WinAudio;
+                    EscapeAudio.Play();
+                    StartCoroutine(backIntro());
+                }
+                else
+                {
+                    GameManager.instance.isAlert = true;
+                    GameManager.instance.gamePlayer.GetComponent<PlayerController>().ending = true;
+                    PlayerLosePanel.SetActive(true);
+                    EscapeAudio.clip = LoseAudio;
+                    EscapeAudio.Play();
+                    StartCoroutine(backIntro());
+                }
+
+                IsTimerRunning = false;
+            }
         }
     }
 
@@ -36,5 +79,11 @@ public class CountDown : MonoBehaviour
         int minutes = Mathf.FloorToInt(currentTime / 60);
         int seconds = Mathf.FloorToInt(currentTime % 60);
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    private IEnumerator backIntro()
+    {
+        yield return new WaitForSeconds(5.0f);
+        NetworkManager.instance.ExitRoom();
     }
 }

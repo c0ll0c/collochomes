@@ -51,7 +51,11 @@ MonoBehaviour:
   - ResetAttackRPC
   - VirusRPC
   - DetoxRPC
+  - Start
   - StartGame
+  - SetOtherEscape
+  - EndGame
+  - EndLoseUI
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

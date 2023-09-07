@@ -8,6 +8,8 @@ using UnityEngine.Rendering.UI;
 
 public class GameReadyUI : MonoBehaviour
 {
+    public AudioSource audioSource;
+
     private List<PlayerData> playersInfo;
     private List<GameObject> playerPanel = new List<GameObject>(new GameObject[6]);
     private GameObject startButton;
@@ -76,6 +78,14 @@ public class GameReadyUI : MonoBehaviour
 
     public void StartButtonClicked()
     {
+        audioSource.Play();
+        StartCoroutine(WaitForSoundToStart());
+
+    }
+    private IEnumerator WaitForSoundToStart()
+    {
+        yield return new WaitForSeconds(audioSource.clip.length);
+
         if (playersInfo.Count > 0 && PhotonNetwork.IsMasterClient && (string)PhotonNetwork.CurrentRoom.CustomProperties["RoomState"] == "Waiting")
         {
             NetworkManager.instance.PlayerReady();
@@ -84,6 +94,14 @@ public class GameReadyUI : MonoBehaviour
 
     public void ExitButtonClicked()
     {
+        audioSource.Play();
+        StartCoroutine(WaitForSoundToExit());
+
+    }
+    private IEnumerator WaitForSoundToExit()
+    {
+        yield return new WaitForSeconds(audioSource.clip.length);
+
         if (!PhotonNetwork.IsMasterClient && (string)PhotonNetwork.CurrentRoom.CustomProperties["RoomState"] == "Waiting")
         {
             NetworkManager.instance.ExitRoom();

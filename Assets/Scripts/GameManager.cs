@@ -8,12 +8,24 @@ public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager instance;
     public bool isAlert = false;
+    public GameObject gamePlayer;
     PlayerData myInfo;
     GameObject gamePlayer;
     List<PlayerData> playersInfo = new List<PlayerData>();
     [SerializeField] private GameObject[] detox;
     [SerializeField] private GameObject loadingUI;
     [SerializeField] private GameObject[] statusUI;
+    [SerializeField] private GameObject[] gameUI;
+    private Vector3[] randomPosition =
+{
+        new Vector3(-9.0f, -6.0f, 0),
+        new Vector3(-3.0f, 15.0f, 0),
+        new Vector3(14.5f, 1.5f, 0),
+        new Vector3(9.0f, 12.5f, 0),
+        new Vector3(7.0f, 6.0f, 0),
+        new Vector3(-2.0f, 0, 0),
+    };
+    private Vector3 myPos;
 
     void Awake()
     {
@@ -27,7 +39,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             foreach (PlayerData p in playersInfo)
             {
                 playersNo.Add(p.PlayerID);
-                Debug.Log(p.PlayerID + " " + playersNo.Count);
+                myPos = randomPosition[playersNo.Count - 1];
             }
 
             int virus = Random.Range(0, PhotonNetwork.CountOfPlayers);
@@ -57,7 +69,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void Spawn()
     {
-        gamePlayer = PhotonNetwork.Instantiate("Player" + (myInfo.PlayerID % 4 + 1), new Vector3(0 + myInfo.PlayerID, 0, 0), Quaternion.identity) as GameObject;
+        gamePlayer = PhotonNetwork.Instantiate("Player" + (myInfo.PlayerID % 4 + 1), myPos, Quaternion.identity) as GameObject;
         gamePlayer.GetComponent<PhotonView>().Owner.TagObject = gamePlayer;
 
         /*
@@ -92,10 +104,17 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
 
-        if (gamePlayer != null)
+        if (gamePlayer == null) return;
+        gamePlayer.GetComponent<PlayerController>().isAlert = isAlert;
+        if (gamePlayer.GetComponent<PlayerController>().ending)
         {
-            gamePlayer.GetComponent<PlayerController>().isAlert = isAlert;
+            isAlert = true;
+            foreach (GameObject ui in gameUI)
+            {
+                ui.SetActive(false);
+            }
         }
+
     }
 
     private IEnumerator setStatusUI()
@@ -105,11 +124,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             NetworkManager.instance.SetPlayerStatus("Virus");
             statusUI[0].SetActive(true);
+            loadingUI.SetActive(false);
         }
         else
         {
             NetworkManager.instance.SetPlayerStatus("Player");
             statusUI[1].SetActive(true);
+            loadingUI.SetActive(false);
         }
         loadingUI.SetActive(false);
         StartCoroutine(closeStatusUI());
@@ -118,7 +139,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private IEnumerator closeStatusUI()
     {
         yield return new WaitForSeconds(3.0f);
-        loadingUI.SetActive(false );
+        loadingUI.SetActive(false);
         statusUI[0].SetActive(false);
         statusUI[1].SetActive(false);
         isAlert = false;
