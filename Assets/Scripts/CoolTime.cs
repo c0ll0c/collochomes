@@ -12,6 +12,13 @@ public class CoolTime : MonoBehaviour
     private bool isClicked = false;              // 공격 개시?
     float leftTime = 15.0f;                     // 남은 시간 (갱신)
 
+    private void Start()
+    {
+        leftTime = 0;
+        if (button)
+            button.enabled = true;
+        isClicked = true;
+    }
     // Update is called once per frame
     void Update()
     {

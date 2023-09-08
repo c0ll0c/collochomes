@@ -32,6 +32,7 @@ public class EnterRoomUI : MonoBehaviour
         StartCoroutine(WaitForSoundToFinish());
     }
 
+    // Ready Scene으로 이동
     private IEnumerator WaitForSoundToFinish()
     {
         yield return new WaitForSeconds(audioSource.clip.length);
@@ -43,7 +44,7 @@ public class EnterRoomUI : MonoBehaviour
         }
         else
         {
-            nicknameInputField.GetComponent<Animator>().SetTrigger("on");
+            nicknameInputField.GetComponent<Animator>().SetTrigger("on");   // 닉네임 없을 시 animation
         }
     }
 }

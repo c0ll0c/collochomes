@@ -9,12 +9,14 @@ using Goldmetal.UndeadSurvivor;
 public class AttackController : MonoBehaviour
 {
     private Camera cam;
-    public bool attackActivated = false;
+    public bool attackActivated = false;    // attack cool time
     private float skillCooldownTime = 15.0f;
+
     private PhotonView photonView;
     private GameObject player;
-    [SerializeField]
-    private RuntimeAnimatorController[] effectAni;
+    
+    // UI
+    [SerializeField] private RuntimeAnimatorController[] effectAni;
     private GameObject infectIcon;
     private GameObject attackIcon;
     private GameObject clueIcon;
@@ -24,15 +26,18 @@ public class AttackController : MonoBehaviour
         cam = Camera.main;
         photonView = this.GetComponentInParent<PhotonView>();
         player = photonView.gameObject;
-        infectIcon = GameObject.Find("���� �⺻ UI").transform.Find("infect").gameObject;
-        attackIcon = GameObject.Find("���� �⺻ UI").transform.Find("attack").gameObject;
-        clueIcon = GameObject.Find("���� �⺻ UI").transform.Find("clue").gameObject;
+        
+        // UI 연결
+        infectIcon = GameObject.Find("game UI").transform.Find("infect").gameObject;
+        attackIcon = GameObject.Find("game UI").transform.Find("attack").gameObject;
+        clueIcon = GameObject.Find("game UI").transform.Find("clue").gameObject;
     }
 
     private void Update()
     {
         if (!photonView.IsMine || !PhotonNetwork.IsConnected) return;
 
+        // player status에 따라 UI 수정
         if (player.tag == "Player")
         {
             OnAttackPlayer();
@@ -47,6 +52,7 @@ public class AttackController : MonoBehaviour
             clueIcon.SetActive(false);
         }
 
+        // 승패 시 모든 UI false
         if (this.GetComponentInParent<PlayerController>().ending)
         {
             infectIcon.SetActive(false);
@@ -64,104 +70,114 @@ public class AttackController : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 3)
+        if (collision.gameObject.layer == 3)    // collide가 player인지
         {
             collision.gameObject.transform.Find("attack range").gameObject.SetActive(false);
         }
     }
 
+    // Infect method
     private void OnAttackVirus(Collider2D collision)
     {
         if (!photonView.IsMine) return;
+        
+        // 공격 범위 표시
         if (collision.gameObject.layer == 3)
         {
             collision.gameObject.transform.Find("attack range").gameObject.SetActive(true);
         }
+
+        // 클릭 & 쿨타임
         if (Input.GetMouseButtonDown(0) && !attackActivated)
         {
-            attackActivated = true;
-
+            // 마우스로 클릭한 오브젝트 받아오기
             Vector3 mousePosition = Input.mousePosition;
             mousePosition = cam.ScreenToWorldPoint(mousePosition);
-
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, transform.forward, 15f);
             Debug.Log("hit : " + hit + "hit.collider : " + hit.collider);
+
+            // 클릭한 오브젝트가 공격 범위 내 오브젝트와 동일한지 확인 (자신 제외)
             if (hit && hit.collider == collision && !collision.GetComponentInParent<PhotonView>().IsMine)
             {
+                attackActivated = true;     // 쿨타임 시작
+
                 if (collision.transform.parent.tag == "Player")
                 {
                     Debug.Log("infect : " + hit.collider.transform.parent.name);
 
+                    // 감염
                     Photon.Realtime.Player targetPlayer = collision.GetComponentInParent<PhotonView>().Owner;
-                    StartCoroutine(InfectSkillDelay(targetPlayer));
+                    StartCoroutine(InfectSkillDelay(targetPlayer));     
 
+                    // 효과
                     GameObject effect = collision.transform.parent.transform.Find("effect").gameObject;
                     effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[0];
                     effect.SetActive(true);
                     StartCoroutine(ResetEffect(effect));
                 }
 
-                infectIcon.GetComponent<CoolTime>().StartCoolTime();
-                StartCoroutine(ResetSkillCooldown());
+                infectIcon.GetComponent<CoolTime>().StartCoolTime();    // UI 아이콘 쿨타임 시작
+                StartCoroutine(ResetSkillCooldown());   // 15초 뒤 쿨타임 초기화
             }
         }
     }
 
+    // Attack method
     private void OnAttackPlayer()
     {
+        // 클릭 & 쿨타임
         if (Input.GetMouseButtonDown(0) && !attackActivated)
         {
-            attackActivated = true;
-
             Vector3 mousePosition = Input.mousePosition;
             mousePosition = cam.ScreenToWorldPoint(mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, transform.forward, 15f);
-
             Debug.Log("hit : " + hit + "hit.collider : " + hit.collider);
 
             if (hit.collider == null) return;
             if (hit.collider.name != "player trigger") return;
 
-            Photon.Realtime.Player targetPlayer = hit.collider.GetComponentInParent<PhotonView>().Owner;
+            Photon.Realtime.Player targetPlayer = hit.collider.GetComponentInParent<PhotonView>().Owner;    // 공격할 플레이어 정보 받아옴
             
             if (hit && !hit.collider.GetComponentInParent<PhotonView>().IsMine)
             {
+                attackActivated = true;     // 쿨타임 시작
+
+                // 공격
                 Debug.Log("attack : " + hit.collider.transform.parent.name);
                 photonView.RPC("AttackRPC", targetPlayer);
 
+                // 효과
                 GameObject effect = hit.collider.transform.parent.transform.Find("effect").gameObject;
                 effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[1];
                 effect.SetActive(true);
                 StartCoroutine(ResetEffect(effect));
 
-                attackIcon.GetComponent<CoolTime>().StartCoolTime();
-                StartCoroutine(ResetSkillCooldown());
-                StartCoroutine(ResetAttackCooldown(targetPlayer));
+                attackIcon.GetComponent<CoolTime>().StartCoolTime();    // UI 아이콘 쿨타임 시작
+                StartCoroutine(ResetSkillCooldown());   // 쿨타임 시작
+                StartCoroutine(ResetAttackCooldown(targetPlayer));  // 공격 타이머 시작
             }
         }
     }
 
-    private IEnumerator ResetSkillCooldown()
+    private IEnumerator ResetSkillCooldown()        // 쿨타임 초기화
     {
         yield return new WaitForSeconds(skillCooldownTime);
-        attackActivated = false; // ���� �ð� �Ŀ� xSkillActivated�� false�� ����
+        attackActivated = false; 
     }
 
-    private IEnumerator ResetEffect(GameObject effect)
+    private IEnumerator ResetEffect(GameObject effect)      // 효과 애니메이션 초기화
     {
         yield return new WaitForSeconds(1.0f);
         effect.SetActive(false);
     }
 
-    private IEnumerator InfectSkillDelay(Photon.Realtime.Player targetPlayer)
+    private IEnumerator InfectSkillDelay(Photon.Realtime.Player targetPlayer)   // 감염 연기
     {
-        Debug.Log("Infect START : " + targetPlayer.NickName);
         yield return new WaitForSeconds(5.0f);
-        Debug.Log("Infect END : " + targetPlayer.NickName);
         photonView.RPC("InfectRPC", targetPlayer);
     }
 
-    private IEnumerator ResetAttackCooldown(Photon.Realtime.Player targetPlayer)
+    private IEnumerator ResetAttackCooldown(Photon.Realtime.Player targetPlayer)    // 공격 초기화
     {
         yield return new WaitForSeconds(5.0f);
         photonView.RPC("ResetAttackRPC", targetPlayer);

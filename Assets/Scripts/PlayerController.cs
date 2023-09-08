@@ -55,8 +55,9 @@ namespace Goldmetal.UndeadSurvivor
 
         private void Start()
         {
-            VirusLoseUI = GameObject.Find("���� �⺻ UI").transform.Find("VirusLose").gameObject;
-            SurvivorLoseUI = GameObject.Find("���� �⺻ UI").transform.Find("PlayerLose").gameObject;
+            // UI 연결
+            VirusLoseUI = GameObject.Find("game UI").transform.Find("VirusLose").gameObject;
+            SurvivorLoseUI = GameObject.Find("game UI").transform.Find("PlayerLose").gameObject;
             VirusLoseUI.SetActive(false);
             SurvivorLoseUI.SetActive(false);
         }
@@ -65,9 +66,11 @@ namespace Goldmetal.UndeadSurvivor
         {
             if (!photonView.IsMine || !PhotonNetwork.IsConnected) return;
 
+            // 플레이어 정보 네트워크와 연결
             myInfo = NetworkManager.instance.GetMyStatus();
             Speed = myInfo.Speed;
 
+            // ending UI active에 따른 ending 변경
             if (VirusLoseUI.activeSelf || SurvivorLoseUI.activeSelf)
             {
                 ending = true;
@@ -84,13 +87,11 @@ namespace Goldmetal.UndeadSurvivor
             float moveY = Input.GetAxis("Vertical");
             float moveX = Input.GetAxis("Horizontal");
             inputVec = new Vector2(moveX, moveY);
-
             Vector2 nextVec = inputVec.normalized * Speed * Time.fixedDeltaTime;
             rigid.MovePosition(rigid.position + nextVec);
 
-            // ������ ���� üũ
+            // moving audio
             IsMoving = inputVec.magnitude > 0.1f;
-
             if (IsMoving)
             {
                 if (!WalkingSound.isPlaying)
@@ -115,6 +116,7 @@ namespace Goldmetal.UndeadSurvivor
             if (inputVec.x != 0) photonView.RPC("FlipX", RpcTarget.All, inputVec.x);
         }
 
+        // detox func
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.collider.CompareTag("Detox") && photonView.gameObject.CompareTag("Infect") && photonView.IsMine)
@@ -144,31 +146,31 @@ namespace Goldmetal.UndeadSurvivor
 
 
         [PunRPC]
-        void FlipX(float axis)
+        void FlipX(float axis)  // 플레이어 이동 시 바라보는 방향 동기화
         {
             spriter.flipX = axis < 0;
         }
 
         [PunRPC]
-        private void InfectRPC()
+        private void InfectRPC()    // 감염당하는 RPC
         {
             NetworkManager.instance.SetPlayerStatus("Infect");
         }
 
         [PunRPC]
-        private void AttackRPC()
+        private void AttackRPC()    // 공격당하는 RPC (speed 감소)
         {
             NetworkManager.instance.SetPlayerSpeed(0);
         }
 
         [PunRPC]
-        private void ResetAttackRPC()
+        private void ResetAttackRPC()   // 공격풀리는 RPC (speed 초기화)
         {
             NetworkManager.instance.SetPlayerSpeed(3);
         }
 
         [PunRPC]
-        private void EndLoseUI()
+        private void EndLoseUI()    // lose 시 UI
         {
             // LoseAudioSourde.clip = LoseAudioCip;
 
@@ -187,7 +189,6 @@ namespace Goldmetal.UndeadSurvivor
                 isAlert = true;
                 ending = true;
                 SurvivorLoseUI.SetActive(true);
-                // �й� �����
                 EscapeAudio.clip = LoseAudio;
                 EscapeAudio.Play();
                 
@@ -195,17 +196,17 @@ namespace Goldmetal.UndeadSurvivor
             }
         }
 
-        private IEnumerator backIntro()
+        private IEnumerator detoxStatus()   // 해독 지연
+        {
+            yield return new WaitForSeconds(1.0f);
+            NetworkManager.instance.SetPlayerStatus("Player");
+        }
+        
+        private IEnumerator backIntro()     // 엔딩 후 인트로 복귀
         {
             yield return new WaitForSeconds(5.0f);
             // ending = false;
             NetworkManager.instance.ExitRoom();
-        }
-
-        private IEnumerator detoxStatus()
-        {
-            yield return new WaitForSeconds(1.0f);
-            NetworkManager.instance.SetPlayerStatus("Player");
         }
     }
 }
