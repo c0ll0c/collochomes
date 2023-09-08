@@ -26,7 +26,6 @@ public class AttackController : MonoBehaviour
         cam = Camera.main;
         photonView = this.GetComponentInParent<PhotonView>();
         player = photonView.gameObject;
-        
         // UI 연결
         infectIcon = GameObject.Find("game UI").transform.Find("infect").gameObject;
         attackIcon = GameObject.Find("game UI").transform.Find("attack").gameObject;
