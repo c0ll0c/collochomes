@@ -1,14 +1,14 @@
 using UnityEngine;
 using Photon.Pun;
-// ´Ü¼­ º¸±â ¹öÆ°ÀÌ ¶ß°Ô ÇÏ´Â ½ºÅ©¸³Æ®
+// ï¿½Ü¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®
 
 public class HandleClueButton : MonoBehaviour
 {
-    public string playerTag = "Player";  // Player ÅÂ±×
-    public GameObject clueObject;   // ´Ü¼­ ¿ÀºêÁ§Æ®
-    public GameObject buttonObject;   // ´Ü¼­ º¸±â ¹öÆ°
+    public string playerTag = "Player";  // Player ï¿½Â±ï¿½
+    public GameObject clueObject;   // ï¿½Ü¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    public GameObject buttonObject;   // ï¿½Ü¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Ãæµ¹ ½Ã ¹öÆ° º¸ÀÓ
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ï¿½æµ¹ ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½
 
     private void Start()
     {
@@ -17,23 +17,23 @@ public class HandleClueButton : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Player") && collision.collider.GetComponent<PhotonView>().IsMine) // ÇÃ·¹ÀÌ¾î ÅÂ±×ÀÎ ¿ÀºêÁ§Æ®¿Í Ãæµ¹ ½Ã
+        if (collision.collider.CompareTag("Player") && collision.collider.GetComponent<PhotonView>().IsMine) // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Â±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½æµ¹ ï¿½ï¿½
         {
             Debug.Log("clue collision : " + collision.collider.GetComponent<PhotonView>().Owner.NickName);
-            buttonObject.SetActive(true); // ´Ü¼­ º¸±â ¹öÆ°À» º¸ÀÌµµ·Ï ¼³Á¤
+            buttonObject.SetActive(true); // ï¿½Ü¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Player")) // ÇÃ·¹ÀÌ¾î ÅÂ±×ÀÎ ¿ÀºêÁ§Æ®¿ÍÀÇ Ãæµ¹ÀÌ ÇØÁ¦µÉ ¶§
+        if (collision.collider.CompareTag("Player")) // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Â±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         {
-            buttonObject.SetActive(false); // ´Ü¼­ º¸±â ¹öÆ°À» °¨Ãßµµ·Ï ¼³Á¤
+            buttonObject.SetActive(false); // ï¿½Ü¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
     }
 
 }
 
-// ´Ü¼­¿Í °¡±î¿ü´Ù°¡, ¸Ö¾îÁ³´Ù°¡, ´Ù½Ã °¡±î¿öÁ³À» ¶§¿¡ ÀÛµ¿ÇÏÁö ¾ÊÀ½
-// Ã³À½ºÎÅÍ ´Ü¼­¿Í ¸Ö¾ú´Ù°¡, °¡±î¿öÁ³À» ¶§ ÀÛµ¿ÇÏÁö ¾ÊÀ½
-// ¿Ö isVisibleÀÌ false°¡ µÇ¸é update ÇÔ¼ö°¡ ´õ ÀÌ»ó ÀÛµ¿ÇÏÁö ¾Ê´Â °É±î...?
+// ï¿½Ü¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù°ï¿½, ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½Ù°ï¿½, ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ûµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+// Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ü¼ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ù°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ûµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+// ï¿½ï¿½ isVisibleï¿½ï¿½ falseï¿½ï¿½ ï¿½Ç¸ï¿½ update ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½Ûµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½É±ï¿½...?

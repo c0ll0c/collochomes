@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// ¾ÏÈ£ ´Ü¼­¸¦ ÇÃ·¹ÀÌ¾î¿Í ¿¬µ¿ÇØ¼­ ¸¸µé¾î ÁÖ´Â ½ºÅ©¸³Æ®
-// ¹ÙÀÌ·¯½º ÅÂ±×¸¦ °¡Áø ÇÃ·¹ÀÌ¾îÀÇ code¸¦ °¡Á®¿Í¼­ ÇÏ³ªÇÏ³ª ³Ö¾î ÁÖ±â
-// ¿Ï·á
+// ï¿½ï¿½È£ ï¿½Ü¼ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®
+// ï¿½ï¿½ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½Â±×¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ codeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ ï¿½Ï³ï¿½ï¿½Ï³ï¿½ ï¿½Ö¾ï¿½ ï¿½Ö±ï¿½
+// ï¿½Ï·ï¿½
 
 public class CodeCluePanel : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class CodeCluePanel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Debug.Log("¹ÙÀÌ·¯½º Ã£±â");
+        //Debug.Log("ï¿½ï¿½ï¿½Ì·ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½");
 
         List<PlayerData> currentPlayersStatus = NetworkManager.instance.GetPlayersStatus();
 
@@ -34,19 +34,19 @@ public class CodeCluePanel : MonoBehaviour
 
         List<PlayerData> currentPlayersStatus = NetworkManager.instance.GetPlayersStatus();
 
-        for (int i = 0; i < currentPlayersStatus.Count; i++)                // ÇÃ·¹ÀÌ¾î ÇÑ¸í ÇÑ¸í µ¥·Á¿Í¼­ ÅÂ±×°¡ ¹ÙÀÌ·¯½ºÀÎ ÇÃ·¹ÀÌ¾îÀÇ index Ã£±â
+        for (int i = 0; i < currentPlayersStatus.Count; i++)                // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ñ¸ï¿½ ï¿½Ñ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ ï¿½Â±×°ï¿½ ï¿½ï¿½ï¿½Ì·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ index Ã£ï¿½ï¿½
         {
             if (currentPlayersStatus[i].PlayerStatus == "Virus")
             {
                 index = i;
 
-                virusCode = currentPlayersStatus[index].PlayerCode; // ÇÃ·¹ÀÌ¾î ÄÚµå ÀüÃ¼ ¹®ÀÚ¿­ °¡Á®¿À±â
+                virusCode = currentPlayersStatus[index].PlayerCode; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Úµï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-                //Debug.Log("¹ÙÀÌ·¯½º ÄÚµå: " + virusCode);
+                //Debug.Log("ï¿½ï¿½ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½Úµï¿½: " + virusCode);
 
                 for (int j = 0; j < 5; j++)
                 {
-/*                    Debug.Log("¹Ýº¹¹®");
+/*                    Debug.Log("ï¿½Ýºï¿½ï¿½ï¿½");
                     Debug.Log(virusCode[j].ToString());*/
 
                     if (virusCodeTextList[j].text == "c" + j)

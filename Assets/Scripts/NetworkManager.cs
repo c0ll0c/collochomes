@@ -94,7 +94,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("방에 참가함");
-
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.CurrentRoom.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "RoomState", "Waiting" } });
@@ -368,7 +367,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         // 방을 떠난 후 실행할 코드를 여기에 작성합니다.
         // 예를 들어 메인 화면으로 씬을 전환하거나 필요한 초기화 작업을 수행할 수 있습니다.
-
         Destroy(gameObject);
         SceneManager.LoadScene("IntroScene");
     }

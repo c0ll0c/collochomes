@@ -49,6 +49,7 @@ public class ShowCodePanel : MonoBehaviour
     {
         GameManager.instance.isAlert = false;
         CodePanelObject.SetActive(false);
+        
     }
 
     public void DoneButton()

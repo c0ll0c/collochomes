@@ -9,7 +9,6 @@ public class MainMenuUI : MonoBehaviour
     {
         Cursor.SetCursor(cursorIcon, new Vector2(cursorIcon.width / 2, cursorIcon.height / 2), CursorMode.Auto);
     }
-
     public void OnClickGameStartButton()
     {
         Debug.Log("Click");

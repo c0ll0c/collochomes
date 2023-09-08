@@ -7,9 +7,9 @@ public class HandleDetoxLayer2 : MonoBehaviour
 {
     public AudioSource HealSound;
 
-    private string playerTag = "Infect"; // Player ÅÂ±×
-    public GameObject targetObject;     // À§Ä¡¸¦ º¯°æÇÒ ´ë»ó ¿ÀºêÁ§Æ®
-    private Renderer detoxRenderer; // ÇØ´ç ¿ÀºêÁ§Æ®ÀÇ ·»´õ·¯
+    private string playerTag = "Infect"; // Player ï¿½Â±ï¿½
+    public GameObject targetObject;     // ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    private Renderer detoxRenderer; // ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     public float delayTime = 5.0f;
     private Vector3[] randomPositions = new Vector3[]
@@ -28,7 +28,7 @@ public class HandleDetoxLayer2 : MonoBehaviour
     new Vector3(9.37f, 8f, 0f),
     new Vector3(-3.33f, 6.2f, 0f),
     };
-    private PhotonView photonView;              // ´Ù¸¥ ÇÃ·¹ÀÌ¾îÇÑÅ×µµ µ¿±âÈ­
+    private PhotonView photonView;              // ï¿½Ù¸ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ï¿½×µï¿½ ï¿½ï¿½ï¿½ï¿½È­
 
     private void Start()
     {
@@ -46,24 +46,24 @@ public class HandleDetoxLayer2 : MonoBehaviour
             HealSound.Play();
 
             photonView.TransferOwnership(collision.collider.GetComponent<PhotonView>().Owner);
-            Debug.Log("ÇØµ¶!");
+            Debug.Log("ï¿½Øµï¿½!");
 
-            // ·£´ý À§Ä¡ ÈÄº¸ Áß ÇÏ³ª ¼±ÅÃ
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½Äºï¿½ ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½
             Vector3 randomPosition = randomPositions[Random.Range(0, randomPositions.Length)];
             targetObject.transform.position = randomPosition;
 
-            detoxRenderer.enabled = false; // ·»´õ·¯¸¦ ºñÈ°¼ºÈ­
-            Debug.Log("ÇØµ¶Á¦ ºñÈ°¼ºÈ­");
+            detoxRenderer.enabled = false; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
+            Debug.Log("ï¿½Øµï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­");
 
-            Invoke(nameof(ActivateDetox), delayTime); // delayTime ÀÌÈÄ¿¡ ActivateDetox ¸Þ¼­µå È£Ãâ
+            Invoke(nameof(ActivateDetox), delayTime); // delayTime ï¿½ï¿½ï¿½Ä¿ï¿½ ActivateDetox ï¿½Þ¼ï¿½ï¿½ï¿½ È£ï¿½ï¿½
 
         }
     }
 
     private void ActivateDetox()
     {
-        detoxRenderer.enabled = true; // ·»´õ·¯¸¦ È°¼ºÈ­
-        Debug.Log("ÇØµ¶Á¦ È°¼ºÈ­");
+        detoxRenderer.enabled = true; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
+        Debug.Log("ï¿½Øµï¿½ï¿½ï¿½ È°ï¿½ï¿½È­");
     }
 
 }
