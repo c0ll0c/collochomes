@@ -121,7 +121,7 @@ public class AttackController : MonoBehaviour
             if (hit.collider.name != "player trigger") return;
 
             Photon.Realtime.Player targetPlayer = hit.collider.GetComponentInParent<PhotonView>().Owner;
-
+            
             if (hit && !hit.collider.GetComponentInParent<PhotonView>().IsMine)
             {
                 attackActivated = true;
