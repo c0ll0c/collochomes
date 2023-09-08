@@ -24,9 +24,9 @@ public class AttackController : MonoBehaviour
         cam = Camera.main;
         photonView = this.GetComponentInParent<PhotonView>();
         player = photonView.gameObject;
-        infectIcon = GameObject.Find("게임 기본 UI").transform.Find("infect").gameObject;
-        attackIcon = GameObject.Find("게임 기본 UI").transform.Find("attack").gameObject;
-        clueIcon = GameObject.Find("게임 기본 UI").transform.Find("clue").gameObject;
+        infectIcon = GameObject.Find("game UI").transform.Find("infect").gameObject;
+        attackIcon = GameObject.Find("game UI").transform.Find("attack").gameObject;
+        clueIcon = GameObject.Find("game UI").transform.Find("clue").gameObject;
     }
 
     private void Update()
@@ -79,8 +79,6 @@ public class AttackController : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0) && !attackActivated)
         {
-            attackActivated = true;
-
             Vector3 mousePosition = Input.mousePosition;
             mousePosition = cam.ScreenToWorldPoint(mousePosition);
 
@@ -88,6 +86,8 @@ public class AttackController : MonoBehaviour
             Debug.Log("hit : " + hit + "hit.collider : " + hit.collider);
             if (hit && hit.collider == collision && !collision.GetComponentInParent<PhotonView>().IsMine)
             {
+                attackActivated = true;
+
                 if (collision.transform.parent.tag == "Player")
                 {
                     Debug.Log("infect : " + hit.collider.transform.parent.name);
@@ -111,8 +111,6 @@ public class AttackController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !attackActivated)
         {
-            attackActivated = true;
-
             Vector3 mousePosition = Input.mousePosition;
             mousePosition = cam.ScreenToWorldPoint(mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, transform.forward, 15f);
@@ -123,9 +121,11 @@ public class AttackController : MonoBehaviour
             if (hit.collider.name != "player trigger") return;
 
             Photon.Realtime.Player targetPlayer = hit.collider.GetComponentInParent<PhotonView>().Owner;
-            
+
             if (hit && !hit.collider.GetComponentInParent<PhotonView>().IsMine)
             {
+                attackActivated = true;
+
                 Debug.Log("attack : " + hit.collider.transform.parent.name);
                 photonView.RPC("AttackRPC", targetPlayer);
 
@@ -144,7 +144,7 @@ public class AttackController : MonoBehaviour
     private IEnumerator ResetSkillCooldown()
     {
         yield return new WaitForSeconds(skillCooldownTime);
-        attackActivated = false; // 일정 시간 후에 xSkillActivated를 false로 변경
+        attackActivated = false;
     }
 
     private IEnumerator ResetEffect(GameObject effect)

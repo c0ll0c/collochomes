@@ -30208,7 +30208,7 @@ GameObject:
   - component: {fileID: 927360429}
   - component: {fileID: 927360428}
   m_Layer: 5
-  m_Name: "\uAC8C\uC784 \uAE30\uBCF8 UI"
+  m_Name: game UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

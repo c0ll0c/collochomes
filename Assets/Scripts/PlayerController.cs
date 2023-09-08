@@ -56,8 +56,8 @@ namespace Goldmetal.UndeadSurvivor
 
         private void Start()
         {
-            VirusLoseUI = GameObject.Find("게임 기본 UI").transform.Find("VirusLose").gameObject;
-            SurvivorLoseUI = GameObject.Find("게임 기본 UI").transform.Find("PlayerLose").gameObject;
+            VirusLoseUI = GameObject.Find("game UI").transform.Find("VirusLose").gameObject;
+            SurvivorLoseUI = GameObject.Find("game UI").transform.Find("PlayerLose").gameObject;
             VirusLoseUI.SetActive(false);
             SurvivorLoseUI.SetActive(false);
         }
