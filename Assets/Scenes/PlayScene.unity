@@ -227,7 +227,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 15298973}
-  - component: {fileID: 15298974}
   m_Layer: 0
   m_Name: "\uC554\uD638 \uB2E8\uC11C"
   m_TagString: Untagged
@@ -252,24 +251,6 @@ Transform:
   - {fileID: 137112325}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &15298974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 15298972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e3eb9120c3831b4daaff9f22377a404, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  virusCodeTextList:
-  - {fileID: 1885391879}
-  - {fileID: 350810447}
-  - {fileID: 1308169815}
-  - {fileID: 1812220557}
-  - {fileID: 335413758}
 --- !u!1001 &15898338
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6588,7 +6569,7 @@ PrefabInstance:
     - target: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
       propertyPath: m_Name
-      value: "\uB2E8\uC11C_b"
+      value: clue
       objectReference: {fileID: 0}
     - target: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
@@ -6703,7 +6684,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  clueObject: {fileID: 178036824}
   buttonObject: {fileID: 1195862537}
 --- !u!1001 &196271494
 PrefabInstance:
@@ -8245,6 +8225,7 @@ GameObject:
   - component: {fileID: 257707171}
   - component: {fileID: 257707170}
   - component: {fileID: 257707172}
+  - component: {fileID: 257707173}
   m_Layer: 21
   m_Name: detoxLayer2
   m_TagString: Detox
@@ -8319,11 +8300,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 257707163}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d08078c98d29144190a411349c9ca65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  Speed: 0
 --- !u!95 &257707167
 Animator:
   serializedVersion: 5
@@ -8547,6 +8530,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &257707173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257707163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaea6d1ca12de434daf9ad2f3eaf522c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 0.7
 --- !u!1001 &258539806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9968,7 +9964,7 @@ PrefabInstance:
     - target: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
       propertyPath: m_Name
-      value: "\uB2E8\uC11C_d"
+      value: clue
       objectReference: {fileID: 0}
     - target: {fileID: 8150476868300563375, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
@@ -10063,7 +10059,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  clueObject: {fileID: 308210631}
   buttonObject: {fileID: 1654534642}
 --- !u!1 &311447788
 GameObject:
@@ -17607,7 +17602,7 @@ PrefabInstance:
     - target: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
       propertyPath: m_Name
-      value: "\uB2E8\uC11C_c"
+      value: clue
       objectReference: {fileID: 0}
     - target: {fileID: 8150476868300563375, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
@@ -17702,7 +17697,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  clueObject: {fileID: 477827259}
   buttonObject: {fileID: 1722301819}
 --- !u!1001 &479415757
 PrefabInstance:
@@ -17886,6 +17880,7 @@ GameObject:
   - component: {fileID: 484192774}
   - component: {fileID: 484192775}
   - component: {fileID: 484192776}
+  - component: {fileID: 484192777}
   m_Layer: 0
   m_Name: ClueManager
   m_TagString: Untagged
@@ -17900,7 +17895,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 484192770}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76cd6794265d9154b811088e0d1aaca6, type: 3}
   m_Name: 
@@ -17923,6 +17918,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cafdb984a189b504da12562d9b193a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  virusCodeTextList:
+  - {fileID: 574160247}
+  - {fileID: 995413686}
+  - {fileID: 473389417}
+  - {fileID: 1125887864}
+  - {fileID: 2097563258}
   playerNameTextList:
   - {fileID: 281484620}
   - {fileID: 1033604713}
@@ -18063,6 +18064,38 @@ MonoBehaviour:
   - {x: -10.9, y: -13.83, z: 0}
   - {x: -14.32, y: -4.45, z: 0}
   - {x: -2.29, y: 8.98, z: 0}
+--- !u!114 &484192777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484192770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e3eb9120c3831b4daaff9f22377a404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virusCodeTextList:
+  - {fileID: 1885391879}
+  - {fileID: 350810447}
+  - {fileID: 1308169815}
+  - {fileID: 1812220557}
+  - {fileID: 335413758}
+  playerNameTextList:
+  - {fileID: 1143546796}
+  - {fileID: 1280559020}
+  - {fileID: 1850226587}
+  - {fileID: 1480746869}
+  - {fileID: 883396441}
+  - {fileID: 1373997266}
+  playerCodeTextList:
+  - {fileID: 561969433}
+  - {fileID: 368810371}
+  - {fileID: 1232287529}
+  - {fileID: 63667668}
+  - {fileID: 1700562064}
+  - {fileID: 575133587}
 --- !u!1 &486430104
 GameObject:
   m_ObjectHideFlags: 0
@@ -22039,7 +22072,7 @@ PrefabInstance:
     - target: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
       propertyPath: m_Name
-      value: "\uB2E8\uC11C_d"
+      value: clue
       objectReference: {fileID: 0}
     - target: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
@@ -22154,7 +22187,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  clueObject: {fileID: 665510686}
   buttonObject: {fileID: 1224327961}
 --- !u!1 &666599332
 GameObject:
@@ -30815,7 +30847,7 @@ PrefabInstance:
     - target: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
       propertyPath: m_Name
-      value: "\uB2E8\uC11C1_a"
+      value: clue
       objectReference: {fileID: 0}
     - target: {fileID: 2577585254963922481, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
@@ -30910,7 +30942,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  clueObject: {fileID: 1004352433}
   buttonObject: {fileID: 897259089}
 --- !u!1 &1017205826
 GameObject:
@@ -30927,6 +30958,7 @@ GameObject:
   - component: {fileID: 1017205829}
   - component: {fileID: 1017205828}
   - component: {fileID: 1017205833}
+  - component: {fileID: 1017205834}
   m_Layer: 21
   m_Name: portal
   m_TagString: Portal
@@ -30957,7 +30989,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1017205826}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 017c8cb2a6f185f498c9b15ce384db16, type: 3}
   m_Name: 
@@ -31022,6 +31054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaea6d1ca12de434daf9ad2f3eaf522c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Speed: 0.5
 --- !u!95 &1017205831
 Animator:
   serializedVersion: 5
@@ -31191,6 +31224,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1017205834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017205826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 800f72f02c966a54185d28fbc6fbf625, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTag: Player
+  buttonObject: {fileID: 1581356534}
 --- !u!1001 &1021593422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32119,7 +32166,7 @@ PrefabInstance:
     - target: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
       propertyPath: m_Name
-      value: "\uB2E8\uC11C1_a"
+      value: clue
       objectReference: {fileID: 0}
     - target: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
@@ -32219,7 +32266,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  clueObject: {fileID: 1042257190}
   buttonObject: {fileID: 2092091155}
 --- !u!1 &1048837927
 GameObject:
@@ -49572,7 +49618,7 @@ PrefabInstance:
     - target: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
       propertyPath: m_Name
-      value: "\uB2E8\uC11C1_a"
+      value: clue
       objectReference: {fileID: 0}
     - target: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
@@ -49672,7 +49718,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  clueObject: {fileID: 1539595620}
   buttonObject: {fileID: 1764047306}
 --- !u!1 &1542808552
 GameObject:
@@ -53355,7 +53400,7 @@ PrefabInstance:
     - target: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
       propertyPath: m_Name
-      value: "\uB2E8\uC11C1_a"
+      value: clue
       objectReference: {fileID: 0}
     - target: {fileID: 2577585254963922481, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
@@ -53450,7 +53495,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  clueObject: {fileID: 1701921231}
   buttonObject: {fileID: 799202041}
 --- !u!1 &1711776359
 GameObject:
@@ -54335,6 +54379,7 @@ GameObject:
   - component: {fileID: 1743858679}
   - component: {fileID: 1743858678}
   - component: {fileID: 1743858680}
+  - component: {fileID: 1743858681}
   m_Layer: 20
   m_Name: detox
   m_TagString: Detox
@@ -54409,11 +54454,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1743858671}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d08078c98d29144190a411349c9ca65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  Speed: 0
 --- !u!95 &1743858675
 Animator:
   serializedVersion: 5
@@ -54637,6 +54684,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1743858681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743858671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaea6d1ca12de434daf9ad2f3eaf522c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 0.7
 --- !u!1001 &1749251252
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58820,7 +58880,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1927319770}
-  - component: {fileID: 1927319771}
   m_Layer: 0
   m_Name: "\uC720\uC800 \uB2E8\uC11C"
   m_TagString: Untagged
@@ -58845,32 +58904,6 @@ Transform:
   - {fileID: 2073138213}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1927319771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1927319769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e246fb28cd2f31944bbc27aecf250524, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerNameTextList:
-  - {fileID: 1143546796}
-  - {fileID: 1280559020}
-  - {fileID: 1850226587}
-  - {fileID: 1480746869}
-  - {fileID: 883396441}
-  - {fileID: 1373997266}
-  playerCodeTextList:
-  - {fileID: 561969433}
-  - {fileID: 368810371}
-  - {fileID: 1232287529}
-  - {fileID: 63667668}
-  - {fileID: 1700562064}
-  - {fileID: 575133587}
 --- !u!1 &1932110984
 GameObject:
   m_ObjectHideFlags: 0
@@ -60150,7 +60183,7 @@ PrefabInstance:
     - target: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
       propertyPath: m_Name
-      value: "\uB2E8\uC11C1_a"
+      value: clue
       objectReference: {fileID: 0}
     - target: {fileID: 2577585254963922481, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
@@ -60245,7 +60278,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  clueObject: {fileID: 1996797524}
   buttonObject: {fileID: 761143603}
 --- !u!1001 &1997595410
 PrefabInstance:
@@ -61758,7 +61790,7 @@ PrefabInstance:
     - target: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
       propertyPath: m_Name
-      value: "\uB2E8\uC11C_d"
+      value: clue
       objectReference: {fileID: 0}
     - target: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
@@ -61873,7 +61905,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  clueObject: {fileID: 2084692511}
   buttonObject: {fileID: 1167119585}
 --- !u!1 &2092091155
 GameObject:
@@ -63273,7 +63304,7 @@ PrefabInstance:
     - target: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
       propertyPath: m_Name
-      value: "\uB2E8\uC11C_a"
+      value: clue
       objectReference: {fileID: 0}
     - target: {fileID: 8150476868300563375, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
@@ -63368,7 +63399,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  clueObject: {fileID: 2143339265}
   buttonObject: {fileID: 268506014}
 --- !u!1 &2147113956
 GameObject:

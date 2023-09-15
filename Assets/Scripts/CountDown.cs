@@ -11,11 +11,11 @@ public class CountDown : MonoBehaviour
     public AudioClip LoseAudio;
     public AudioClip WinAudio;
 
-    public float totalTime = 244f; // 총 시간 (초 단위)
+    public float totalTime = 240f; // 총 시간 (초 단위)
     private float currentTime;
     public Text timerText;
     private bool IsTimeOver;
-    static private bool IsTimerRunning;       // 누군가가 탈출을 성공했으면 타이머가 멈추게 해야 함
+    static public bool IsTimerRunning;       // 누군가가 탈출을 성공했으면 타이머가 멈추게 해야 함
 
     public GameObject VirusWinPanel;
     public GameObject PlayerLosePanel;

@@ -3,34 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// ��ȣ �ܼ��� �÷��̾�� �����ؼ� ����� �ִ� ��ũ��Ʈ
-// ���̷��� �±׸� ���� �÷��̾��� code�� �����ͼ� �ϳ��ϳ� �־� �ֱ�
-// �Ϸ�
+// Ganerate Code Clue
 
-public class CodeCluePanel : MonoBehaviour
+public class GanerateClue : MonoBehaviour
 {
     public List<Text> virusCodeTextList;
+    public List<Text> playerNameTextList;
+    public List<Text> playerCodeTextList;
+
     public static string virusCode;
 
     // Start is called before the first frame update
     void Start()
     {
-        //Debug.Log("���̷��� ã��");
-
         List<PlayerData> currentPlayersStatus = NetworkManager.instance.GetPlayersStatus();
 
-        /////////////
-        for(int p = 0; p < currentPlayersStatus.Count; p++)
+        for (int i = 0; i < currentPlayersStatus.Count; i++)
         {
-            Debug.Log(currentPlayersStatus[p].PlayerStatus);
+            Debug.Log(currentPlayersStatus[i].PlayerStatus);
+
+            if (playerNameTextList[i].text == "player" + i)
+            {
+                playerNameTextList[i].text = currentPlayersStatus[i].Nickname;
+                playerCodeTextList[i].text = currentPlayersStatus[i].PlayerCode;
+            }
         }
-        /////////////
     }
 
+    // Assign to Update because the virus is not set at the start of the game
+    
     private void Update()
     {
         int index;
-        
 
         List<PlayerData> currentPlayersStatus = NetworkManager.instance.GetPlayersStatus();
 

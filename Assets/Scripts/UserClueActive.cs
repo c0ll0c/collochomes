@@ -7,7 +7,7 @@ using UnityEngine.UI;
 // �ܼ� ���� ��ư�� ������ CluePanel�� ���ü��� Ȱ��ȭ�� ��
 // �ѹ� �ܼ� ���� ��ư�� ��������, "�̹� ȹ���� �ܼ�"��� �˸��� ���� ��
 
-public class ShowClue : MonoBehaviour
+public class UserClueActive : MonoBehaviour
 {
     public AudioSource doneAudio;
 
