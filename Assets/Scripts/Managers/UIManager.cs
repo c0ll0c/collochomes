@@ -59,6 +59,7 @@ public class UIManager : MonoBehaviour
         loadingUI.SetActive(true);
         statusUI[0].SetActive(false);
         statusUI[1].SetActive(false);
+        CountDown.IsTimerRunning = false;
         StartCoroutine(setStatusUI());
 
         // UI ¿¬°á
@@ -100,6 +101,7 @@ public class UIManager : MonoBehaviour
         statusUI[0].SetActive(false);
         statusUI[1].SetActive(false);
         GameManager.instance.isAlert = false;
+        CountDown.IsTimerRunning = true;
     }
 
     public void closeAllUI()

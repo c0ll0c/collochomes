@@ -84,8 +84,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
 
         isAlert = true;     // loadingUI 중 isAlert = true
-        CountDown.IsTimerRunning = false;
-        StartCoroutine(setStatusUI());
+        
     }
 
 
