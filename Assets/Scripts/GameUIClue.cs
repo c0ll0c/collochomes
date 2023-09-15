@@ -6,7 +6,7 @@ using UnityEngine.UI;
 // 쪽지처럼 생긴 버튼 누르면 단서 모음집 창이 뜨게 하는 스크립트
 // 쪽지 버튼에 할당해 주기
 
-public class ShowClueCollection : MonoBehaviour
+public class GameUIClue : MonoBehaviour
 {
     public AudioSource audioSource;
 

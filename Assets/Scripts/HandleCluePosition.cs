@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-// 하...... 오브젝트 위치 계속 바뀌는 거 해결해야 함
-
 public class HandleCluePosition : MonoBehaviour
 {
 

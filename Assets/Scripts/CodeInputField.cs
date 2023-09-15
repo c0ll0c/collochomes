@@ -11,7 +11,7 @@ using Goldmetal.UndeadSurvivor;
 // 로컬 플레이어의 IsMineEscape = true, 원격 플레이어의 IsOtherEscape = true로 해서... IsMineEscape가 true이면 Win, IsOtherEscape가 true이면 Lose
 // 본인이 탈출했는가 / 탈출을 했는가
 
-public class ShowCodePanel : MonoBehaviour
+public class CodeInputField : MonoBehaviour
 {
     public AudioSource EscapeAudio;
 
@@ -30,13 +30,13 @@ public class ShowCodePanel : MonoBehaviour
     {
         EscapeAudio = GetComponent<AudioSource>();
 
-        SurvivorWinUI = GameObject.Find("게임 기본 UI").transform.Find("PlayerWin").gameObject;
+        SurvivorWinUI = GameObject.Find("game UI").transform.Find("PlayerWin").gameObject;
         SurvivorWinUI.SetActive(false);
     }
 
     private void Update()
     {
-        correctCode = CodeCluePanel.virusCode;
+        correctCode = GanerateClue.virusCode;
     }
 
     public void ShowPanel()                  // 단서 보기 버튼을 누르면 판넬이 보임

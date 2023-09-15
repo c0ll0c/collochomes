@@ -6,7 +6,7 @@ using UnityEngine.UI;
 // �ܼ� ���� ��ư�� ������ �� ��ȣ �ܼ��� ���̴� ��
 // �ܼ� ȹ���� ����
 
-public class ShowCodeClue : MonoBehaviour
+public class CodeClueActive : MonoBehaviour
 {
     public AudioSource doneAudio;
 
@@ -26,8 +26,9 @@ public class ShowCodeClue : MonoBehaviour
             IsClicked = true;                          
             GameManager.instance.isAlert = true;
             CluePanelObject.SetActive(true);
-            
-            CodeClue.count++;                           // �ѹ� �������� �����Ǹ�, �� ��°�� �߰��� �ܼ����� �˷� ��� ��
+
+            // CodeClue.count++;                           // �ѹ� �������� �����Ǹ�, �� ��°�� �߰��� �ܼ����� �˷� ��� ��
+            GotClue.count++;                           // �ѹ� �������� �����Ǹ�, �� ��°�� �߰��� �ܼ����� �˷� ��� ��
             code = Code.text;
         }
 
