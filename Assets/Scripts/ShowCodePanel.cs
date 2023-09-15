@@ -30,7 +30,7 @@ public class ShowCodePanel : MonoBehaviour
     {
         EscapeAudio = GetComponent<AudioSource>();
 
-        SurvivorWinUI = GameObject.Find("게임 기본 UI").transform.Find("PlayerWin").gameObject;
+        SurvivorWinUI = GameObject.Find("game UI").transform.Find("PlayerWin").gameObject;
         SurvivorWinUI.SetActive(false);
     }
 

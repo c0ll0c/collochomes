@@ -69,7 +69,8 @@ public class HandleDetox : MonoBehaviour
 
             photonView.TransferOwnership(collision.collider.GetComponent<PhotonView>().Owner);
 
-            Debug.Log("�ص�!");
+            Debug.Log("Detox");
+            StartCoroutine(detoxStatus());
 
             // ���� ��ġ �ĺ� �� �ϳ� ����
             Vector3 randomPosition = randomPositions[Random.Range(0, randomPositions.Length)];
@@ -87,5 +88,11 @@ public class HandleDetox : MonoBehaviour
     {
         detoxRenderer.enabled = true; // �������� Ȱ��ȭ
         Debug.Log("�ص��� Ȱ��ȭ");
+    }
+
+    private IEnumerator detoxStatus()   // 해독 지연
+    {
+        yield return new WaitForSeconds(1.0f);
+        NetworkManager.instance.SetPlayerStatus("Player");
     }
 }

@@ -13,12 +13,14 @@ namespace Cainos.PixelArtTopDown_Basic
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            /*
             if (other.gameObject.layer == 3)
             {
                 Debug.Log("player & stair" + sortingLayer);
                 other.gameObject.transform.Find("attack range").gameObject.layer = LayerMask.NameToLayer(layer);
                 other.gameObject.transform.Find("attack range").gameObject.GetComponent<SpriteRenderer>().sortingLayerName = sortingLayer;
             }
+            */
         }
         private void OnTriggerExit2D(Collider2D other)
         {

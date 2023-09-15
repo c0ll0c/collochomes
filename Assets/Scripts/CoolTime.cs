@@ -16,7 +16,7 @@ public class CoolTime : MonoBehaviour
         leftTime = 0;
         if (button)
             button.enabled = true;
-        isClicked = true;
+        isClicked = false;
     }
     // Update is called once per frame
     void Update()
@@ -30,13 +30,27 @@ public class CoolTime : MonoBehaviour
                     leftTime = 0;                           // 쿨타임 다 찼다고 표시
                     if (button)
                         button.enabled = true;
-                    isClicked = true;                       //
+                    isClicked = false;                       //
                 }
 
                 float ratio = 1.0f - (leftTime / coolTime);
                 if (image)
                     image.fillAmount = ratio;
             }
+    }
+
+    private void OnEnable()
+    {
+        leftTime = 0;
+        if (button)
+            button.enabled = true;
+        isClicked = false;
+        if (image)
+            image.fillAmount = 1.0f;
+
+        if (GameManager.instance == null || GameManager.instance.gamePlayer == null) return;
+        GameManager.instance.gamePlayer.transform.Find("player trigger").GetComponent<AttackController>().attackActivated = false;
+        Debug.Log(GameManager.instance.gamePlayer.transform.Find("player trigger").GetComponent<AttackController>().attackActivated);
     }
 
     public void StartCoolTime()                         // 쿨타임 아직 안 찼으면 공격 무효

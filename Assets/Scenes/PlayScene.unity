@@ -26392,6 +26392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 822119774}
   - component: {fileID: 822119773}
+  - component: {fileID: 822119775}
   m_Layer: 0
   m_Name: '@Managers'
   m_TagString: Untagged
@@ -26416,15 +26417,6 @@ MonoBehaviour:
   detox:
   - {fileID: 1743858671}
   - {fileID: 257707163}
-  loadingUI: {fileID: 1378099384}
-  statusUI:
-  - {fileID: 348239659}
-  - {fileID: 923416008}
-  gameUI:
-  - {fileID: 654008752}
-  - {fileID: 669408527}
-  - {fileID: 419383930}
-  - {fileID: 414511704}
 --- !u!4 &822119774
 Transform:
   m_ObjectHideFlags: 0
@@ -26440,6 +26432,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &822119775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822119772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abe5628b4d27356418c37672eaa38ef1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingUI: {fileID: 1378099384}
+  statusUI:
+  - {fileID: 348239659}
+  - {fileID: 923416008}
+  gameUI:
+  - {fileID: 654008752}
+  - {fileID: 669408527}
+  - {fileID: 419383930}
+  - {fileID: 414511704}
 --- !u!1001 &822909573
 PrefabInstance:
   m_ObjectHideFlags: 0
