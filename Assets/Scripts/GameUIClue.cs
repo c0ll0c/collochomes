@@ -16,7 +16,6 @@ public class GameUIClue : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         CollectionPanel.SetActive(false);
     }
 

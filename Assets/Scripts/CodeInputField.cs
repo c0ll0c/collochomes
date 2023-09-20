@@ -39,6 +39,15 @@ public class CodeInputField : MonoBehaviour
         correctCode = GanerateClue.virusCode;
     }
 
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Infect") && other.GetComponent<PhotonView>().IsMine)
+        {
+            CodePanelObject.SetActive(false);
+            GameManager.instance.isAlert = false;
+        }
+    }
+
     public void ShowPanel()                  // 단서 보기 버튼을 누르면 판넬이 보임
     {
         GameManager.instance.isAlert = true;
@@ -49,7 +58,7 @@ public class CodeInputField : MonoBehaviour
     {
         GameManager.instance.isAlert = false;
         CodePanelObject.SetActive(false);
-        
+        GameManager.instance.isAlert = false;
     }
 
     public void DoneButton()

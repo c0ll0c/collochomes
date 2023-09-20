@@ -34,11 +34,11 @@ public class GotClue : MonoBehaviour
     {
         List<PlayerData> currentPlayersStatus = NetworkManager.instance.GetPlayersStatus();
 
-        if (UserClueActive.username != null)         // 지금 획득된 단서의 UserName이 몇 번째 인덱스에 존재하는지 찾아야 함
+        if (CluePanelActive.username != null)         // 지금 획득된 단서의 UserName이 몇 번째 인덱스에 존재하는지 찾아야 함
         {
             for(int i = 0; i < currentPlayersStatus.Count; i++)
             {
-                if (playerNameTextList[i].text == UserClueActive.username)
+                if (playerNameTextList[i].text == CluePanelActive.username)
                 {
                     index = i;
 
@@ -46,7 +46,7 @@ public class GotClue : MonoBehaviour
                     {
                         if (index == j)
                         {
-                            playerCodeTextList[j].text = UserClueActive.usercode;
+                            playerCodeTextList[j].text = CluePanelActive.usercode;
                         }
                     }
 
@@ -54,12 +54,12 @@ public class GotClue : MonoBehaviour
             }
         }
 
-        if (CodeClueActive.code != null)         // a 단서가 이미 획득이 되었다면, 할당해 주기
+        if (CluePanelActive.code != null)         // a 단서가 이미 획득이 되었다면, 할당해 주기
         {
             for (int i = 0; i < 5; i++)
             {
                 if (count == i + 1)
-                    virusCodeTextList[i].text = CodeClueActive.code;
+                    virusCodeTextList[i].text = CluePanelActive.code;
             }
         }
     }
