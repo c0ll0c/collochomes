@@ -77,11 +77,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         myInfo = NetworkManager.instance.GetMyStatus();
         playersInfo = NetworkManager.instance.GetPlayersStatus();
 
+        /*
         // 아이템 설정
         foreach (GameObject d in detox)
         {
             d.SetActive(false);
         }
+        */
 
         isAlert = true;     // loadingUI 중 isAlert = true
         
@@ -92,6 +94,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         myInfo = NetworkManager.instance.GetMyStatus();
 
+        /*
         // detox 활성화
         if (myInfo.PlayerStatus == "Infect")
         {
@@ -107,7 +110,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 d.SetActive(false);
             }
         }
-
+        */
         // player object와 연동 (isAlert, ending)
         if (gamePlayer == null) return;
         gamePlayer.GetComponent<PlayerController>().isAlert = isAlert; 

@@ -64,6 +64,8 @@ namespace Goldmetal.UndeadSurvivor
             // 플레이어 정보 네트워크와 연결
             myInfo = NetworkManager.instance.GetMyStatus();
             Speed = myInfo.Speed;
+
+
         }
 
         void FixedUpdate()
@@ -107,6 +109,7 @@ namespace Goldmetal.UndeadSurvivor
         // detox func
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            /*
             if (collision.collider.CompareTag("Detox") && photonView.gameObject.CompareTag("Infect") && photonView.IsMine)
             {
                 GameObject effect = transform.Find("effect").gameObject;
@@ -116,6 +119,7 @@ namespace Goldmetal.UndeadSurvivor
 
                 //this.transform.Find("player trigger").GetComponent<AttackController>().attackActivated = false;
             }
+            */
         }
 
         private IEnumerator ResetEffect(GameObject effect)
