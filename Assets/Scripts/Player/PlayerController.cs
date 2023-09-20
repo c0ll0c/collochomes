@@ -32,7 +32,7 @@ namespace Goldmetal.UndeadSurvivor
         PhotonView photonView;
         PlayerData myInfo;
         List<PlayerData> playersInfo = new List<PlayerData>();
-        
+
 
         void Awake()
         {       

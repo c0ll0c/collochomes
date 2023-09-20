@@ -14,6 +14,8 @@ public class AttackController : MonoBehaviour
 
     private PhotonView photonView;
     private GameObject player;
+
+    static public bool IsAudioPlay = false;
     
     [SerializeField] private RuntimeAnimatorController[] effectAni;
 
@@ -31,7 +33,13 @@ public class AttackController : MonoBehaviour
 
         if (player.tag == "Player")
         {
+            CollectionPanelInavtive.IsInfected = false;              
             OnAttackPlayer();
+        }
+
+        if (player.tag == "Infect")
+        {
+            CollectionPanelInavtive.IsInfected = true;
         }
     }
 

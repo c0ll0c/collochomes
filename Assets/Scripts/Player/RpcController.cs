@@ -7,6 +7,9 @@ using Goldmetal.UndeadSurvivor;
 public class RpcController : MonoBehaviour
 {
     PlayerController player;
+    public AudioClip InfectAudio;
+    public AudioClip AttackAudio;
+    public AudioSource audioSource;
 
     private void Start()
     {
@@ -14,15 +17,19 @@ public class RpcController : MonoBehaviour
     }
 
     [PunRPC]
-    private void InfectRPC()    // 감염당하는 RPC
+    private void InfectRPC()    // 감염당하는 RPC + 감염당하는 오디오 (22)
     {
         NetworkManager.instance.SetPlayerStatus("Infect");
+        audioSource.clip = InfectAudio;
+        audioSource.Play();
     }
 
     [PunRPC]
-    private void AttackRPC()    // 공격당하는 RPC (speed 감소)
+    private void AttackRPC()    // 공격당하는 RPC (speed 감소) + 공격당하는 오디오 (33)
     {
         NetworkManager.instance.SetPlayerSpeed(0);
+        audioSource.clip = AttackAudio;
+        audioSource.Play();
     }
 
     [PunRPC]
