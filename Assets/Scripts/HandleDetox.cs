@@ -57,7 +57,6 @@ public class HandleDetox : MonoBehaviour
     new Vector3(10.23f, 13.9f, 0f),
     };
     private PhotonView photonView;              // �ٸ� �÷��̾����׵� ����ȭ
-
     private void Start()
     {
         detoxRenderer = GetComponent<Renderer>();
@@ -116,19 +115,14 @@ public class HandleDetox : MonoBehaviour
 
             /*
             HealSound.Play();
-
             //photonView.TransferOwnership(collision.collider.GetComponent<PhotonView>().Owner);
-
             Debug.Log("Detox");
             StartCoroutine(detoxStatus());
-
             
             Vector3 randomPosition = randomPositions[Random.Range(0, randomPositions.Length)];
             targetObject.transform.position = randomPosition;
-
             detoxRenderer.enabled = false; // �������� ��Ȱ��ȭ
             Debug.Log("�ص��� ��Ȱ��ȭ");
-
             Invoke(nameof(ActivateDetox), delayTime); // delayTime ���Ŀ� ActivateDetox �޼��� ȣ��
             */
         }

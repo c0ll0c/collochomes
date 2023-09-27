@@ -596,7 +596,7 @@ SpriteRenderer:
   m_SortingLayerID: -1869315837
   m_SortingLayer: 1
   m_SortingOrder: 2
-  m_Sprite: {fileID: -150523396, guid: ec558dae2a7780c43a511a19f5530b71, type: 3}
+  m_Sprite: {fileID: 1450094454, guid: 8f7a60065e3984c489b9c4d41bc3dc4e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -721,7 +721,9 @@ MonoBehaviour:
   isAlert: 0
   ending: 0
   playername: {fileID: 411785637205252836}
-  effectAni: {fileID: 9100000, guid: 05dc0e6df5031d842a340fa3de1a28fd, type: 2}
+  effectAni:
+  - {fileID: 9100000, guid: 05dc0e6df5031d842a340fa3de1a28fd, type: 2}
+  - {fileID: 9100000, guid: 812177da4e1e56a4c81669c6621a04f0, type: 2}
 --- !u!114 &6085083833477866506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1164,7 +1166,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: -1748604777
+  m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &1665854609694397039

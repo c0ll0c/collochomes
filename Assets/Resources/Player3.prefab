@@ -585,8 +585,11 @@ MonoBehaviour:
   Speed: 0
   isAlert: 0
   ending: 0
+  IsVaccinated: 0
   playername: {fileID: 8959718640051837783}
-  effectAni: {fileID: 9100000, guid: 05dc0e6df5031d842a340fa3de1a28fd, type: 2}
+  effectAni:
+  - {fileID: 9100000, guid: 05dc0e6df5031d842a340fa3de1a28fd, type: 2}
+  - {fileID: 9100000, guid: 812177da4e1e56a4c81669c6621a04f0, type: 2}
 --- !u!114 &6085083833477866506
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -24,11 +24,12 @@ public class AttackController : MonoBehaviour
         cam = Camera.main;
         photonView = this.GetComponentInParent<PhotonView>();
         player = photonView.gameObject;
-        
     }
 
     private void Update()
     {
+        List<PlayerData> currentPlayersStatus = NetworkManager.instance.GetPlayersStatus();
+
         if (!photonView.IsMine || !PhotonNetwork.IsConnected) return;
 
         if (player.tag == "Player")
@@ -37,7 +38,7 @@ public class AttackController : MonoBehaviour
             OnAttackPlayer();
         }
 
-        if (player.tag == "Infect")
+        if (player.tag == "Infect")                 // 지금 켜져 있는 판넬들 다 꺼지고, IsVaccinated도 무효화
         {
             CollectionPanelInavtive.IsInfected = true;
         }
@@ -83,15 +84,16 @@ public class AttackController : MonoBehaviour
             {
                 attackActivated = true;     // 쿨타임 시작
 
-                if (collision.transform.parent.tag == "Player")
+                if (collision.transform.parent.tag == "Player")             // 클릭한 오브젝트의 태그가 플레이어면
                 {
+                    Photon.Realtime.Player targetPlayer = collision.GetComponentInParent<PhotonView>().Owner;
+                    Debug.Log((string)targetPlayer.CustomProperties["Nickname"] + ": 공격 상대");
+
+                    StartCoroutine(VaccinatedOrNot(targetPlayer));          // 백신 접종이 됐냐 안 됐냐
+
                     Debug.Log("infect : " + hit.collider.transform.parent.name);
 
-                    // 감염
-                    Photon.Realtime.Player targetPlayer = collision.GetComponentInParent<PhotonView>().Owner;
-                    StartCoroutine(InfectSkillDelay(targetPlayer));     
-
-                    // 효과
+                    // 효과           // 백신 접종돼 있어도 효과는 나게
                     GameObject effect = collision.transform.parent.transform.Find("effect").gameObject;
                     effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[0];
                     effect.SetActive(true);
@@ -101,6 +103,27 @@ public class AttackController : MonoBehaviour
                 UIManager.instance.startCoolTime();
                 StartCoroutine(ResetSkillCooldown());   // 15초 뒤 쿨타임 초기화
             }
+        }
+    }
+
+    private IEnumerator VaccinatedOrNot(Photon.Realtime.Player targetPlayer)
+    {
+        yield return new WaitForSeconds(2.0f);
+
+        if (targetPlayer.CustomProperties["Vaccinated"] == null)            // 맨 처음에 정의가 안 됨, 왜??
+        {
+            Debug.Log("Virus: 감염");
+            StartCoroutine(InfectSkillDelay(targetPlayer));
+        }
+        else if ((bool)targetPlayer.CustomProperties["Vaccinated"])              // 상대 플레이어가 백신 접종이 됐으면...
+        {
+            Debug.Log("Virus: 백신 효과 해제");
+            StartCoroutine(UnVaccinatedDelay(targetPlayer));                       // "상대 플레이어"가 백신 접종돼 있고, 감염 공격을 받았으면 백신 효과 해제
+        }
+        else                        // "상대 플레이어"가 백신 접종 X -> 감염 -> 접종 O(1초도 안 걸림)이면... 
+        {
+            Debug.Log("Virus: 감염");
+            StartCoroutine(InfectSkillDelay(targetPlayer));
         }
     }
 
@@ -157,6 +180,17 @@ public class AttackController : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         photonView.RPC("InfectRPC", targetPlayer);
+        if (targetPlayer.CustomProperties.ContainsKey("Vaccinated"))              // 백신 접종 유무가 정의가 된 상태이고 (한번 이상 백신 해제)
+        {
+            if ((bool)targetPlayer.CustomProperties["Vaccinated"])              // 상대 플레이어가 백신 접종이 됐으면
+                photonView.RPC("UnvaccineRPC", targetPlayer);
+        }
+    }
+
+    private IEnumerator UnVaccinatedDelay(Photon.Realtime.Player targetPlayer)   // 백신 해제 연기
+    {
+        yield return new WaitForSeconds(5.0f);
+        photonView.RPC("UnvaccineRPC", targetPlayer);
     }
 
     private IEnumerator ResetAttackCooldown(Photon.Realtime.Player targetPlayer)    // 공격 초기화

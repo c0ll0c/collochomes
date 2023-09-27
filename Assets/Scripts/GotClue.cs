@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 // 단서 모음집에 유저 이름 보여주기
 // 유저코드 단서를 획득했다면, 해당 유저에 맞는 코드 보여주기
-// 완성!
 
 public class GotClue : MonoBehaviour
 {

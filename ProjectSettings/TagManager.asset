@@ -19,7 +19,7 @@ TagManager:
   - Player
   - Water
   - UI
-  - 
+  - Sky
   - 
   - 
   - 
@@ -60,4 +60,7 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 2546362519
+    locked: 0
+  - name: Sky
+    uniqueID: 3786780905
     locked: 0

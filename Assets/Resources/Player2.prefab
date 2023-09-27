@@ -613,7 +613,7 @@ SpriteRenderer:
   m_SortingLayerID: -1869315837
   m_SortingLayer: 1
   m_SortingOrder: 2
-  m_Sprite: {fileID: -1442216141, guid: 16bf4fab06a05b343b8e0d9839e69097, type: 3}
+  m_Sprite: {fileID: -150523396, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -737,8 +737,11 @@ MonoBehaviour:
   Speed: 0
   isAlert: 0
   ending: 0
+  IsVaccinated: 0
   playername: {fileID: 3229316466929760041}
-  effectAni: {fileID: 9100000, guid: 05dc0e6df5031d842a340fa3de1a28fd, type: 2}
+  effectAni:
+  - {fileID: 9100000, guid: 05dc0e6df5031d842a340fa3de1a28fd, type: 2}
+  - {fileID: 9100000, guid: 812177da4e1e56a4c81669c6621a04f0, type: 2}
 --- !u!114 &6085083833477866506
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -23,8 +23,10 @@ namespace Goldmetal.UndeadSurvivor
         public float Speed;
         public bool isAlert = false;
         public bool ending = false;
+        public bool IsVaccinated;
+
         [SerializeField] TextMeshProUGUI playername;
-        [SerializeField] RuntimeAnimatorController effectAni;
+        [SerializeField] RuntimeAnimatorController[] effectAni;           // 본인한테만 보임... 흠... 디톡스 애니메이션이랑 비슷... 음으믕ㅁ음ㅇ으
 
         Rigidbody2D rigid;
         SpriteRenderer spriter;
@@ -32,6 +34,7 @@ namespace Goldmetal.UndeadSurvivor
         PhotonView photonView;
         PlayerData myInfo;
         List<PlayerData> playersInfo = new List<PlayerData>();
+        private GameObject player;
 
 
         void Awake()
@@ -54,7 +57,7 @@ namespace Goldmetal.UndeadSurvivor
 
         private void Start()
         {
-            
+            player = photonView.gameObject;
         }
 
         void Update()
@@ -64,8 +67,23 @@ namespace Goldmetal.UndeadSurvivor
             // 플레이어 정보 네트워크와 연결
             myInfo = NetworkManager.instance.GetMyStatus();
             Speed = myInfo.Speed;
+            IsVaccinated = myInfo.Vaccinated;
 
+            if (IsVaccinated && player.tag == "Player")             // 백신 접종되었으면 애니메이션 가동
+            {
+                // Debug.Log("Player: 백신 접종");
+                GameObject effect = transform.Find("effect").gameObject;
+                effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[1];
+                effect.SetActive(true);
+            }
 
+            else if (!IsVaccinated)       // 접종 안 돼 있거나 감염되면 애니메이션 X
+            {
+                // Debug.Log("Player: 백신 접종 해제");
+                GameObject effect = transform.Find("effect").gameObject;
+                effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[1];
+                effect.SetActive(false);
+            }
         }
 
         void FixedUpdate()
@@ -132,7 +150,6 @@ namespace Goldmetal.UndeadSurvivor
         {
             //inputVec = value.Get<Vector2>();
         }
-
 
         [PunRPC]
         void FlipX(float axis)  // 플레이어 이동 시 바라보는 방향 동기화

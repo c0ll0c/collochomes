@@ -38,4 +38,9 @@ public class RpcController : MonoBehaviour
         NetworkManager.instance.SetPlayerSpeed(3);
     }
 
+    [PunRPC]
+    private void UnvaccineRPC()   // 백신 해제
+    {
+        NetworkManager.instance.SetVaccinated(false);
+    }
 }
