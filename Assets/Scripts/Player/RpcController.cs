@@ -17,13 +17,13 @@ public class RpcController : MonoBehaviour
     }
 
     [PunRPC]
-    private void InfectRPC()    // °¨¿°´çÇÏ´Â RPC + °¨¿°´çÇÏ´Â ¿Àµð¿À (22)
+    private void InfectRPC()    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ RPC + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ (22)
     {
         NetworkManager.instance.SetPlayerStatus("Infect");
         audioSource.clip = InfectAudio;
         audioSource.Play();
 
-        // È¿°ú
+        // È¿ï¿½ï¿½
         GameObject effect = GameManager.instance.gamePlayer.transform.Find("effect").gameObject;
         Debug.Log(effect);
         effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[0];
@@ -33,13 +33,13 @@ public class RpcController : MonoBehaviour
     }
 
     [PunRPC]
-    private void AttackRPC()    // °ø°Ý´çÇÏ´Â RPC (speed °¨¼Ò) + °ø°Ý´çÇÏ´Â ¿Àµð¿À (33)
+    private void AttackRPC()    // ï¿½ï¿½ï¿½Ý´ï¿½ï¿½Ï´ï¿½ RPC (speed ï¿½ï¿½ï¿½ï¿½) + ï¿½ï¿½ï¿½Ý´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ (33)
     {
         NetworkManager.instance.SetPlayerSpeed(0);
         audioSource.clip = AttackAudio;
         audioSource.Play();
 
-        // È¿°ú
+        // È¿ï¿½ï¿½
         GameObject effect = GameManager.instance.gamePlayer.transform.Find("effect").gameObject;
         Debug.Log(effect);
         effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[1];
@@ -49,15 +49,20 @@ public class RpcController : MonoBehaviour
     }
 
     [PunRPC]
-    private void ResetAttackRPC()   // °ø°ÝÇ®¸®´Â RPC (speed ÃÊ±âÈ­)
+    private void ResetAttackRPC()   // ï¿½ï¿½ï¿½ï¿½Ç®ï¿½ï¿½ï¿½ï¿½ RPC (speed ï¿½Ê±ï¿½È­)
     {
         NetworkManager.instance.SetPlayerSpeed(3);
     }
 
-    private IEnumerator ResetEffect(GameObject effect)      // È¿°ú ¾Ö´Ï¸ÞÀÌ¼Ç ÃÊ±âÈ­
+    private IEnumerator ResetEffect(GameObject effect)      // È¿ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½Ê±ï¿½È­
     {
         yield return new WaitForSeconds(1.0f);
         effect.SetActive(false);
     }
 
+    [PunRPC]
+    private void UnvaccineRPC()   // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    {
+        NetworkManager.instance.SetVaccinated(false);
+    }
 }

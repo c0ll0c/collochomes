@@ -7,7 +7,9 @@ using Photon.Pun;
 public class ButtonActive : MonoBehaviour
 {
     public string playerTag = "Player";  // Player tag
+    public string virusTag = "Virus";  // Player tag
     public GameObject buttonObject;   // clueButton, codeButton
+    public GameObject hiddenButton;   // hiddenButton to Virus
     private Rigidbody2D rb;
 
     private void Start()
@@ -16,6 +18,7 @@ public class ButtonActive : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Static; // 초기에 Rigidbody2D를 Static으로 설정
 
         buttonObject.SetActive(false);
+        hiddenButton.SetActive(false);
     }
 
     ///  clue
@@ -37,12 +40,20 @@ public class ButtonActive : MonoBehaviour
             buttonObject.SetActive(true);
             // rb.bodyType = RigidbodyType2D.Dynamic;
         }
+        
+        if (collision.collider.CompareTag(virusTag) && collision.collider.GetComponent<PhotonView>().IsMine)
+        {
+            Debug.Log("clue collision : " + collision.collider.GetComponent<PhotonView>().Owner.NickName);
+            hiddenButton.SetActive(true);
+            // rb.bodyType = RigidbodyType2D.Dynamic;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         {
             buttonObject.SetActive(false);
+            hiddenButton.SetActive(false);
             // rb.bodyType = RigidbodyType2D.Static;
         }
     }

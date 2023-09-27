@@ -139,6 +139,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log(properties.ToString());
 
     }
+    
+    public void SetVaccinated(bool Vaccinated)
+    {
+        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+        properties.Add("Vaccinated", Vaccinated);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
+    }
 
     public void SetPlayerSpeed(float Speed)
     {
@@ -291,6 +298,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                         playerData.PlayerCode = "00000"; // 기본값 설정
                     }
 
+                    if (player.CustomProperties != null && player.CustomProperties.ContainsKey("Vaccinated"))
+                    {
+                        playerData.Vaccinated = (bool)player.CustomProperties["Vaccinated"];
+                    }
+                    else
+                    {
+                        playerData.Vaccinated = false; // 기본값 설정
+                    }
+
 
                     playersStatus.Add(playerData);
                 }
@@ -350,6 +366,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             myData.PlayerCode = "000AA"; // 기본값 설정
         }
 
+        if (localPlayer.CustomProperties.ContainsKey("Vaccinated"))
+        {
+            myData.Vaccinated = (bool)localPlayer.CustomProperties["Vaccinated"];
+        }
+        else
+        {
+            myData.Vaccinated = false; // 기본값 설정
+        }
+
 
         return myData;
     }
@@ -386,4 +411,5 @@ public class PlayerData
     public string PlayerStatus { get; set; }
     public float Speed { get; set; }
     public string PlayerCode { get; set; }
+    public bool Vaccinated { get; set; }
 }

@@ -17,18 +17,22 @@ using Unity.VisualScripting;
 
     public AudioSource WalkingSound;
 
-    public Vector2 inputVec;
-    public float Speed;
-    public bool isAlert = false;
-    public bool ending = false;
-    [SerializeField] TextMeshProUGUI playername;
+        public Vector2 inputVec;
+        public float Speed;
+        public bool isAlert = false;
+        public bool ending = false;
+        public bool IsVaccinated;
 
-    Rigidbody2D rigid;
-    SpriteRenderer spriter;
-    Animator anim;
-    PhotonView photonView;
-    PlayerData myInfo;
-    List<PlayerData> playersInfo = new List<PlayerData>();
+        [SerializeField] TextMeshProUGUI playername;
+        [SerializeField] RuntimeAnimatorController[] effectAni;           // 본인한테만 보임... 흠... 디톡스 애니메이션이랑 비슷... 음으믕ㅁ음ㅇ으
+
+        Rigidbody2D rigid;
+        SpriteRenderer spriter;
+        Animator anim;
+        PhotonView photonView;
+        PlayerData myInfo;
+        List<PlayerData> playersInfo = new List<PlayerData>();
+        private GameObject player;
 
     void Awake()
     {       
@@ -45,9 +49,10 @@ using Unity.VisualScripting;
             Camera cam = Camera.main;
             cam.transform.SetParent(transform);
             cam.transform.localPosition = new Vector3(0f, 0f, -5f);
+            player = photonView.gameObject;
         }
     }
-
+    
     private void Start()
     {
             
@@ -60,7 +65,23 @@ using Unity.VisualScripting;
         // 플레이어 정보 네트워크와 연결
         myInfo = NetworkManager.instance.GetMyStatus();
         Speed = myInfo.Speed;
+        IsVaccinated = myInfo.Vaccinated;
 
+        if (IsVaccinated && player.tag == "Player")             // 백신 접종되었으면 애니메이션 가동
+        {
+            // Debug.Log("Player: 백신 접종");
+            GameObject effect = transform.Find("effect").gameObject;
+            effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[1];
+            effect.SetActive(true);
+        }
+
+        else if (!IsVaccinated)       // 접종 안 돼 있거나 감염되면 애니메이션 X
+        {
+            // Debug.Log("Player: 백신 접종 해제");
+            GameObject effect = transform.Find("effect").gameObject;
+            effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[1];
+            effect.SetActive(false);
+        }        
 
     }
 
