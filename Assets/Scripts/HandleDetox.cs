@@ -8,14 +8,13 @@ public class HandleDetox : MonoBehaviour
 {
     public AudioSource HealSound;
 
-    public GameObject targetObject;     // ��ġ�� ������ ��� ������Ʈ
-    private Renderer detoxRenderer; // �ش� ������Ʈ�� ������
+    //public GameObject targetObject;     
     [SerializeField] Image image;
     [SerializeField] Image timer;
 
     //public float delayTime = 5.0f;
     private bool detoxActivated = true;
-    private string entry = null;
+    private GameObject entry = null;
     private float leftTime = 3.0f;
 
     private Vector3[] randomPositions = new Vector3[]
@@ -56,16 +55,18 @@ public class HandleDetox : MonoBehaviour
     new Vector3(-3.17f, 14.14f, 0f),
     new Vector3(10.23f, 13.9f, 0f),
     };
-    private PhotonView photonView;              // �ٸ� �÷��̾����׵� ����ȭ
+
+    private PhotonView photonView;
+    private RuntimeAnimatorController anim;
 
     private void Start()
     {
-        detoxRenderer = GetComponent<Renderer>();
         timer.enabled = false;
         image.enabled = false;
         Vector3 randomPosition = randomPositions[Random.Range(0, randomPositions.Length)];
-        targetObject.transform.position = randomPosition;
+        transform.position = randomPosition;
         photonView = GetComponent<PhotonView>();
+        anim = GetComponent<Animator>().runtimeAnimatorController;
     }
 
     private void Update()
@@ -81,9 +82,10 @@ public class HandleDetox : MonoBehaviour
                     image.enabled = false;
                     timer.enabled = false;
                     detoxActivated = false;
+                    gameObject.GetComponent<Animator>().runtimeAnimatorController = null;
                     StartCoroutine(ResetDetoxCoolDown());
 
-                    if (entry == "Infect")
+                    if (entry.tag == "Infect" && entry.GetPhotonView().IsMine)
                     {
                         HealSound.Play();
                         NetworkManager.instance.SetPlayerStatus("Player");
@@ -97,59 +99,28 @@ public class HandleDetox : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.collider.tag == "Virus" && detoxActivated)
+        if ((collision.gameObject.tag == "Virus" || collision.gameObject.tag == "Infect") && detoxActivated)
         {
-            entry = "Virus";
+            entry = collision.gameObject;
             leftTime = 3.0f;
             timer.enabled = true;
             image.enabled = true;
-        }
-        if (collision.collider.tag == "Infect" && detoxActivated)
-        {
-            entry = "Infect";
-            leftTime = 3.0f;
-            timer.enabled = true;
-            image.enabled = true;
-
-
-            /*
-            HealSound.Play();
-
-            //photonView.TransferOwnership(collision.collider.GetComponent<PhotonView>().Owner);
-
-            Debug.Log("Detox");
-            StartCoroutine(detoxStatus());
-
-            
-            Vector3 randomPosition = randomPositions[Random.Range(0, randomPositions.Length)];
-            targetObject.transform.position = randomPosition;
-
-            detoxRenderer.enabled = false; // �������� ��Ȱ��ȭ
-            Debug.Log("�ص��� ��Ȱ��ȭ");
-
-            Invoke(nameof(ActivateDetox), delayTime); // delayTime ���Ŀ� ActivateDetox �޼��� ȣ��
-            */
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         entry = null;
         timer.enabled = false;
         image.enabled = false;
     }
-    /*
-    private void ActivateDetox()
-    {
-        detoxRenderer.enabled = true; 
-    }
-    */
 
-    private IEnumerator ResetDetoxCoolDown()   // 해독 지연
+    private IEnumerator ResetDetoxCoolDown()   // 해독 비활성화
     {
         yield return new WaitForSeconds(15.0f);
         detoxActivated = true;
+        gameObject.GetComponent<Animator>().runtimeAnimatorController = anim;
     }
 }

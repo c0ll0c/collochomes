@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Pun.Demo.SlotRacer;
-using Goldmetal.UndeadSurvivor;
 
 // 탈출 -> 로컬 플레이어: 승 / 원격 플레이어 : 패
 // 로컬 플레이어의 IsMineEscape = true, 원격 플레이어의 IsOtherEscape = true로 해서... IsMineEscape가 true이면 Win, IsOtherEscape가 true이면 Lose

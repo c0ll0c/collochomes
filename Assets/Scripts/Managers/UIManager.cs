@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Goldmetal.UndeadSurvivor;
 
 public class UIManager : MonoBehaviour
 {

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Goldmetal.UndeadSurvivor;
 
 public class RpcController : MonoBehaviour
 {
@@ -10,10 +9,11 @@ public class RpcController : MonoBehaviour
     public AudioClip InfectAudio;
     public AudioClip AttackAudio;
     public AudioSource audioSource;
+    [SerializeField] RuntimeAnimatorController[] effectAni;
 
     private void Start()
     {
-        player = GetComponent<PlayerController>();   
+        player = GetComponent<PlayerController>();
     }
 
     [PunRPC]
@@ -22,6 +22,14 @@ public class RpcController : MonoBehaviour
         NetworkManager.instance.SetPlayerStatus("Infect");
         audioSource.clip = InfectAudio;
         audioSource.Play();
+
+        // 효과
+        GameObject effect = GameManager.instance.gamePlayer.transform.Find("effect").gameObject;
+        Debug.Log(effect);
+        effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[0];
+        Debug.Log(effect.GetComponent<Animator>().runtimeAnimatorController);
+        effect.SetActive(true);
+        StartCoroutine(ResetEffect(effect));
     }
 
     [PunRPC]
@@ -30,12 +38,26 @@ public class RpcController : MonoBehaviour
         NetworkManager.instance.SetPlayerSpeed(0);
         audioSource.clip = AttackAudio;
         audioSource.Play();
+
+        // 효과
+        GameObject effect = GameManager.instance.gamePlayer.transform.Find("effect").gameObject;
+        Debug.Log(effect);
+        effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[1];
+        Debug.Log(effect.GetComponent<Animator>().runtimeAnimatorController);
+        effect.SetActive(true);
+        StartCoroutine(ResetEffect(effect));
     }
 
     [PunRPC]
     private void ResetAttackRPC()   // 공격풀리는 RPC (speed 초기화)
     {
         NetworkManager.instance.SetPlayerSpeed(3);
+    }
+
+    private IEnumerator ResetEffect(GameObject effect)      // 효과 애니메이션 초기화
+    {
+        yield return new WaitForSeconds(1.0f);
+        effect.SetActive(false);
     }
 
 }

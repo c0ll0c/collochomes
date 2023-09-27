@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Goldmetal.UndeadSurvivor;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -67,7 +66,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         myPos = randomPosition[playersNo.IndexOf(myInfo.PlayerID)];
 
         // 네트워크 유저에 각 플레이어 연결
-        gamePlayer = PhotonNetwork.Instantiate("Player" + (myInfo.PlayerID % 4 + 1), myPos, Quaternion.identity) as GameObject;
+        gamePlayer = PhotonNetwork.Instantiate("Homes " + (playersNo.IndexOf(myInfo.PlayerID) + 1), myPos, Quaternion.identity) as GameObject;
         gamePlayer.GetComponent<PhotonView>().Owner.TagObject = gamePlayer;
     }
 
@@ -76,15 +75,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         myInfo = NetworkManager.instance.GetMyStatus();
         playersInfo = NetworkManager.instance.GetPlayersStatus();
-
-        /*
-        // 아이템 설정
-        foreach (GameObject d in detox)
-        {
-            d.SetActive(false);
-        }
-        */
-
         isAlert = true;     // loadingUI 중 isAlert = true
         
     }
@@ -94,23 +84,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         myInfo = NetworkManager.instance.GetMyStatus();
 
-        /*
-        // detox 활성화
-        if (myInfo.PlayerStatus == "Infect")
-        {
-            foreach (GameObject d in detox)
-            {
-                d.SetActive(true);
-            }
-        }
-        else
-        {
-            foreach (GameObject d in detox)
-            {
-                d.SetActive(false);
-            }
-        }
-        */
         // player object와 연동 (isAlert, ending)
         if (gamePlayer == null) return;
         gamePlayer.GetComponent<PlayerController>().isAlert = isAlert; 

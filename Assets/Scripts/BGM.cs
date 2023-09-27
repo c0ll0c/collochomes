@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
-using Goldmetal.UndeadSurvivor;
 
 public class BGM : MonoBehaviour
 {

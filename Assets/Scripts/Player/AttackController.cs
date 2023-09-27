@@ -4,7 +4,6 @@ using UnityEngine;
 using Photon.Pun;
 using Unity.VisualScripting;
 using System.Runtime.CompilerServices;
-using Goldmetal.UndeadSurvivor;
 
 public class AttackController : MonoBehaviour
 {

@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using System.Collections.Generic;
-using Goldmetal.UndeadSurvivor;
 using System.Collections;
 
 public class CountDown : MonoBehaviour
