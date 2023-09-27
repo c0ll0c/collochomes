@@ -3566,7 +3566,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 85281389}
-  sceneViewId: 3
+  sceneViewId: 2
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &85281389
@@ -3644,6 +3644,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VaccinateSound: {fileID: 956674422}
   vaccine: {fileID: 85281384}
+  effectAni: {fileID: 9100000, guid: 05dc0e6df5031d842a340fa3de1a28fd, type: 2}
 --- !u!212 &85281392
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5399,6 +5400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VaccinateSound: {fileID: 956674422}
   vaccine: {fileID: 137649059}
+  effectAni: {fileID: 9100000, guid: 05dc0e6df5031d842a340fa3de1a28fd, type: 2}
 --- !u!61 &137649064
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5704,6 +5706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VaccinateSound: {fileID: 956674422}
   vaccine: {fileID: 138499015}
+  effectAni: {fileID: 9100000, guid: 05dc0e6df5031d842a340fa3de1a28fd, type: 2}
 --- !u!61 &138499020
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8768,6 +8771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VaccinateSound: {fileID: 956674422}
   vaccine: {fileID: 183107081}
+  effectAni: {fileID: 9100000, guid: 05dc0e6df5031d842a340fa3de1a28fd, type: 2}
 --- !u!61 &183107086
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21476,7 +21480,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 518698834}
-  sceneViewId: 6
+  sceneViewId: 5
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &518698834
@@ -21554,6 +21558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VaccinateSound: {fileID: 956674422}
   vaccine: {fileID: 518698829}
+  effectAni: {fileID: 9100000, guid: 05dc0e6df5031d842a340fa3de1a28fd, type: 2}
 --- !u!212 &518698837
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -39477,7 +39482,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1126063035}
-  sceneViewId: 2
+  sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1126063035
@@ -39555,6 +39560,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VaccinateSound: {fileID: 956674422}
   vaccine: {fileID: 1126063030}
+  effectAni: {fileID: 9100000, guid: 05dc0e6df5031d842a340fa3de1a28fd, type: 2}
 --- !u!212 &1126063038
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -42117,7 +42123,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1204742453}
-  sceneViewId: 5
+  sceneViewId: 4
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1204742453
@@ -42195,6 +42201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VaccinateSound: {fileID: 956674422}
   vaccine: {fileID: 1204742448}
+  effectAni: {fileID: 9100000, guid: 05dc0e6df5031d842a340fa3de1a28fd, type: 2}
 --- !u!212 &1204742456
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -51165,7 +51172,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1309596736}
-  sceneViewId: 4
+  sceneViewId: 3
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1309596736
@@ -51243,6 +51250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VaccinateSound: {fileID: 956674422}
   vaccine: {fileID: 1309596731}
+  effectAni: {fileID: 9100000, guid: 05dc0e6df5031d842a340fa3de1a28fd, type: 2}
 --- !u!212 &1309596739
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -53777,6 +53785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VaccinateSound: {fileID: 956674422}
   vaccine: {fileID: 1421842956}
+  effectAni: {fileID: 9100000, guid: 05dc0e6df5031d842a340fa3de1a28fd, type: 2}
 --- !u!61 &1421842961
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -54809,6 +54818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VaccinateSound: {fileID: 956674422}
   vaccine: {fileID: 1438612568}
+  effectAni: {fileID: 9100000, guid: 05dc0e6df5031d842a340fa3de1a28fd, type: 2}
 --- !u!61 &1438612573
 BoxCollider2D:
   m_ObjectHideFlags: 0

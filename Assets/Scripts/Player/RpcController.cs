@@ -25,9 +25,7 @@ public class RpcController : MonoBehaviour
 
         // ȿ��
         GameObject effect = GameManager.instance.gamePlayer.transform.Find("effect").gameObject;
-        Debug.Log(effect);
         effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[0];
-        Debug.Log(effect.GetComponent<Animator>().runtimeAnimatorController);
         effect.SetActive(true);
         StartCoroutine(ResetEffect(effect));
     }
@@ -41,9 +39,7 @@ public class RpcController : MonoBehaviour
 
         // ȿ��
         GameObject effect = GameManager.instance.gamePlayer.transform.Find("effect").gameObject;
-        Debug.Log(effect);
         effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[1];
-        Debug.Log(effect.GetComponent<Animator>().runtimeAnimatorController);
         effect.SetActive(true);
         StartCoroutine(ResetEffect(effect));
     }
@@ -61,8 +57,22 @@ public class RpcController : MonoBehaviour
     }
 
     [PunRPC]
+    private void VaccineRPC()   // 백신 접종
+    {
+        NetworkManager.instance.SetVaccinated(true);
+        GameObject effect = GameManager.instance.gamePlayer.transform.Find("effect").gameObject;
+        effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[2];
+        effect.SetActive(true);
+    }
+
+    [PunRPC]
     private void UnvaccineRPC()   // ��� ����
     {
         NetworkManager.instance.SetVaccinated(false);
+        GameObject effect = GameManager.instance.gamePlayer.transform.Find("effect").gameObject;
+        if (effect.GetComponent<Animator>().runtimeAnimatorController == effectAni[2])
+        {
+            effect.SetActive(false);
+        }
     }
 }

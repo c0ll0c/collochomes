@@ -10,6 +10,7 @@ public class HandleVaccine : MonoBehaviour
     public AudioSource VaccinateSound;
     public GameObject vaccine;
     private PhotonView photonView;
+    [SerializeField] private RuntimeAnimatorController effectAni;
 
     void Start()
     {
@@ -27,10 +28,14 @@ public class HandleVaccine : MonoBehaviour
         }
     }
 
+
     [PunRPC]
     private void VaccineRPC()   // 백신 접종
     {
         NetworkManager.instance.SetVaccinated(true);
+        GameObject effect = GameManager.instance.gamePlayer.transform.Find("effect").gameObject;
+        effect.GetComponent<Animator>().runtimeAnimatorController = effectAni;
+        effect.SetActive(true);
     }
 
 }

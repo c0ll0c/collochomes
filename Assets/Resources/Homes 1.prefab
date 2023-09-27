@@ -720,7 +720,9 @@ MonoBehaviour:
   Speed: 0
   isAlert: 0
   ending: 0
+  IsVaccinated: 0
   playername: {fileID: 411785637205252836}
+  effectAni: []
 --- !u!114 &6085083833477866506
 MonoBehaviour:
   m_ObjectHideFlags: 0

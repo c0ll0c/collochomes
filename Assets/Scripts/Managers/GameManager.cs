@@ -66,7 +66,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         myPos = randomPosition[playersNo.IndexOf(myInfo.PlayerID)];
 
         // 네트워크 유저에 각 플레이어 연결
-        gamePlayer = PhotonNetwork.Instantiate("Homes " + (playersNo.IndexOf(myInfo.PlayerID) + 1), myPos, Quaternion.identity) as GameObject;
+        //gamePlayer = PhotonNetwork.Instantiate("Homes " + (playersNo.IndexOf(myInfo.PlayerID) + 1), myPos, Quaternion.identity) as GameObject;
+        gamePlayer = PhotonNetwork.Instantiate("Homes", myPos, Quaternion.identity) as GameObject;
         gamePlayer.GetComponent<PhotonView>().Owner.TagObject = gamePlayer;
     }
 

@@ -24,7 +24,6 @@ using Unity.VisualScripting;
         public bool IsVaccinated;
 
         [SerializeField] TextMeshProUGUI playername;
-        [SerializeField] RuntimeAnimatorController[] effectAni;           // 본인한테만 보임... 흠... 디톡스 애니메이션이랑 비슷... 음으믕ㅁ음ㅇ으
 
         Rigidbody2D rigid;
         SpriteRenderer spriter;
@@ -66,23 +65,6 @@ using Unity.VisualScripting;
         myInfo = NetworkManager.instance.GetMyStatus();
         Speed = myInfo.Speed;
         IsVaccinated = myInfo.Vaccinated;
-
-        if (IsVaccinated && player.tag == "Player")             // 백신 접종되었으면 애니메이션 가동
-        {
-            // Debug.Log("Player: 백신 접종");
-            GameObject effect = transform.Find("effect").gameObject;
-            effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[1];
-            effect.SetActive(true);
-        }
-
-        else if (!IsVaccinated)       // 접종 안 돼 있거나 감염되면 애니메이션 X
-        {
-            // Debug.Log("Player: 백신 접종 해제");
-            GameObject effect = transform.Find("effect").gameObject;
-            effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[1];
-            effect.SetActive(false);
-        }        
-
     }
 
     void FixedUpdate()

@@ -720,6 +720,7 @@ MonoBehaviour:
   Speed: 0
   isAlert: 0
   ending: 0
+  IsVaccinated: 0
   playername: {fileID: 411785637205252836}
 --- !u!114 &6085083833477866506
 MonoBehaviour:
@@ -1008,6 +1009,7 @@ MonoBehaviour:
   effectAni:
   - {fileID: 9100000, guid: d6f7d029d86050e49a09561e5033d173, type: 2}
   - {fileID: 9100000, guid: dd01121a78970554e971436dee28842d, type: 2}
+  - {fileID: 9100000, guid: 05dc0e6df5031d842a340fa3de1a28fd, type: 2}
 --- !u!82 &7120556428967596506
 AudioSource:
   m_ObjectHideFlags: 0
