@@ -17,21 +17,37 @@ public class HandleDetoxLayer2 : MonoBehaviour
     private GameObject entry = null;
     private float leftTime = 3.0f;
 
-    private Vector3[] randomPositions = new Vector3[]
+    private Vector3[] randomPosLayer1 = new Vector3[]
     {
-    new Vector3(1.9f, -8.77f, 0f),
-    new Vector3(-0.36f, 9.03f, 0f),
-    new Vector3(5.27f, 7.59f, 0f),
-    new Vector3(13.42f, 4.38f, 0f),
-    new Vector3(10.77f, -0.96f, 0f),
-    new Vector3(-7.5f, 10.66f, 0f),
-    new Vector3(-0.81f, -3.86f, 0f),
-    new Vector3(-3.95f, -4.59f, 0f),
-    new Vector3(4.57f, -3.45f, 0f),
-    new Vector3(2.52f, 19.19f, 0f),
-    new Vector3(5.49f, 20.41f, 0f),
-    new Vector3(9.37f, 8f, 0f),
-    new Vector3(-3.33f, 6.2f, 0f),
+        new Vector3(10.0f, 14.0f, 0f),
+        new Vector3(-3.0f, 17.0f, 0f),
+        new Vector3(-0.2f, 17.5f, 0f),
+        new Vector3(2.4f, 16.0f, 0f),
+        new Vector3(-0.3f, 13.5f, 0f),
+        new Vector3(4.0f, 5.0f, 0f),
+        new Vector3(-1.4f, 5.0f, 0f),
+        new Vector3(13.5f, 7.0f, 0f),
+        new Vector3(-4.0f, 3.0f, 0f),
+        new Vector3(-2.5f, 0.5f, 0f),
+        new Vector3(-4.3f, -6.7f, 0f),
+        new Vector3(4.0f, -9.3f, 0f),
+        new Vector3 (11.8f, -6.8f, 0f),
+        new Vector3(9.4f, -2.2f, 9f),
+    };
+    private Vector3[] randomPosLayer2 = new Vector3[]
+    {
+        new Vector3(-3.8f, 6.5f, 0f),
+        new Vector3(-7f, 9.2f, 0f),
+        new Vector3(-0.4f, 12.0f, 0f),
+        new Vector3 (2.6f, 11.2f, 0f),
+        new Vector3 (5.0f, 12.0f, 0f),
+        new Vector3 (11.2f, 12.0f, 0f),
+        new Vector3 (12.4f, 6.0f, 0f),
+        new Vector3 (7.0f, 11.0f, 0f),
+        new Vector3 (9.5f, 4.0f, 0f),
+        new Vector3 (4.0f, -3.2f, 0f),
+        new Vector3 (-7.2f, -3.0f, 0f),
+        new Vector3 (-2.5f, -3.2f, 0f),
     };
 
     private PhotonView photonView;
@@ -41,7 +57,7 @@ public class HandleDetoxLayer2 : MonoBehaviour
     {
         timer.enabled = false;
         image.enabled = false;
-        Vector3 randomPosition = randomPositions[Random.Range(0, randomPositions.Length)];
+        Vector3 randomPosition = randomPosLayer2[Random.Range(0, randomPosLayer2.Length)];
         transform.position = randomPosition;
         photonView = GetComponent<PhotonView>();
         anim = GetComponent<Animator>().runtimeAnimatorController;

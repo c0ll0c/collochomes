@@ -19,12 +19,10 @@ public class GameReadyUI : MonoBehaviour
     void Start()
     {
         GameObject panelParent = this.transform.Find("Player Info").gameObject;
-        Debug.Log(panelParent);
         for (int i = 1; i <= 6; i++)
         {
             playerPanel[i-1] = panelParent.transform.Find("player" + i).gameObject;
             playerPanel[i-1].SetActive(false);
-            Debug.Log(playerPanel[i-1]);
         }
 
         Debug.Log(PhotonNetwork.IsMasterClient);
@@ -45,7 +43,7 @@ public class GameReadyUI : MonoBehaviour
             if ((string)PhotonNetwork.CurrentRoom.CustomProperties["RoomState"] == "Playing")
             {
                 Debug.Log("no");
-                //NetworkManager.instance.ExitRoom();
+                NetworkManager.instance.ExitRoom();
             }
         }
 

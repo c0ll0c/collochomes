@@ -56,14 +56,6 @@ public class RpcController : MonoBehaviour
         effect.SetActive(false);
     }
 
-    [PunRPC]
-    private void VaccineRPC()   // 백신 접종
-    {
-        NetworkManager.instance.SetVaccinated(true);
-        GameObject effect = GameManager.instance.gamePlayer.transform.Find("effect").gameObject;
-        effect.GetComponent<Animator>().runtimeAnimatorController = effectAni[2];
-        effect.SetActive(true);
-    }
 
     [PunRPC]
     private void UnvaccineRPC()   // ��� ����
