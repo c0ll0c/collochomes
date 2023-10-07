@@ -17,13 +17,19 @@ public class Plane : MonoBehaviour
 
     void Start()
     {
-        RandomTime = Random.Range(10, 250);
-        Debug.Log(RandomTime);
-
         photonView = GetComponent<PhotonView>();
+
+        photonView.RPC("randomTime", RpcTarget.All);
 
         ShuffleArray(planePosition);// 비행기 날아가기 시작하는 위치 shuffle 해서 그중에 하나 currentPosition으로 설정해 두면 될 듯
         plane.transform.position = planePosition[0];
+    }
+
+    [PunRPC]
+    public void randomTime()
+    {
+        RandomTime = Random.Range(10, 250);
+        Debug.Log(RandomTime);
     }
 
     // Update is called once per frame
