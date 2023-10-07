@@ -38,14 +38,14 @@ public class GameReadyUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PhotonNetwork.InRoom)
+/*        if (PhotonNetwork.InRoom)
         {
             if ((string)PhotonNetwork.CurrentRoom.CustomProperties["RoomState"] == "Playing")
             {
                 Debug.Log("no");
                 NetworkManager.instance.ExitRoom();
             }
-        }
+        }*/
 
         playersInfo = NetworkManager.instance.GetPlayersStatus();
 

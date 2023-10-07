@@ -6,11 +6,11 @@ using System.Collections;
 
 public class CountDown : MonoBehaviour
 {
-    public AudioSource EscapeAudio;
+/*    public AudioSource EscapeAudio;
     public AudioClip LoseAudio;
-    public AudioClip WinAudio;
+    public AudioClip WinAudio;*/
 
-    public float totalTime = 240f; // 총 시간 (초 단위)
+    float totalTime = 240f; // 총 시간 (초 단위)
     private float currentTime;
     public Text timerText;
     private bool IsTimeOver;
@@ -21,7 +21,7 @@ public class CountDown : MonoBehaviour
 
     private void Start()
     {
-        EscapeAudio = GetComponent<AudioSource>();
+        //EscapeAudio = GetComponent<AudioSource>();
 
         IsTimerRunning = true;
 
@@ -54,17 +54,17 @@ public class CountDown : MonoBehaviour
                     GameManager.instance.isAlert = true;
                     GameManager.instance.gamePlayer.GetComponent<PlayerController>().ending = true;
                     VirusWinPanel.SetActive(true);
-                    EscapeAudio.clip = WinAudio;
+/*                    EscapeAudio.clip = WinAudio;
                     EscapeAudio.Play();
-                    StartCoroutine(backIntro());
+*/                    StartCoroutine(backIntro());
                 }
-                else
+                else                     // 왜 이거는 소리가 겹쳐서 나는 거임?!?!?!??!
                 {
                     GameManager.instance.isAlert = true;
                     GameManager.instance.gamePlayer.GetComponent<PlayerController>().ending = true;
                     PlayerLosePanel.SetActive(true);
-                    EscapeAudio.clip = LoseAudio;
-                    EscapeAudio.Play();
+/*                  EscapeAudio.clip = LoseAudio;
+                    EscapeAudio.Play();*/
                     StartCoroutine(backIntro());
                 }
 

@@ -530,8 +530,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1539595626}
-        m_TargetAssemblyTypeName: HiddneClue, Assembly-CSharp
+      - m_Target: {fileID: 1539595625}
+        m_TargetAssemblyTypeName: CluePanelActive, Assembly-CSharp
         m_MethodName: hiddenButtonClick
         m_Mode: 1
         m_Arguments:
@@ -2659,8 +2659,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2084692517}
-        m_TargetAssemblyTypeName: HiddneClue, Assembly-CSharp
+      - m_Target: {fileID: 2084692516}
+        m_TargetAssemblyTypeName: CluePanelActive, Assembly-CSharp
         m_MethodName: hiddenButtonClick
         m_Mode: 1
         m_Arguments:
@@ -3566,7 +3566,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 85281389}
-  sceneViewId: 2
+  sceneViewId: 977
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &85281389
@@ -5466,7 +5466,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 137649066}
-  sceneViewId: 996
+  sceneViewId: 982
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &137649066
@@ -5772,7 +5772,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 138499022}
-  sceneViewId: 993
+  sceneViewId: 979
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &138499022
@@ -8578,11 +8578,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 178036830}
+      addedObject: {fileID: 178036831}
     - targetCorrespondingSourceObject: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 178036831}
+      addedObject: {fileID: 178036832}
   m_SourcePrefab: {fileID: 100100000, guid: 2e2ac125e54a1e44780363d638b1df34, type: 3}
 --- !u!4 &178036823 stripped
 Transform:
@@ -8629,22 +8629,10 @@ MonoBehaviour:
   AlreadyPanelObject: {fileID: 2055888929}
   HiddenCluePanel: {fileID: 245701521}
   IsClicked: 0
+  IsHidden: 0
   Text:
   - {fileID: 1280559020}
   - {fileID: 368810371}
---- !u!114 &178036830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 178036824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69c3468ed02478948b9437040c36291e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HiddenCluePanel: {fileID: 245701521}
 --- !u!114 &178036831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8663,10 +8651,27 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 1
   observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 988
+  ObservedComponents:
+  - {fileID: 178036832}
+  sceneViewId: 994
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &178036832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178036824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &183107081
 GameObject:
   m_ObjectHideFlags: 0
@@ -8837,7 +8842,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 183107088}
-  sceneViewId: 997
+  sceneViewId: 983
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &183107088
@@ -11866,7 +11871,6 @@ GameObject:
   m_Component:
   - component: {fileID: 303427042}
   - component: {fileID: 303427041}
-  - component: {fileID: 303427040}
   m_Layer: 0
   m_Name: TimerManager
   m_TagString: Untagged
@@ -11874,102 +11878,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!82 &303427040
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 303427039}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &303427041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11982,10 +11890,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ee9b5d2f202f3340aad6d5c8ecd9b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EscapeAudio: {fileID: 303427040}
-  LoseAudio: {fileID: 8300000, guid: 9bc86264096844a4f998f3c38a57126f, type: 3}
-  WinAudio: {fileID: 8300000, guid: a352d726b6023794d9195c44c79cfd18, type: 3}
-  totalTime: 240
   timerText: {fileID: 654008755}
   VirusWinPanel: {fileID: 1534304521}
   PlayerLosePanel: {fileID: 673281365}
@@ -12201,11 +12105,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 308210637}
+      addedObject: {fileID: 308210638}
     - targetCorrespondingSourceObject: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 308210638}
+      addedObject: {fileID: 308210639}
   m_SourcePrefab: {fileID: 100100000, guid: 2e2ac125e54a1e44780363d638b1df34, type: 3}
 --- !u!4 &308210630 stripped
 Transform:
@@ -12252,22 +12156,10 @@ MonoBehaviour:
   AlreadyPanelObject: {fileID: 2055888929}
   HiddenCluePanel: {fileID: 245701521}
   IsClicked: 0
+  IsHidden: 0
   Text:
   - {fileID: 883396441}
   - {fileID: 1700562064}
---- !u!114 &308210637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 308210631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69c3468ed02478948b9437040c36291e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HiddenCluePanel: {fileID: 245701521}
 --- !u!114 &308210638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12283,13 +12175,30 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
+  Synchronization: 0
+  OwnershipTransfer: 1
   observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 989
+  ObservedComponents:
+  - {fileID: 308210639}
+  sceneViewId: 995
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &308210639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308210631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &311447788
 GameObject:
   m_ObjectHideFlags: 0
@@ -20270,11 +20179,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 477827265}
+      addedObject: {fileID: 477827266}
     - targetCorrespondingSourceObject: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 477827266}
+      addedObject: {fileID: 477827267}
   m_SourcePrefab: {fileID: 100100000, guid: 2e2ac125e54a1e44780363d638b1df34, type: 3}
 --- !u!4 &477827258 stripped
 Transform:
@@ -20321,22 +20230,10 @@ MonoBehaviour:
   AlreadyPanelObject: {fileID: 2055888929}
   HiddenCluePanel: {fileID: 245701521}
   IsClicked: 0
+  IsHidden: 0
   Text:
   - {fileID: 1850226587}
   - {fileID: 1232287529}
---- !u!114 &477827265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 477827259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69c3468ed02478948b9437040c36291e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HiddenCluePanel: {fileID: 245701521}
 --- !u!114 &477827266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20352,13 +20249,30 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
+  Synchronization: 0
+  OwnershipTransfer: 1
   observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 990
+  ObservedComponents:
+  - {fileID: 477827267}
+  sceneViewId: 996
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &477827267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477827259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1001 &479415757
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20537,7 +20451,6 @@ GameObject:
   m_Component:
   - component: {fileID: 484192773}
   - component: {fileID: 484192772}
-  - component: {fileID: 484192771}
   - component: {fileID: 484192774}
   - component: {fileID: 484192775}
   - component: {fileID: 484192776}
@@ -20549,18 +20462,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &484192771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 484192770}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76cd6794265d9154b811088e0d1aaca6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &484192772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20636,7 +20537,7 @@ MonoBehaviour:
   - {fileID: 289446750}
   randomUserPositions:
   - {x: -10.38, y: -2.31, z: 0}
-  - {x: -5.27, y: -7.42, z: 0}
+  - {x: -7.84, y: -7.23, z: 0}
   - {x: 1.4, y: -12.18, z: 0}
   - {x: 7.46, y: -13.21, z: 0}
   - {x: -2.17, y: -14.92, z: 0}
@@ -21480,7 +21381,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 518698834}
-  sceneViewId: 5
+  sceneViewId: 974
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &518698834
@@ -23220,7 +23121,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 573471398}
-  sceneViewId: 992
+  sceneViewId: 986
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!82 &573471400
@@ -24008,8 +23909,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 477827265}
-        m_TargetAssemblyTypeName: HiddneClue, Assembly-CSharp
+      - m_Target: {fileID: 477827264}
+        m_TargetAssemblyTypeName: CluePanelActive, Assembly-CSharp
         m_MethodName: hiddenButtonClick
         m_Mode: 1
         m_Arguments:
@@ -25981,11 +25882,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 665510692}
+      addedObject: {fileID: 665510693}
     - targetCorrespondingSourceObject: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 665510693}
+      addedObject: {fileID: 665510694}
   m_SourcePrefab: {fileID: 100100000, guid: 2e2ac125e54a1e44780363d638b1df34, type: 3}
 --- !u!4 &665510685 stripped
 Transform:
@@ -26032,22 +25933,10 @@ MonoBehaviour:
   AlreadyPanelObject: {fileID: 2055888929}
   HiddenCluePanel: {fileID: 245701521}
   IsClicked: 0
+  IsHidden: 0
   Text:
   - {fileID: 1480746869}
   - {fileID: 63667668}
---- !u!114 &665510692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 665510686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69c3468ed02478948b9437040c36291e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HiddenCluePanel: {fileID: 245701521}
 --- !u!114 &665510693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26064,12 +25953,29 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 987
+  ObservedComponents:
+  - {fileID: 665510694}
+  sceneViewId: 993
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &665510694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665510686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &666599332
 GameObject:
   m_ObjectHideFlags: 0
@@ -28265,7 +28171,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 693048960}
-  sceneViewId: 998
+  sceneViewId: 987
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!61 &693048962
@@ -35808,11 +35714,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1004352439}
+      addedObject: {fileID: 1004352440}
     - targetCorrespondingSourceObject: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1004352440}
+      addedObject: {fileID: 1004352441}
   m_SourcePrefab: {fileID: 100100000, guid: f3cc2373308c11848977b28d974a9de0, type: 3}
 --- !u!4 &1004352432 stripped
 Transform:
@@ -35859,21 +35765,9 @@ MonoBehaviour:
   AlreadyPanelObject: {fileID: 2055888929}
   HiddenCluePanel: {fileID: 245701521}
   IsClicked: 0
+  IsHidden: 0
   Text:
   - {fileID: 1885391879}
---- !u!114 &1004352439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1004352433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69c3468ed02478948b9437040c36291e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HiddenCluePanel: {fileID: 245701521}
 --- !u!114 &1004352440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35890,12 +35784,29 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 985
+  ObservedComponents:
+  - {fileID: 1004352441}
+  sceneViewId: 991
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1004352441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004352433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &1017205826
 GameObject:
   m_ObjectHideFlags: 0
@@ -37249,11 +37160,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1042257196}
+      addedObject: {fileID: 1042257197}
     - targetCorrespondingSourceObject: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1042257197}
+      addedObject: {fileID: 1042257198}
   m_SourcePrefab: {fileID: 100100000, guid: f3cc2373308c11848977b28d974a9de0, type: 3}
 --- !u!4 &1042257189 stripped
 Transform:
@@ -37300,21 +37211,9 @@ MonoBehaviour:
   AlreadyPanelObject: {fileID: 2055888929}
   HiddenCluePanel: {fileID: 245701521}
   IsClicked: 0
+  IsHidden: 0
   Text:
   - {fileID: 350810447}
---- !u!114 &1042257196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1042257190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69c3468ed02478948b9437040c36291e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HiddenCluePanel: {fileID: 245701521}
 --- !u!114 &1042257197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37331,12 +37230,29 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 982
+  ObservedComponents:
+  - {fileID: 1042257198}
+  sceneViewId: 998
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1042257198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042257190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &1048837927
 GameObject:
   m_ObjectHideFlags: 0
@@ -39482,7 +39398,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1126063035}
-  sceneViewId: 1
+  sceneViewId: 978
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1126063035
@@ -40064,8 +39980,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1701921237}
-        m_TargetAssemblyTypeName: HiddneClue, Assembly-CSharp
+      - m_Target: {fileID: 1701921236}
+        m_TargetAssemblyTypeName: CluePanelActive, Assembly-CSharp
         m_MethodName: hiddenButtonClick
         m_Mode: 1
         m_Arguments:
@@ -42123,7 +42039,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1204742453}
-  sceneViewId: 4
+  sceneViewId: 975
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1204742453
@@ -49587,8 +49503,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 308210637}
-        m_TargetAssemblyTypeName: HiddneClue, Assembly-CSharp
+      - m_Target: {fileID: 308210636}
+        m_TargetAssemblyTypeName: CluePanelActive, Assembly-CSharp
         m_MethodName: hiddenButtonClick
         m_Mode: 1
         m_Arguments:
@@ -51172,7 +51088,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1309596736}
-  sceneViewId: 3
+  sceneViewId: 976
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1309596736
@@ -53851,7 +53767,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1421842963}
-  sceneViewId: 994
+  sceneViewId: 980
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1421842963
@@ -54461,7 +54377,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1432697110}
-  sceneViewId: 980
+  sceneViewId: 985
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1432697112
@@ -54884,7 +54800,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1438612575}
-  sceneViewId: 995
+  sceneViewId: 981
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1438612575
@@ -57522,7 +57438,7 @@ Transform:
   m_GameObject: {fileID: 1536854182}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.21, y: -3.31, z: 0}
+  m_LocalPosition: {x: -6.26, y: -3.39, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -57886,11 +57802,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1539595626}
+      addedObject: {fileID: 1539595627}
     - targetCorrespondingSourceObject: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1539595627}
+      addedObject: {fileID: 1539595628}
   m_SourcePrefab: {fileID: 100100000, guid: f3cc2373308c11848977b28d974a9de0, type: 3}
 --- !u!4 &1539595619 stripped
 Transform:
@@ -57937,21 +57853,9 @@ MonoBehaviour:
   AlreadyPanelObject: {fileID: 2055888929}
   HiddenCluePanel: {fileID: 245701521}
   IsClicked: 0
+  IsHidden: 0
   Text:
   - {fileID: 1812220557}
---- !u!114 &1539595626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1539595620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69c3468ed02478948b9437040c36291e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HiddenCluePanel: {fileID: 245701521}
 --- !u!114 &1539595627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57968,12 +57872,29 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 981
+  ObservedComponents:
+  - {fileID: 1539595628}
+  sceneViewId: 999
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1539595628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539595620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &1542808552
 GameObject:
   m_ObjectHideFlags: 0
@@ -58418,8 +58339,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 665510692}
-        m_TargetAssemblyTypeName: HiddneClue, Assembly-CSharp
+      - m_Target: {fileID: 665510691}
+        m_TargetAssemblyTypeName: CluePanelActive, Assembly-CSharp
         m_MethodName: hiddenButtonClick
         m_Mode: 1
         m_Arguments:
@@ -60145,8 +60066,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1042257196}
-        m_TargetAssemblyTypeName: HiddneClue, Assembly-CSharp
+      - m_Target: {fileID: 1042257195}
+        m_TargetAssemblyTypeName: CluePanelActive, Assembly-CSharp
         m_MethodName: hiddenButtonClick
         m_Mode: 1
         m_Arguments:
@@ -61362,8 +61283,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2143339271}
-        m_TargetAssemblyTypeName: HiddneClue, Assembly-CSharp
+      - m_Target: {fileID: 2143339270}
+        m_TargetAssemblyTypeName: CluePanelActive, Assembly-CSharp
         m_MethodName: hiddenButtonClick
         m_Mode: 1
         m_Arguments:
@@ -62638,7 +62559,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1687625181}
-  sceneViewId: 979
+  sceneViewId: 984
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1687625183
@@ -63112,8 +63033,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 178036830}
-        m_TargetAssemblyTypeName: HiddneClue, Assembly-CSharp
+      - m_Target: {fileID: 178036829}
+        m_TargetAssemblyTypeName: CluePanelActive, Assembly-CSharp
         m_MethodName: hiddenButtonClick
         m_Mode: 1
         m_Arguments:
@@ -63366,11 +63287,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1701921237}
+      addedObject: {fileID: 1701921238}
     - targetCorrespondingSourceObject: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1701921238}
+      addedObject: {fileID: 1701921239}
   m_SourcePrefab: {fileID: 100100000, guid: f3cc2373308c11848977b28d974a9de0, type: 3}
 --- !u!4 &1701921230 stripped
 Transform:
@@ -63417,21 +63338,9 @@ MonoBehaviour:
   AlreadyPanelObject: {fileID: 2055888929}
   HiddenCluePanel: {fileID: 245701521}
   IsClicked: 0
+  IsHidden: 0
   Text:
   - {fileID: 335413758}
---- !u!114 &1701921237
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1701921231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69c3468ed02478948b9437040c36291e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HiddenCluePanel: {fileID: 245701521}
 --- !u!114 &1701921238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63448,12 +63357,29 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 983
+  ObservedComponents:
+  - {fileID: 1701921239}
+  sceneViewId: 989
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1701921239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701921231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &1711776359
 GameObject:
   m_ObjectHideFlags: 0
@@ -64237,8 +64163,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1004352439}
-        m_TargetAssemblyTypeName: HiddneClue, Assembly-CSharp
+      - m_Target: {fileID: 1004352438}
+        m_TargetAssemblyTypeName: CluePanelActive, Assembly-CSharp
         m_MethodName: hiddenButtonClick
         m_Mode: 1
         m_Arguments:
@@ -64752,12 +64678,12 @@ GameObject:
   - component: {fileID: 1743858673}
   - component: {fileID: 1743858672}
   - component: {fileID: 1743858679}
-  - component: {fileID: 1743858678}
   - component: {fileID: 1743858680}
   - component: {fileID: 1743858681}
   - component: {fileID: 1743858684}
   - component: {fileID: 1743858683}
   - component: {fileID: 1743858682}
+  - component: {fileID: 1743858685}
   m_Layer: 20
   m_Name: detox
   m_TagString: Detox
@@ -64914,22 +64840,6 @@ Transform:
   - {fileID: 116520823}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1743858678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1743858671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &1743858679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64949,8 +64859,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 1743858678}
-  sceneViewId: 999
+  - {fileID: 1743858685}
+  sceneViewId: 988
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!82 &1743858680
@@ -65197,6 +65107,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.14196968, y: 0.6509342}
   m_EdgeRadius: 0
+--- !u!114 &1743858685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743858671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1001 &1749251252
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70422,8 +70348,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1996797530}
-        m_TargetAssemblyTypeName: HiddneClue, Assembly-CSharp
+      - m_Target: {fileID: 1996797529}
+        m_TargetAssemblyTypeName: CluePanelActive, Assembly-CSharp
         m_MethodName: hiddenButtonClick
         m_Mode: 1
         m_Arguments:
@@ -71520,11 +71446,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1996797530}
+      addedObject: {fileID: 1996797531}
     - targetCorrespondingSourceObject: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1996797531}
+      addedObject: {fileID: 1996797532}
   m_SourcePrefab: {fileID: 100100000, guid: f3cc2373308c11848977b28d974a9de0, type: 3}
 --- !u!4 &1996797523 stripped
 Transform:
@@ -71571,21 +71497,9 @@ MonoBehaviour:
   AlreadyPanelObject: {fileID: 2055888929}
   HiddenCluePanel: {fileID: 245701521}
   IsClicked: 0
+  IsHidden: 0
   Text:
   - {fileID: 1308169815}
---- !u!114 &1996797530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1996797524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69c3468ed02478948b9437040c36291e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HiddenCluePanel: {fileID: 245701521}
 --- !u!114 &1996797531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71602,12 +71516,29 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 984
+  ObservedComponents:
+  - {fileID: 1996797532}
+  sceneViewId: 990
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1996797532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996797524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1001 &1997595410
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71808,6 +71739,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CodePanelObject: {fileID: 1026875030}
   PlayerWinPanel: {fileID: 1209346046}
+  VirusWinPanel: {fileID: 1534304521}
   PlayerLosePanel: {fileID: 673281365}
   VirusLosePanel: {fileID: 1357692340}
   EscapeAudio: {fileID: 2027206201}
@@ -73298,11 +73230,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2084692517}
+      addedObject: {fileID: 2084692518}
     - targetCorrespondingSourceObject: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2084692518}
+      addedObject: {fileID: 2084692519}
   m_SourcePrefab: {fileID: 100100000, guid: 2e2ac125e54a1e44780363d638b1df34, type: 3}
 --- !u!4 &2084692510 stripped
 Transform:
@@ -73349,22 +73281,10 @@ MonoBehaviour:
   AlreadyPanelObject: {fileID: 2055888929}
   HiddenCluePanel: {fileID: 245701521}
   IsClicked: 0
+  IsHidden: 0
   Text:
   - {fileID: 1373997266}
   - {fileID: 575133587}
---- !u!114 &2084692517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2084692511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69c3468ed02478948b9437040c36291e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HiddenCluePanel: {fileID: 245701521}
 --- !u!114 &2084692518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73381,12 +73301,29 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 986
+  ObservedComponents:
+  - {fileID: 2084692519}
+  sceneViewId: 992
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &2084692519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084692511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &2092091155
 GameObject:
   m_ObjectHideFlags: 0
@@ -74949,11 +74886,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2143339271}
+      addedObject: {fileID: 2143339272}
     - targetCorrespondingSourceObject: {fileID: 8150476868300563372, guid: 2e2ac125e54a1e44780363d638b1df34,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2143339272}
+      addedObject: {fileID: 2143339273}
   m_SourcePrefab: {fileID: 100100000, guid: 2e2ac125e54a1e44780363d638b1df34, type: 3}
 --- !u!4 &2143339264 stripped
 Transform:
@@ -75000,22 +74937,10 @@ MonoBehaviour:
   AlreadyPanelObject: {fileID: 2055888929}
   HiddenCluePanel: {fileID: 245701521}
   IsClicked: 0
+  IsHidden: 0
   Text:
   - {fileID: 1143546796}
   - {fileID: 561969433}
---- !u!114 &2143339271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2143339265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69c3468ed02478948b9437040c36291e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HiddenCluePanel: {fileID: 245701521}
 --- !u!114 &2143339272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75031,13 +74956,30 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
+  Synchronization: 0
+  OwnershipTransfer: 1
   observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 991
+  ObservedComponents:
+  - {fileID: 2143339273}
+  sceneViewId: 997
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &2143339273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2143339265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &2147113956
 GameObject:
   m_ObjectHideFlags: 0
