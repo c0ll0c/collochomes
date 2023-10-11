@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System.Text;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -40,6 +41,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         s_instance = this;
         Application.targetFrameRate = 60;
+
+        NetworkManager.instance.SetPlayerStatus("Player");
+        NetworkManager.instance.SetPlayerSpeed(3);
+        NetworkManager.instance.SetPlayerCode(GenerateRandomString());
         
         playersInfo = NetworkManager.instance.GetPlayersStatus();
         foreach (PlayerData p in playersInfo)
@@ -71,13 +76,26 @@ public class GameManager : MonoBehaviourPunCallbacks
         gamePlayer.GetComponent<PhotonView>().Owner.TagObject = gamePlayer;
     }
 
+    string GenerateRandomString()
+    {
+        const string characters = "0123456789ABCDEF"; // 3개의 숫자와 2개의 영어
+        StringBuilder result = new StringBuilder();
+
+        // 5자리의 랜덤 문자열 생성
+        for (int i = 0; i < 5; i++)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, characters.Length);
+            result.Append(characters[randomIndex]);
+        }
+
+        return result.ToString();
+    }
 
     void Start()
     {
         myInfo = NetworkManager.instance.GetMyStatus();
         playersInfo = NetworkManager.instance.GetPlayersStatus();
         isAlert = true;     // loadingUI 중 isAlert = true
-        
     }
 
 

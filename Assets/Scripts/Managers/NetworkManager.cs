@@ -8,12 +8,31 @@ using Photon.Realtime;
 using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
 using System.Text;
+using ExitGames.Client.Photon;
+using Photon.Pun.Demo.Cockpit;
+
+
+public class PlayerData
+{
+    public string Nickname { get; set; }
+    public int PlayerID { get; set; }
+    //public bool IsReady { get; set; }
+    public string PlayerStatus { get; set; }
+    public float Speed { get; set; }
+    public string PlayerCode { get; set; }
+    public bool Vaccinated { get; set; }
+}
+
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     public bool isJoinRoom = false;
 
-    public static NetworkManager instance;
+    public static NetworkManager s_instance;
+    public static NetworkManager instance
+    {
+        get { return s_instance; }
+    }
 
     // Photon View 컴포넌트
     public PhotonView PV;
@@ -23,9 +42,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     void Awake()
     {
-        if (instance == null)
+        if (s_instance == null)
         {
-            instance = this;
+            s_instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -42,132 +61,49 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void Connect(string nickname)
     {
         // 마스터 서버에 연결
-        isJoinRoom = true;
         Debug.Log("Connect");
+        PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.NickName = nickname;
         PhotonNetwork.ConnectUsingSettings();
-
     }
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log(isJoinRoom);
-        if (isJoinRoom)
-        {
-            Debug.Log("마스터 서버에 연결됨 ");
-            JoinRoom();
-
-        }
+        PhotonNetwork.JoinLobby(TypedLobby.Default);
+        SceneManager.LoadScene("LobbyScene");
     }
 
-    void JoinRoom()
+    public void CreateRoom()
     {
         // 방 이름을 설정하고 방에 참가 요청
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.IsOpen = true;
         roomOptions.IsVisible = true;
         roomOptions.MaxPlayers = (byte)MaxPlayers; // 최대 플레이어 수 설정
-        PhotonNetwork.JoinOrCreateRoom("게임방", roomOptions, TypedLobby.Default);
-
-        string randomString = GenerateRandomString();
-
-        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
-        properties.Add("PlayerCode", randomString);
-        PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
+        roomOptions.CustomRoomPropertiesForLobby = new string[] { "RoomState" };
+        roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "RoomState", "Waiting" } };
+        PhotonNetwork.CreateRoom("게임방", roomOptions, TypedLobby.Default);
     }
 
-    string GenerateRandomString()
+    public void JoinRoom()
     {
-        const string characters = "0123456789ABCDEF"; // 3개의 숫자와 2개의 영어
-        StringBuilder result = new StringBuilder();
-
-        // 5자리의 랜덤 문자열 생성
-        for (int i = 0; i < 5; i++)
-        {
-            int randomIndex = UnityEngine.Random.Range(0, characters.Length);
-            result.Append(characters[randomIndex]);
-        }
-
-        return result.ToString();
+        PhotonNetwork.JoinRoom("게임방");
     }
 
     public override void OnJoinedRoom()
     {
-        Debug.Log("방에 참가함");
-        if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.CurrentRoom.CustomProperties["RoomState"].ToString() == "Playing")
         {
-            PhotonNetwork.CurrentRoom.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "RoomState", "Waiting" } });
+            Debug.Log("Already Start");
+            ExitRoom();
         }
-        PV.RPC("NotifyUserJoined", RpcTarget.OthersBuffered, PhotonNetwork.LocalPlayer.NickName);
-    }
-
-    [PunRPC]
-    void NotifyUserJoined(string name)
-    {
-        foreach (KeyValuePair<int, Player> playerInfo in PhotonNetwork.CurrentRoom.Players)
+        else
         {
-            Debug.Log("Player ID: " + playerInfo.Key + ", NickName: " + playerInfo.Value.NickName);
+            Debug.Log("Join Room");
+            SceneManager.LoadScene("ReadyScene");
         }
     }
 
-    public override void OnPlayerLeftRoom(Player otherPlayer)
-    {
-        Debug.Log(otherPlayer.NickName + "님이 게임에서 나갔습니다.");
-
-        foreach (KeyValuePair<int, Player> playerInfo in PhotonNetwork.CurrentRoom.Players)
-        {
-            Debug.Log("Player ID: " + playerInfo.Key + ", NickName: " + playerInfo.Value.NickName);
-        }
-
-    }
-
-    // 플레이어가 준비되었음을 서버에 알리는 함수
-
-
-    public void SetPlayerReady(bool isReady)
-    {
-        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
-        properties.Add("isReady", isReady);
-        PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
-    }
-
-    public void SetPlayerStatus(string PlayerStatus)
-    {
-        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
-        properties.Add("PlayerStatus", PlayerStatus);
-        PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
-        Debug.Log(properties.ToString());
-
-    }
-    
-    public void SetVaccinated(bool Vaccinated)
-    {
-        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
-        properties.Add("Vaccinated", Vaccinated);
-        PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
-    }
-
-    public void SetPlayerSpeed(float Speed)
-    {
-        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
-        properties.Add("Speed", Speed);
-        PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
-    }
-
-    public void SetVirus(int virus)
-    {
-        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
-        properties.Add("virusNo", virus);
-        PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
-    }
-
-    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
-    {
-        if (changedProps.ContainsKey("PlayerStatus"))
-        {
-            UpdateInfo();
-        }
-    }
     private void CheckAllPlayersReady()
     {
         foreach (Player player in PhotonNetwork.PlayerList)
@@ -193,11 +129,107 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     public void PlayerReady()
     {
-        Debug.Log("게임 시작!");
-        Debug.Log((string)PhotonNetwork.CurrentRoom.CustomProperties["RoomState"]);
-        if ((string)PhotonNetwork.CurrentRoom.CustomProperties["RoomState"] == "Waiting")
+        if (PhotonNetwork.IsMasterClient)
         {
-            PV.RPC("StartGame", RpcTarget.All);
+            ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+            properties.Add("RoomState", "Playing");
+            PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
+        }
+
+        // 속성 업데이트를 기다린 후에 레벨을 로드
+        StartCoroutine(LoadLevelAfterPropertiesUpdate());
+    }
+    
+    private IEnumerator LoadLevelAfterPropertiesUpdate()
+    {
+        bool roomStateUpdated = false;
+
+        // RoomState가 "Playing"으로 업데이트될 때까지 대기
+        while (!roomStateUpdated)
+        {
+            if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("RoomState", out object roomState))
+            {
+                if (roomState.ToString() == "Playing")
+                {
+                    roomStateUpdated = true;
+                }
+            }
+
+            yield return null;
+        }
+        Debug.Log(PhotonNetwork.CurrentRoom.CustomProperties["RoomState"].ToString());
+        // 업데이트 후 레벨 로드
+        PhotonNetwork.LoadLevel("PlayScene");
+    }
+
+    public void ExitRoom()
+    {
+        // 방을 떠남
+        isJoinRoom = false;
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.JoinLobby();
+        SceneManager.LoadScene("LobbyScene");
+    }
+
+    public override void OnLeftRoom()
+    {
+        // 방을 떠난 후 실행할 코드를 여기에 작성합니다.
+        // 예를 들어 메인 화면으로 씬을 전환하거나 필요한 초기화 작업을 수행할 수 있습니다.
+        Destroy(gameObject);
+        SceneManager.LoadScene("LobbyScene");
+    }
+
+
+
+    //--------------------------------- 게임 중 변경 properties
+
+    public void SetPlayerReady(bool isReady)
+    {
+        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+        properties.Add("isReady", isReady);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
+    }
+
+    public void SetPlayerStatus(string PlayerStatus)
+    {
+        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+        properties.Add("PlayerStatus", PlayerStatus);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
+    }
+
+    public void SetPlayerCode(string code)
+    {
+        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+        properties.Add("PlayerCode", code);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
+    }
+
+    public void SetPlayerSpeed(float Speed)
+    {
+        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+        properties.Add("Speed", Speed);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
+    }
+
+    public void SetVaccinated(bool Vaccinated)
+    {
+        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+        properties.Add("Vaccinated", Vaccinated);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
+    }
+
+    public void SetVirus(int virus)
+    {
+        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+        properties.Add("virusNo", virus);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        if (changedProps.ContainsKey("PlayerStatus"))
+        {
+            UpdateInfo();
         }
     }
 
@@ -218,29 +250,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             Debug.Log(p.PlayerID + " " + p.Nickname + " " + p.PlayerStatus);
         }
-    }
-
-    [PunRPC]
-    public void StartGame()
-    {
-        // 게임 시작 로직 (씬 전환 등)
-        Debug.Log("모든 플레이어가 준비되었습니다. 게임을 시작합니다.");
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.CurrentRoom.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "RoomState", "Playing" } });
-        }
-
-        foreach (Photon.Realtime.Player player in PhotonNetwork.CurrentRoom.Players.Values)
-        {
-            Debug.Log("Player ID: " + player.ActorNumber + ", NickName: " + player.NickName);
-
-            foreach (DictionaryEntry entry in player.CustomProperties)
-            {
-                Debug.Log("Player ID: " + player.ActorNumber + ", Key: " + entry.Key.ToString() + ", Value: " + entry.Value.ToString());
-            }
-        }
-        SceneManager.LoadScene("PlayScene");
     }
 
     public List<PlayerData> GetPlayersStatus()
@@ -379,37 +388,5 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         return myData;
     }
 
-
-    public void ExitRoom()
-    {
-        // 방을 떠남
-        isJoinRoom = false;
-        PhotonNetwork.LeaveRoom();
-        PhotonNetwork.Disconnect();
-    }
-
-    public override void OnLeftRoom()
-    {
-        // 방을 떠난 후 실행할 코드를 여기에 작성합니다.
-        // 예를 들어 메인 화면으로 씬을 전환하거나 필요한 초기화 작업을 수행할 수 있습니다.
-        Destroy(gameObject);
-        SceneManager.LoadScene("IntroScene");
-    }
-
-    public void SetChangeScene()
-    {
-        PV.RPC("ChangeScene", RpcTarget.AllBuffered);
-    }
-
 }
 
-public class PlayerData
-{
-    public string Nickname { get; set; }
-    public int PlayerID { get; set; }
-    //public bool IsReady { get; set; }
-    public string PlayerStatus { get; set; }
-    public float Speed { get; set; }
-    public string PlayerCode { get; set; }
-    public bool Vaccinated { get; set; }
-}

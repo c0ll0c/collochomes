@@ -25,9 +25,6 @@ public class GameReadyUI : MonoBehaviour
             playerPanel[i-1].SetActive(false);
         }
 
-        Debug.Log(PhotonNetwork.IsMasterClient);
-        Debug.Log(PhotonNetwork.IsConnected);
-
         startButton = this.transform.Find("Start Button").gameObject;
         startButton.SetActive(false);
 
@@ -38,15 +35,6 @@ public class GameReadyUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PhotonNetwork.InRoom)
-        {
-            if ((string)PhotonNetwork.CurrentRoom.CustomProperties["RoomState"] == "Playing")
-            {
-                Debug.Log("no");
-                NetworkManager.instance.ExitRoom();
-            }
-        }
-
         playersInfo = NetworkManager.instance.GetPlayersStatus();
 
         for (int i = 0; i < playersInfo.Count; i++)

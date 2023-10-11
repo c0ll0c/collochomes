@@ -35,13 +35,11 @@ public class HandleCluePosition : MonoBehaviour
         // targetObject 배열의 각 오브젝트에 랜덤 위치 할당
         for (int i = 0; i < UserClueObject.Length; i++)
         {
-            Debug.Log("단서 개수" + UserClueObject.Length);
             UserClueObject[i].transform.localPosition = randomUserPositions[i];
         }
         
         for (int i = 0; i < CodeClueObject.Length; i++)
         {
-            Debug.Log("단서 개수" + CodeClueObject.Length);
             CodeClueObject[i].transform.localPosition = randomCodePositions[i];
         }
         

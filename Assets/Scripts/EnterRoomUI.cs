@@ -39,7 +39,6 @@ public class EnterRoomUI : MonoBehaviour
 
         if (nicknameInputField.text != "")
         {
-            SceneManager.LoadScene("ReadyScene");
             NetworkManager.instance.Connect(nicknameInputField.text);
         }
         else
