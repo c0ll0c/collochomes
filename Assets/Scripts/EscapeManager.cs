@@ -6,6 +6,7 @@ public class EscapeManager : MonoBehaviour
 {
     public GameObject CodePanelObject;       // 보이게 할 단서 판넬을 할당해 줌
     public GameObject PlayerWinPanel;       // 보이게 할 단서 판넬을 할당해 줌
+    public GameObject VirusWinPanel;       // 보이게 할 단서 판넬을 할당해 줌
     public GameObject PlayerLosePanel;       // 보이게 할 단서 판넬을 할당해 줌
     public GameObject VirusLosePanel;       // 보이게 할 단서 판넬을 할당해 줌
 
@@ -14,9 +15,12 @@ public class EscapeManager : MonoBehaviour
     public AudioClip WinAudio;
     public AudioClip LoseAudio;
 
+    bool IsGameOver;
+
     // Start is called before the first frame update
     void Start()
     {
+        IsGameOver = false;
         // EscapeAudio = GetComponent<AudioSource>();
         // EscapeAudio.Play();
 
@@ -27,26 +31,44 @@ public class EscapeManager : MonoBehaviour
     {
         List<PlayerData> currentPlayersStatus = NetworkManager.instance.GetPlayersStatus();
 
-        if (PlayerWinPanel.activeSelf)
+        if (!IsGameOver)
         {
-            //PlayerWinPanel.SetActive(true);
-            EscapeAudio.clip = WinAudio;
-            EscapeAudio.Play();
+            if (PlayerWinPanel.activeSelf)
+            {
+                Debug.Log("플레이어 승!");
+                //PlayerWinPanel.SetActive(true);
+                EscapeAudio.clip = WinAudio;
+                EscapeAudio.Play();
+                IsGameOver = true;
+            }
+
+            if (VirusWinPanel.activeSelf)
+            {
+                Debug.Log("바이러스 승!");
+                //PlayerWinPanel.SetActive(true);
+                EscapeAudio.clip = WinAudio;
+                EscapeAudio.Play();
+                IsGameOver = true;
+            }
+
+            else if (PlayerLosePanel.activeSelf)
+            {
+                Debug.Log("플레이어 패");
+                //PlayerLosePanel.SetActive(true);
+                EscapeAudio.clip = LoseAudio;
+                EscapeAudio.Play();
+                IsGameOver = true;
+            }
+
+            else if (VirusLosePanel.activeSelf)
+            {
+                Debug.Log("바이러스 패");
+                //VirusLosePanel.SetActive(true);
+                EscapeAudio.clip = LoseAudio;
+                EscapeAudio.Play();
+                IsGameOver = true;
+            }
         }
 
-        else if (PlayerLosePanel.activeSelf)                  // 내가 탈출한 게 아니고 내 태그가 플레이어
-        {
-            //PlayerLosePanel.SetActive(true);
-            EscapeAudio.clip = LoseAudio;
-            EscapeAudio.Play();
-        }
-        
-        else if (VirusLosePanel.activeSelf)                  // 내가 탈출한 게 아니고 내 태그가 바이러스
-        {
-            //VirusLosePanel.SetActive(true);
-            EscapeAudio.clip = LoseAudio;
-            EscapeAudio.Play();
-        }
-       
     }
 }
